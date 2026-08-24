@@ -1,46 +1,214 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-_<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const SUPABASE_URL = "https//ohabwwdntwbbeeemcdsk.supabase.co";
-const SUPABASE_KEY = "sb_publishable_-YCOmi2FAzIwlQkVk3Utvg_utjw6IqJ";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-const supabaseClient = supabase.createClient(
+<title>ADL Game Results</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#090b14;
+    color:white;
+}
+
+header{
+    text-align:center;
+    padding:25px 15px;
+    background:#121522;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+}
+
+.subtitle{
+    color:#aaa;
+    margin-top:8px;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:#121522;
+    border:1px solid #292d3d;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.title{
+    text-align:center;
+    font-size:21px;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:13px 8px;
+    border-bottom:1px solid #292d3d;
+    text-align:center;
+}
+
+th{
+    color:#aaa;
+}
+
+.result{
+    font-weight:bold;
+    font-size:20px;
+}
+
+#message{
+    text-align:center;
+    color:#aaa;
+    margin-top:15px;
+}
+
+footer{
+    text-align:center;
+    color:#777;
+    padding:25px;
+    font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">♛ ADL ♛</div>
+    <div class="subtitle">GAME RESULTS</div>
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="title">
+            TODAY'S RESULTS
+        </div>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ROUND</th>
+                    <th>TIME</th>
+                    <th>RESULT</th>
+                </tr>
+            </thead>
+
+            <tbody id="resultsTable">
+            </tbody>
+
+        </table>
+
+        <div id="message">
+            Loading results...
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    ADL Result System
+</footer>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://ohabwwdntwbbeeemcdsk.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_-YCOmi2FAzIwlQkVk3Utvg_utjw6IqJ";
+
+const supabaseClient =
+supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
 
-console.log("Supabase connected");
-</script>
-async function loadResults() {
 
-    const { data, error } = await supabaseClient
+async function loadResults(){
+
+    const { data, error } =
+        await supabaseClient
         .from("game_results")
         .select("round_number, game_time, result")
-        .order("round_number", { ascending: true });
+        .order("round_number", {
+            ascending:true
+        });
 
-    if (error) {
+    if(error){
+
         console.error(error);
+
+        document.getElementById("message")
+        .textContent =
+        "Database connection error.";
+
         return;
     }
 
-    const table = document.getElementById("resultsTable");
+    const table =
+        document.getElementById("resultsTable");
 
-    table.innerHTML = "";  
+    table.innerHTML = "";
 
     data.forEach(game => {
 
-        const row = document.createElement("tr");
+        const row =
+            document.createElement("tr");
 
         row.innerHTML = `
-            <td>Game ${String(game.round_number).padStart(2, "0")}</td>
-            <td>${game.game_time}</td>
-            <td class="result-number">
+            <td>
+                Game ${String(game.round_number).padStart(2,"0")}
+            </td>
+
+            <td>
+                ${game.game_time}
+            </td>
+
+            <td class="result">
                 ${game.result || "--"}
             </td>
         `;
 
         table.appendChild(row);
+
     });
+
+    document.getElementById("message")
+    .textContent =
+    "Results loaded successfully.";
+
 }
 
+
 loadResults();
+
+</script>
+
+</body>
+</html>
