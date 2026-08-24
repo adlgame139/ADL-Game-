@@ -1,13 +1,33 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-_<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const SUPABASE_URL = "https//ohabwwdntwbbeeemcdsk.supabase.co";
-const SUPABASE_KEY = "YCOmi2FAzIwlQkVk3Utvg_utjw6IqJ";
+async function loadResults() {
 
-const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+    const { data, error } = await supabaseClient
+        .from("game_results")
+        .select("round_number, game_time, result")
+        .order("round_number", { ascending: true });
 
-console.log("Supabase connected");
-</script>
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    const table = document.getElementById("resultsTable");
+
+    table.innerHTML = "";
+
+    data.forEach(game => {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>Game ${String(game.round_number).padStart(2, "0")}</td>
+            <td>${game.game_time}</td>
+            <td class="result-number">
+                ${game.result || "--"}
+            </td>
+        `;
+
+        table.appendChild(row);
+    });
+}
+
+loadResults();
