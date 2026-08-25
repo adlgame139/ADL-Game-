@@ -1,671 +1,376 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>♛ ADL ♛ Results</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:
-        radial-gradient(circle at top,#17202b 0%,#080808 45%,#000 100%);
-    color:#fff;
-    min-height:100vh;
-}
-
-/* HEADER */
-.header{
-    text-align:center;
-    padding:20px 12px;
-    background:linear-gradient(
-        135deg,
-        #190000,
-        #4b0000,
-        #001b35,
-        #001b0b
-    );
-    border-bottom:2px solid #ff1e1e;
-    box-shadow:0 0 25px rgba(255,0,0,.35);
-}
-
-.logo{
-    font-size:31px;
-    font-weight:900;
-    letter-spacing:3px;
-    color:#ffd900;
-    text-shadow:
-        0 0 5px #ff0000,
-        0 0 15px #ff0000;
-}
-
-.subtitle{
-    margin-top:7px;
-    font-size:12px;
-    color:#00ff88;
-    font-weight:bold;
-    letter-spacing:1.5px;
-}
-
-/* MOVING LINE */
-.marquee{
-    width:100%;
-    overflow:hidden;
-    background:linear-gradient(
-        90deg,
-        #ff0000,
-        #ffcc00,
-        #00d95f,
-        #008cff,
-        #ff0000
-    );
-    color:#000;
-    font-weight:900;
-    padding:9px 0;
-    white-space:nowrap;
-}
-
-.marquee span{
-    display:inline-block;
-    padding-left:100%;
-    animation:move 16s linear infinite;
-}
-
-@keyframes move{
-    from{
-        transform:translateX(0);
-    }
-    to{
-        transform:translateX(-100%);
-    }
-}
-
-/* MAIN */
-.container{
-    width:94%;
-    max-width:720px;
-    margin:15px auto 30px;
-}
-
-/* CARD */
-.card{
-    margin-bottom:15px;
-    padding:16px;
-    border-radius:17px;
-    background:
-        linear-gradient(145deg,#151515,#0b0b0b);
-    border:1px solid #333;
-    box-shadow:
-        0 0 18px rgba(0,0,0,.8),
-        inset 0 0 15px rgba(255,255,255,.02);
-}
-
-.card-title{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:14px;
-}
-
-.card-title h2{
-    color:#ffd900;
-    font-size:21px;
-}
-
-.live{
-    padding:5px 10px;
-    border-radius:20px;
-    background:#00d95f;
-    color:#001b0b;
-    font-size:11px;
-    font-weight:900;
-    animation:blink 1.5s infinite;
-}
-
-@keyframes blink{
-    50%{
-        opacity:.45;
-    }
-}
-
-/* LATEST */
-.latest-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-}
-
-.box{
-    background:#050505;
-    border:1px solid #292929;
-    border-radius:12px;
-    padding:13px 6px;
-    text-align:center;
-}
-
-.box small{
-    display:block;
-    color:#999;
-    font-size:10px;
-    margin-bottom:7px;
-    text-transform:uppercase;
-}
-
-.value{
-    font-size:21px;
-    font-weight:900;
-    color:#00ff88;
-    word-break:break-word;
-}
-
-.latest-time{
-    text-align:center;
-    margin-top:12px;
-    color:#ffd900;
-    font-size:13px;
-}
-
-/* CHART */
-.chart-title{
-    color:#00cfff;
-    font-size:19px;
-    margin-bottom:12px;
-}
-
-.chart-head,
-.chart-row{
-    display:grid;
-    grid-template-columns:55px 1fr 1fr;
-    gap:8px;
-    align-items:center;
-}
-
-.chart-head{
-    padding:10px 8px;
-    color:#aaa;
-    font-size:11px;
-    text-transform:uppercase;
-    border-bottom:1px solid #333;
-}
-
-.chart-row{
-    padding:12px 8px;
-    border-bottom:1px solid #242424;
-}
-
-.chart-row:last-child{
-    border-bottom:0;
-}
-
-.round{
-    color:#ffd900;
-    font-weight:bold;
-}
-
-.time{
-    color:#aaa;
-    font-size:13px;
-}
-
-.result{
-    color:#00ff88;
-    font-size:18px;
-    font-weight:900;
-    text-align:right;
-}
-
-/* STATUS */
-.status{
-    padding:20px 5px;
-    text-align:center;
-    color:#aaa;
-}
-
-.error{
-    color:#ff4d4d;
-}
-
-/* WHATSAPP CONTACT */
-.whatsapp{
-    display:block;
-    width:94%;
-    max-width:720px;
-    margin:0 auto 18px;
-    padding:15px;
-    text-align:center;
-    text-decoration:none;
-    color:#fff;
-    background:#00a884;
-    border-radius:13px;
-    font-size:16px;
-    font-weight:900;
-    box-shadow:0 0 20px rgba(0,168,132,.35);
-}
-
-.whatsapp:active{
-    transform:scale(.98);
-}
-
-/* FOOTER */
-.footer{
-    text-align:center;
-    padding:20px;
-    color:#666;
-    font-size:11px;
-    border-top:1px solid #222;
-}
-
-/* MOBILE */
-@media(max-width:420px){
-
-    .logo{
-        font-size:27px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADL Results - Fast Updates</title>
+  
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Google Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0f172a;        /* Deep Midnight Slate */
+      --bg-card: #1e293b;           /* Elegant Card Background */
+      --bg-card-alt: #24344d;       /* Alternate Row Color */
+      --accent-gold: #f59e0b;       /* Gold / Yellow Accent */
+      --accent-green: #10b981;      /* Live Green */
+      --accent-red: #ef4444;        /* Live Indicator / Notice */
+      --text-main: #f8fafc;         /* Crisp White Text */
+      --text-muted: #94a3b8;        /* Soft Gray Muted Text */
+      --border-color: #334155;      /* Subtle Borders */
     }
 
-    .latest-grid{
-        grid-template-columns:1fr 1fr 1fr;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
-    .value{
-        font-size:18px;
+    body {
+      background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding-bottom: 30px;
     }
 
-    .chart-head,
-    .chart-row{
-        grid-template-columns:45px 1fr 1fr;
+    /* Top Banner */
+    .header {
+      text-align: center;
+      padding: 16px 10px;
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      letter-spacing: 1px;
+    }
+    .header p {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      margin-top: 4px;
     }
 
-    .result{
-        font-size:16px;
+    /* Marquee / Ticker */
+    .ticker-bar {
+      background: linear-gradient(90deg, #b91c1c, #dc2626, #b91c1c);
+      color: #ffffff;
+      padding: 7px 0;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(220, 38, 38, 0.3);
     }
-}
-</style>
+
+    .container {
+      max-width: 520px;
+      margin: 15px auto;
+      padding: 0 12px;
+    }
+
+    /* Latest Result Card */
+    .latest-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 18px 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .live-badge {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--accent-green);
+      border: 1px solid var(--accent-green);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .latest-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 12px 8px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .latest-item .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .latest-item .value {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-top: 4px;
+    }
+    .latest-item .value.result-highlight {
+      color: var(--accent-green);
+      font-size: 18px;
+    }
+
+    /* Table Section */
+    .table-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    .table-header-title {
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+    .results-table th {
+      background: #152238;
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 12px 6px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .results-table td {
+      padding: 12px 6px;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+      color: var(--text-main);
+    }
+    .results-table tr:nth-child(even) {
+      background: rgba(15, 23, 42, 0.4);
+    }
+    .results-table td.col-round {
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+    .results-table td.col-date {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    .results-table td.col-time {
+      color: #cbd5e1;
+      font-size: 12px;
+    }
+    .results-table td.col-result {
+      font-weight: 700;
+      color: var(--accent-green);
+      font-size: 15px;
+    }
+
+    /* WhatsApp Button */
+    .whatsapp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #16a34a;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 13px;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 18px;
+    }
+
+    .loading-text {
+      padding: 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- HEADER -->
-<header class="header">
-    <div class="logo">♛ ADL ♛</div>
-    <div class="subtitle">
-        TRUSTED RESULTS • FAST UPDATES
+  <div class="header">
+    <h1>👑 ADL 👑</h1>
+    <p>TRUSTED RESULTS • FAST UPDATES</p>
+  </div>
+
+  <div class="ticker-bar">
+    ⚡ CHECK LATEST RESULTS • LIVE UPDATES ⚡
+  </div>
+
+  <div class="container">
+    <!-- Latest Result Section -->
+    <div class="latest-card">
+      <div class="card-top">
+        <span class="card-title">Latest Result</span>
+        <span class="live-badge"><span class="live-dot"></span> LIVE</span>
+      </div>
+      <div class="latest-grid">
+        <div class="latest-item">
+          <div class="label">Date</div>
+          <div class="value" id="latest-date">--</div>
+        </div>
+        <div class="latest-item">
+          <div class="label">Round</div>
+          <div class="value" id="latest-round">--</div>
+        </div>
+        <div class="latest-item">
+          <div class="label">Time</div>
+          <div class="value" id="latest-time">--</div>
+        </div>
+        <div class="latest-item">
+          <div class="label">Result</div>
+          <div class="value result-highlight" id="latest-result">--</div>
+        </div>
+      </div>
     </div>
-</header>
 
-<!-- MOVING TEXT -->
-<div class="marquee">
-    <span>
-        ♛ ADL ♛ &nbsp; • &nbsp; RESULT CHART &nbsp; • &nbsp;
-        FAST RESULT UPDATES &nbsp; • &nbsp; CHECK LATEST RESULTS &nbsp; • &nbsp;
-    </span>
-</div>
-
-<main class="container">
-
-    <!-- LATEST RESULT -->
-    <section class="card">
-
-        <div class="card-title">
-            <h2>Latest Result</h2>
-            <span class="live">LIVE</span>
-        </div>
-
-        <div id="latestResult" class="status">
-            Loading...
-        </div>
-
-    </section>
-
-
-    <!-- RESULT CHART -->
-    <section class="card">
-
-        <div class="chart-title">
-            📊 Result Chart
-        </div>
-
-        <div class="chart-head">
-            <div>Round</div>
-            <div>Time</div>
-            <div style="text-align:right;">Result</div>
-        </div>
-
-        <div id="resultChart" class="status">
-            Loading chart...
-        </div>
-
-    </section>
-
-</main>
-
-
-<!-- WHATSAPP -->
-<a
-    class="whatsapp"
-    href="https://wa.me/9953878139"
-    target="_blank"
-    rel="noopener noreferrer"
->
-    💬 WhatsApp Contact
-</a>
-
-
-<footer class="footer">
-    © 2026 ♛ ADL ♛ — Results Information
-</footer>
-
-
-<script>
-
-/* =========================================
-   SUPABASE
-========================================= */
-
-const SUPABASE_URL =
-"https://ohabwwdntwbbeeemcdsk.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_-YCOmi2FAzIwlQkVk3Utvg_utjw6IqJ";
-
-const supabaseClient =
-supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-
-
-/* =========================================
-   YOUR SUPABASE TABLE
-========================================= */
-
-const TABLE_NAME = "game_results";
-
-
-/* =========================================
-   LOAD DATA
-========================================= */
-
-async function loadResults(){
-
-    const latest =
-        document.getElementById("latestResult");
-
-    const chart =
-        document.getElementById("resultChart");
-
-    try{
-
-        /*
-         * Screenshot mein visible columns:
-         * id
-         * round_number
-         * game_time
-         *
-         * Baaki columns bhi read kiye ja rahe hain
-         * taaki result column automatically mil sake.
-         */
-
-        const { data, error } =
-        await supabaseClient
-        .from(TABLE_NAME)
-        .select("*")
-        .order("id", { ascending:false })
-        .limit(20);
-
-
-        if(error){
-            throw error;
-        }
-
-
-        if(!data || data.length === 0){
-
-            latest.innerHTML =
-            "No results available.";
-
-            chart.innerHTML =
-            "No chart data available.";
-
-            return;
-        }
-
-
-        /* =====================================
-           FIND RESULT COLUMN AUTOMATICALLY
-        ===================================== */
-
-        function getResult(row){
-
-            const possibleColumns = [
-                "result",
-                "result_number",
-                "winning_number",
-                "number",
-                "result_value",
-                "value"
-            ];
-
-            for(
-                const column of possibleColumns
-            ){
-
-                if(
-                    row[column] !== undefined &&
-                    row[column] !== null &&
-                    row[column] !== ""
-                ){
-
-                    return row[column];
-                }
-            }
-
-            return "-";
-        }
-
-
-        /* =====================================
-           LATEST
-        ===================================== */
-
-        const first = data[0];
-
-        const latestRound =
-            first.round_number ?? "-";
-
-        const latestTime =
-            first.game_time ?? "-";
-
-        const latestResult =
-            getResult(first);
-
-
-        latest.innerHTML = `
-
-            <div class="latest-grid">
-
-                <div class="box">
-
-                    <small>Round</small>
-
-                    <div class="value">
-                        ${escapeHTML(
-                            String(latestRound)
-                        )}
-                    </div>
-
-                </div>
-
-
-                <div class="box">
-
-                    <small>Time</small>
-
-                    <div class="value">
-                        ${escapeHTML(
-                            String(latestTime)
-                        )}
-                    </div>
-
-                </div>
-
-
-                <div class="box">
-
-                    <small>Result</small>
-
-                    <div class="value">
-                        ${escapeHTML(
-                            String(latestResult)
-                        )}
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="latest-time">
-                Latest available result
-            </div>
-
-        `;
-
-
-        /* =====================================
-           CHART
-        ===================================== */
-
-        chart.innerHTML = "";
-
-
-        data.forEach(function(row){
-
-            const round =
-                row.round_number ?? "-";
-
-            const time =
-                row.game_time ?? "-";
-
-            const result =
-                getResult(row);
-
-
-            const div =
-                document.createElement("div");
-
-            div.className =
-                "chart-row";
-
-
-            div.innerHTML = `
-
-                <div class="round">
-                    ${escapeHTML(
-                        String(round)
-                    )}
-                </div>
-
-                <div class="time">
-                    ${escapeHTML(
-                        String(time)
-                    )}
-                </div>
-
-                <div class="result">
-                    ${escapeHTML(
-                        String(result)
-                    )}
-                </div>
-
+    <!-- Results Table Section -->
+    <div class="table-card">
+      <div class="table-header-title">
+        📊 Result Chart
+      </div>
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Round</th>
+            <th>Time</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr>
+            <td colspan="4" class="loading-text">Loading results...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- WhatsApp Contact Button -->
+    <a href="https://wa.me/" class="whatsapp-btn" id="whatsapp-link" target="_blank">
+      💬 WhatsApp Contact
+    </a>
+
+    <div class="footer">
+      © 2026 👑 ADL 👑 — Results Information
+    </div>
+  </div>
+
+  <script>
+    // 1. Aapka Supabase Configuration
+    const SUPABASE_URL = "AAPKA_SUPABASE_URL_YAHA_DALEIN";
+    const SUPABASE_ANON_KEY = "AAPKI_SUPABASE_ANON_KEY_YAHA_DALEIN";
+    
+    // Supabase initialize
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function fetchResults() {
+      try {
+        // Table name aapke Supabase table ke anusar (e.g., 'results' ya jo bhi aapka table name hai)
+        const { data, error } = await supabase
+          .from('results')
+          .select('*')
+          .order('id', { ascending: false }); // Latest entry pehle aayegi
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          // 1. Update Latest Result Card
+          const latest = data[0];
+          document.getElementById('latest-date').innerText = latest.date || '--';
+          document.getElementById('latest-round').innerText = latest.round || '--';
+          document.getElementById('latest-time').innerText = latest.time || '--';
+          document.getElementById('latest-result').innerText = latest.result || '--';
+
+          // 2. Populate Table Rows
+          const tableBody = document.getElementById('table-body');
+          tableBody.innerHTML = '';
+
+          data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td class="col-date">${row.date || '-'}</td>
+              <td class="col-round">${row.round || '-'}</td>
+              <td class="col-time">${row.time || '-'}</td>
+              <td class="col-result">${row.result || '-'}</td>
             `;
-
-
-            chart.appendChild(div);
-
-        });
-
+            tableBody.appendChild(tr);
+          });
+        } else {
+          document.getElementById('table-body').innerHTML = `
+            <tr><td colspan="4" class="loading-text">No results found</td></tr>
+          `;
+        }
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        document.getElementById('table-body').innerHTML = `
+          <tr><td colspan="4" class="loading-text" style="color: #ef4444;">Unable to load results. Check Supabase permissions.</td></tr>
+        `;
+      }
     }
 
-    catch(error){
+    // Load results on page open
+    fetchResults();
 
-        console.error(
-            "Supabase Error:",
-            error
-        );
-
-        latest.innerHTML =
-        '<div class="error">Unable to load results.</div>';
-
-        chart.innerHTML =
-        '<div class="error">Check Supabase table permissions and columns.</div>';
-    }
-}
-
-
-/* =========================================
-   HTML SECURITY
-========================================= */
-
-function escapeHTML(value){
-
-    return value
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-}
-
-
-/* =========================================
-   REALTIME UPDATE
-========================================= */
-
-supabaseClient
-.channel("game-results-live")
-
-.on(
-    "postgres_changes",
-    {
-        event:"*",
-        schema:"public",
-        table:TABLE_NAME
-    },
-    function(){
-
-        loadResults();
-
-    }
-)
-
-.subscribe();
-
-
-/* =========================================
-   FIRST LOAD
-========================================= */
-
-loadResults();
-
-
-/* =========================================
-   AUTO REFRESH
-========================================= */
-
-setInterval(
-    loadResults,
-    30000
-);
-
-</script>
-
+    // Auto-refresh every 30 seconds
+    setInterval(fetchResults, 30000);
+  </script>
 </body>
-</html>
+    </html>
+        
