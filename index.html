@@ -1,162 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADL Game Results</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0d0d0d;
-            color: #fff;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .header {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 2px solid #1f1f1f;
-        }
-        .logo {
-            font-size: 32px;
-            font-weight: bold;
-            color: #00e676; /* Green accent */
-            margin-bottom: 5px;
-        }
-        .subtitle {
-            color: #b0bec5;
-        }
-        .scroll-box {
-            background-color: #1f1f1f;
-            border: 1px solid #333;
-            padding: 10px;
-            margin: 20px 0;
-            border-radius: 8px;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .scroll-text {
-            display: inline-block;
-            padding-left: 100%;
-            animation: scroll 20s linear infinite;
-            color: #ff9100; /* Orange accent */
-        }
-        @keyframes scroll {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
-        }
-        .card {
-            background-color: #1f1f1f;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #2a2a2a;
-        }
-        .card h2 {
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            color: #00e676;
-        }
-        .card p {
-            line-height: 1.6;
-            margin-bottom: 10px;
-            color: #e0e0e0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            background-color: #1f1f1f;
-        }
-        th, td {
-            border: 1px solid #333;
-            padding: 12px;
-            text-align: center;
-        }
-        th {
-            background-color: #333;
-            color: #00e676;
-        }
-        td {
-            color: #fff;
-        }
-        .contact {
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .contact a {
-            color: #00e676;
-            text-decoration: none;
-        }
-        footer {
-            text-align: center;
-            color: #777;
-            margin-top: 30px;
-            font-size: 14px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADL Game Results</title>
+  
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #090b14;
+      color: #ffffff;
+      padding-bottom: 30px;
+    }
+    header {
+      text-align: center;
+      padding: 25px 15px;
+      background: #121522;
+      border-bottom: 1px solid #292d3d;
+    }
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #00ff88;
+    }
+    .subtitle {
+      color: #aaa;
+      margin-top: 6px;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+    .ticker-wrap {
+      width: 100%;
+      background: #1a1e2e;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 8px 0;
+      border-bottom: 1px solid #292d3d;
+    }
+    .ticker {
+      display: inline-block;
+      padding-left: 100%;
+      animation: ticker 18s linear infinite;
+      color: #ffcc00;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    @keyframes ticker {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-100%, 0, 0); }
+    }
+    .container {
+      max-width: 650px;
+      margin: auto;
+      padding: 15px;
+    }
+    .card {
+      background: #121522;
+      border: 1px solid #292d3d;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+    .title {
+      text-align: center;
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 14px;
+      color: #00ff88;
+      letter-spacing: 0.5px;
+    }
+    p {
+      line-height: 1.6;
+      color: #d1d5db;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #292d3d;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+    th {
+      background: #181d2f;
+      color: #00ff88;
+      font-weight: bold;
+    }
+    td {
+      background: #0d101a;
+    }
+    .payment-info {
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    .payment-info a {
+      color: #00ff88;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">♛ ADL ♛</div>
-            <div class="subtitle">TRUSTED GAME</div>
-            <div class="subtitle">PLAY SAFE • WIN BIG</div>
-        </div>
 
-        <div class="scroll-box">
-            <div class="scroll-text">नमस्कार दोस्तों! ADL के बारे में पूरी जानकारी नीचे दी गई है। 6 घर • 7 घर • 5 घर • 01 से 100 तक के अंक। पूरी जानकारी ध्यान से पढ़ें।</div>
-        </div>
+  <header>
+    <div class="logo">👑 ADL 👑</div>
+    <div class="subtitle">TRUSTED GAME • PLAY SAFE • WIN BIG</div>
+  </header>
 
-        <div class="card">
-            <h2>ADL की जानकारी</h2>
-            <p>ADL लॉटरी जिसमें आपको 4 घर 6 घर 7 घर और 8 घर की फ्री क्रॉसिंग खेल सकते हैं।</p>
-            <p>01 से 100 तक के अंकों में से चुना जाएगा।</p>
-            <p>नमस्कार दोस्तों ADL लॉटरी जिसमें हर 15 मिनट बाद रिजल्ट आता है। ADL के बारे में पूरी जानकारी यहाँ दी गई है। रेट और अन्य जानकारी नीचे दी गई है।</p>
-        </div>
-
-        <div class="card">
-            <h2>GAME PASSING RATE</h2>
-            <table>
-                <tr>
-                    <th>RATE</th>
-                    <th>AMOUNT</th>
-                </tr>
-                <tr>
-                    <td>10 / 1000</td>
-                    <td>20 / 2000</td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="card">
-            <h2>PAYMENT INFORMATION</h2>
-            <div class="contact">
-                <p>Paytm: 9953878139</p>
-                <p>Whatsapp: <a href="https://wa.me/919953878139">9953878139</a></p>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>IMPORTANT INFORMATION</h2>
-            <p>वेबसाइट पर दी गई जानकारी को ध्यान से पढ़ें।</p>
-            <p>किसी भी जानकारी में बदलाव होने पर वेबसाइट पर अपडेट किया जाएगा।</p>
-        </div>
-
-        <footer>
-            ♛ ADL ♛ — Information Page
-        </footer>
+  <div class="ticker-wrap">
+    <div class="ticker">
+      नमस्कार दोस्तों! ADL के बारे में पूरी जानकारी नीचे दी गई है। 4 घर • 6 घर • 7 घर • 8 घर • 01 से 100 तक के अंक। पूरी जानकारी ध्यान से पढ़ें।
     </div>
+  </div>
+
+  <div class="container">
+
+    <!-- ADL Info Card -->
+    <div class="card">
+      <div class="title">ADL की जानकारी</div>
+      <p>ADL लॉटरी जिसमें आपको 4 घर, 6 घर, 7 घर और 8 घर की फ्री क्रॉसिंग खेल सकते हैं।</p>
+      <p>01 से 100 तक के अंकों में से चुना जाएगा।</p>
+      <p>नमस्कार दोस्तों! ADL लॉटरी जिसमें हर 15 मिनट बाद रिजल्ट आता है। ADL के बारे में पूरी जानकारी यहाँ दी गई है। रेट और अन्य जानकारी नीचे दी गई है।</p>
+    </div>
+
+    <!-- Live Game Results Table -->
+    <div class="card">
+      <div class="title">ADL GAME RESULTS</div>
+      <table>
+        <thead>
+          <tr>
+            <th>TIME</th>
+            <th>HARUF</th>
+            <th>JODI</th>
+          </tr>
+        </thead>
+        <tbody id="results-body">
+          <tr>
+            <td colspan="3" style="color: #aaa;">Loading results...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Game Passing Rate Card -->
+    <div class="card">
+      <div class="title">GAME PASSING RATE</div>
+      <table>
+        <thead>
+          <tr>
+            <th>HARUF</th>
+            <th>JODI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>10 / 1000</td>
+            <td>20 / 2000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Payment Info Card -->
+    <div class="card">
+      <div class="title">PAYMENT INFORMATION</div>
+      <div class="payment-info">
+        <p>Paytm: <strong style="color: #fff;">9953878139</strong></p>
+        <p>Whatsapp: <a href="https://wa.me/919953878139" target="_blank">9953878139</a></p>
+      </div>
+    </div>
+
+    <!-- Important Info Card -->
+    <div class="card">
+      <div class="title">IMPORTANT INFORMATION</div>
+      <p style="text-align: center;">वेबसाइट पर दी गई जानकारी को ध्यान से पढ़ें।</p>
+      <p style="text-align: center; color: #888; font-size: 13px;">जानकारी में बदलाव होने पर वेबसाइट पर अपडेट किया जाएगा।</p>
+    </div>
+
+  </div>
+
+  <!-- Supabase Live Data Script -->
+  <script>
+    const SUPABASE_URL = "YOUR_SUPABASE_URL";
+    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function fetchResults() {
+      const { data, error } = await supabaseClient
+        .from('adl_results') // Apni Supabase table ka naam yahan likhein
+        .select('*')
+        .order('id', { ascending: false })
+        .limit(10);
+
+      const tableBody = document.getElementById('results-body');
+
+      if (error || !data || data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="3" style="color: #ff5555;">No results found</td></tr>';
+        return;
+      }
+
+      tableBody.innerHTML = '';
+      data.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.time || '--'}</td>
+          <td style="font-weight:bold; color:#00ff88;">${row.haruf || '--'}</td>
+          <td style="font-weight:bold; color:#ffcc00;">${row.jodi || '--'}</td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    fetchResults();
+  </script>
+
 </body>
 </html>
