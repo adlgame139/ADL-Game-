@@ -91,48 +91,390 @@ footer{
 }
 </style>
 </head>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>♛ ADL ♛ | Information</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Noto Sans Devanagari", sans-serif;
+      background:
+        radial-gradient(circle at top, #3b2a05 0%, #15120b 25%, #080808 65%);
+      color: #f5f5f5;
+      min-height: 100vh;
+      padding: 18px 12px 40px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      padding: 25px 15px;
+      border: 1px solid rgba(212,175,55,.45);
+      border-radius: 22px;
+      background: linear-gradient(
+        145deg,
+        rgba(255,215,90,.10),
+        rgba(0,0,0,.75)
+      );
+      box-shadow: 0 0 35px rgba(212,175,55,.10);
+      margin-bottom: 15px;
+    }
+
+    .logo {
+      color: #f5d76e;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-shadow: 0 0 15px rgba(245,215,110,.35);
+    }
+
+    .trusted {
+      margin-top: 7px;
+      color: #ffffff;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .safe {
+      color: #d4af37;
+      margin-top: 4px;
+      font-size: 13px;
+      letter-spacing: 2px;
+    }
+
+    /* SCROLLING BAR */
+    .scroll-box {
+      overflow: hidden;
+      white-space: nowrap;
+      border: 1px solid #b99124;
+      border-radius: 12px;
+      background: #11100d;
+      padding: 11px 0;
+      margin: 15px 0;
+      box-shadow: 0 0 18px rgba(212,175,55,.08);
+    }
+
+    .scroll-text {
+      display: inline-block;
+      padding-left: 100%;
+      color: #f5d76e;
+      font-weight: 700;
+      animation: scroll 28s linear infinite;
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* CONTENT CARD */
+    .card {
+      background: linear-gradient(
+        145deg,
+        rgba(30,27,18,.95),
+        rgba(10,10,10,.98)
+      );
+      border: 1px solid rgba(212,175,55,.35);
+      border-radius: 18px;
+      padding: 22px;
+      margin: 15px 0;
+      box-shadow: 0 10px 35px rgba(0,0,0,.35);
+    }
+
+    .card h2 {
+      color: #f5d76e;
+      font-size: 22px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(212,175,55,.25);
+      padding-bottom: 10px;
+    }
+
+    .card p {
+      color: #eeeeee;
+      line-height: 1.9;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    /* RATE TABLE */
+    .table-title {
+      text-align: center;
+      color: #f5d76e;
+      font-size: 23px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    th, td {
+      padding: 13px 10px;
+      text-align: center;
+      border: 1px solid #4b3b18;
+    }
+
+    th {
+      background: #241d0d;
+      color: #f5d76e;
+      font-weight: 800;
+    }
+
+    td {
+      background: #11110f;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* INFO BOX */
+    .info {
+      border-left: 4px solid #d4af37;
+      background: rgba(212,175,55,.07);
+      padding: 15px;
+      border-radius: 8px;
+      line-height: 1.9;
+      margin-top: 12px;
+    }
+
+    /* CONTACT */
+    .contact {
+      text-align: center;
+    }
+
+    .number {
+      display: inline-block;
+      margin: 8px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: #17150e;
+      border: 1px solid #8f7120;
+      color: #f5d76e;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .whatsapp {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 13px 22px;
+      border-radius: 12px;
+      background: #15130d;
+      border: 1px solid #d4af37;
+      color: #f5d76e;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .whatsapp:hover {
+      background: #2a230f;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+      margin-top: 25px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+
+      body {
+        padding: 10px 8px 30px;
+      }
+
+      .logo {
+        font-size: 30px;
+      }
+
+      .trusted {
+        font-size: 14px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .card h2 {
+        font-size: 19px;
+      }
+
+      .card p {
+        font-size: 15px;
+      }
+
+      th, td {
+        padding: 10px 6px;
+        font-size: 14px;
+      }
+
+      .number {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
 
 <body>
 
-<header>
-    <div class="logo">♛ ADL ♛</div>
-    <div class="subtitle">GAME RESULTS</div>
-</header>
-
 <div class="container">
 
-    <div class="card">
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">♛ ADL ♛</div>
+    <div class="trusted">TRUSTED GAME</div>
+    <div class="safe">PLAY SAFE • WIN BIG</div>
+  </div>
 
-        <div class="title">
-            TODAY'S RESULTS
-        </div>
 
-        <table>
+  <!-- SCROLLING ANNOUNCEMENT -->
+  <div class="scroll-box">
+    <div class="scroll-text">
+      नमस्कार दोस्तों • ADL के बारे में पूरी जानकारी नीचे दी गई है • 4 घर • 5 घर • 6 घर • 7 घर • 8 घर • 01 से 100 तक के अंक • पूरी जानकारी ध्यान से पढ़ें
+    </div>
+  </div>
 
-            <thead>
-                <tr>
-                    <th>ROUND</th>
-                    <th>TIME</th>
-                    <th>RESULT</th>
-                </tr>
-            </thead>
 
-            <tbody id="resultsTable">
-            </tbody>
+  <!-- MAIN INFORMATION -->
+  <div class="card">
 
-        </table>
+    <h2>♛ ADL की जानकारी ♛</h2>
 
-        <div id="message">
-            Loading results...
-        </div>
+    <p>
+      ADL लॉटरी जिसमें आप
+      <b>4 घर 5 घर 6 घर 7 घर 8 घर</b>
+      की क्रॉसिंग खेल सकते हैं।
+    </p>
+
+    <p>
+      01 से 100 तक के अंकों में से एक चुना जाएगा।
+    </p>
+
+    <div class="info">
+      नमस्कार दोस्तों ADL लॉटरी जिसमें हर 15 मिनट बाद रिजल्ट आता है।
+      ADL के बारे में पूरी जानकारी यहाँ दी गई है।
+      रेट और अन्य जानकारी नीचे दी गई है।
+    </div>
+
+  </div>
+
+
+  <!-- RATE CHART -->
+  <div class="card">
+
+    <div class="table-title">
+      GAME PASSING RATE
+    </div>
+
+    <table>
+
+      <tr>
+        <th>TYPE</th>
+        <th>RATE</th>
+      </tr>
+
+      <tr>
+        <td>JODI</td>
+        <td>10 / 1000</td>
+      </tr>
+
+      <tr>
+        <td>HARF</td>
+        <td>100 / 1000</td>
+      </tr>
+
+    </table>
+
+  </div>
+
+
+  <!-- PAYMENT INFORMATION -->
+  <div class="card">
+
+    <h2>♻️ PAYMENT INFORMATION</h2>
+
+    <div class="contact">
+
+      <div class="number">
+        Paytm: 9953878139
+      </div>
+
+      <br>
+
+      <div class="number">
+        WhatsApp: 9953878139
+      </div>
+
+      <br>
+
+      <a
+        class="whatsapp"
+        href="https://wa.me/9953878139"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        WhatsApp Contact
+      </a>
 
     </div>
 
+  </div>
+
+
+  <!-- NOTICE -->
+  <div class="card">
+
+    <h2>📢 IMPORTANT INFORMATION</h2>
+
+    <p>
+      वेबसाइट पर दी गई जानकारी को ध्यान से पढ़ें।
+    </p>
+
+    <p>
+      किसी भी जानकारी में बदलाव होने पर वेबसाइट पर अपडेट किया जाएगा।
+    </p>
+
+  </div>
+
+
+  <footer>
+    ♛ ADL ♛ — Information Page
+  </footer>
+
 </div>
 
-<footer>
-    ADL Result System
-</footer>
+</body>
+    </html>
+
 
 
 <script>
