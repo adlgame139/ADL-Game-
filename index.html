@@ -1,233 +1,671 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ADL Game Results</title>
-  
-  <!-- Supabase CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>♛ ADL ♛ Results</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at top,#17202b 0%,#080808 45%,#000 100%);
+    color:#fff;
+    min-height:100vh;
+}
+
+/* HEADER */
+.header{
+    text-align:center;
+    padding:20px 12px;
+    background:linear-gradient(
+        135deg,
+        #190000,
+        #4b0000,
+        #001b35,
+        #001b0b
+    );
+    border-bottom:2px solid #ff1e1e;
+    box-shadow:0 0 25px rgba(255,0,0,.35);
+}
+
+.logo{
+    font-size:31px;
+    font-weight:900;
+    letter-spacing:3px;
+    color:#ffd900;
+    text-shadow:
+        0 0 5px #ff0000,
+        0 0 15px #ff0000;
+}
+
+.subtitle{
+    margin-top:7px;
+    font-size:12px;
+    color:#00ff88;
+    font-weight:bold;
+    letter-spacing:1.5px;
+}
+
+/* MOVING LINE */
+.marquee{
+    width:100%;
+    overflow:hidden;
+    background:linear-gradient(
+        90deg,
+        #ff0000,
+        #ffcc00,
+        #00d95f,
+        #008cff,
+        #ff0000
+    );
+    color:#000;
+    font-weight:900;
+    padding:9px 0;
+    white-space:nowrap;
+}
+
+.marquee span{
+    display:inline-block;
+    padding-left:100%;
+    animation:move 16s linear infinite;
+}
+
+@keyframes move{
+    from{
+        transform:translateX(0);
     }
-    body {
-      font-family: Arial, sans-serif;
-      background: #090b14;
-      color: #ffffff;
-      padding-bottom: 30px;
+    to{
+        transform:translateX(-100%);
     }
-    header {
-      text-align: center;
-      padding: 25px 15px;
-      background: #121522;
-      border-bottom: 1px solid #292d3d;
+}
+
+/* MAIN */
+.container{
+    width:94%;
+    max-width:720px;
+    margin:15px auto 30px;
+}
+
+/* CARD */
+.card{
+    margin-bottom:15px;
+    padding:16px;
+    border-radius:17px;
+    background:
+        linear-gradient(145deg,#151515,#0b0b0b);
+    border:1px solid #333;
+    box-shadow:
+        0 0 18px rgba(0,0,0,.8),
+        inset 0 0 15px rgba(255,255,255,.02);
+}
+
+.card-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+}
+
+.card-title h2{
+    color:#ffd900;
+    font-size:21px;
+}
+
+.live{
+    padding:5px 10px;
+    border-radius:20px;
+    background:#00d95f;
+    color:#001b0b;
+    font-size:11px;
+    font-weight:900;
+    animation:blink 1.5s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:.45;
     }
-    .logo {
-      font-size: 26px;
-      font-weight: bold;
-      color: #00ff88;
+}
+
+/* LATEST */
+.latest-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.box{
+    background:#050505;
+    border:1px solid #292929;
+    border-radius:12px;
+    padding:13px 6px;
+    text-align:center;
+}
+
+.box small{
+    display:block;
+    color:#999;
+    font-size:10px;
+    margin-bottom:7px;
+    text-transform:uppercase;
+}
+
+.value{
+    font-size:21px;
+    font-weight:900;
+    color:#00ff88;
+    word-break:break-word;
+}
+
+.latest-time{
+    text-align:center;
+    margin-top:12px;
+    color:#ffd900;
+    font-size:13px;
+}
+
+/* CHART */
+.chart-title{
+    color:#00cfff;
+    font-size:19px;
+    margin-bottom:12px;
+}
+
+.chart-head,
+.chart-row{
+    display:grid;
+    grid-template-columns:55px 1fr 1fr;
+    gap:8px;
+    align-items:center;
+}
+
+.chart-head{
+    padding:10px 8px;
+    color:#aaa;
+    font-size:11px;
+    text-transform:uppercase;
+    border-bottom:1px solid #333;
+}
+
+.chart-row{
+    padding:12px 8px;
+    border-bottom:1px solid #242424;
+}
+
+.chart-row:last-child{
+    border-bottom:0;
+}
+
+.round{
+    color:#ffd900;
+    font-weight:bold;
+}
+
+.time{
+    color:#aaa;
+    font-size:13px;
+}
+
+.result{
+    color:#00ff88;
+    font-size:18px;
+    font-weight:900;
+    text-align:right;
+}
+
+/* STATUS */
+.status{
+    padding:20px 5px;
+    text-align:center;
+    color:#aaa;
+}
+
+.error{
+    color:#ff4d4d;
+}
+
+/* WHATSAPP CONTACT */
+.whatsapp{
+    display:block;
+    width:94%;
+    max-width:720px;
+    margin:0 auto 18px;
+    padding:15px;
+    text-align:center;
+    text-decoration:none;
+    color:#fff;
+    background:#00a884;
+    border-radius:13px;
+    font-size:16px;
+    font-weight:900;
+    box-shadow:0 0 20px rgba(0,168,132,.35);
+}
+
+.whatsapp:active{
+    transform:scale(.98);
+}
+
+/* FOOTER */
+.footer{
+    text-align:center;
+    padding:20px;
+    color:#666;
+    font-size:11px;
+    border-top:1px solid #222;
+}
+
+/* MOBILE */
+@media(max-width:420px){
+
+    .logo{
+        font-size:27px;
     }
-    .subtitle {
-      color: #aaa;
-      margin-top: 6px;
-      font-size: 14px;
-      letter-spacing: 1px;
+
+    .latest-grid{
+        grid-template-columns:1fr 1fr 1fr;
     }
-    .ticker-wrap {
-      width: 100%;
-      background: #1a1e2e;
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 8px 0;
-      border-bottom: 1px solid #292d3d;
+
+    .value{
+        font-size:18px;
     }
-    .ticker {
-      display: inline-block;
-      padding-left: 100%;
-      animation: ticker 18s linear infinite;
-      color: #ffcc00;
-      font-size: 14px;
-      font-weight: bold;
+
+    .chart-head,
+    .chart-row{
+        grid-template-columns:45px 1fr 1fr;
     }
-    @keyframes ticker {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-100%, 0, 0); }
+
+    .result{
+        font-size:16px;
     }
-    .container {
-      max-width: 650px;
-      margin: auto;
-      padding: 15px;
-    }
-    .card {
-      background: #121522;
-      border: 1px solid #292d3d;
-      border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 18px;
-    }
-    .title {
-      text-align: center;
-      font-size: 19px;
-      font-weight: bold;
-      margin-bottom: 14px;
-      color: #00ff88;
-      letter-spacing: 0.5px;
-    }
-    p {
-      line-height: 1.6;
-      color: #d1d5db;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-    th, td {
-      border: 1px solid #292d3d;
-      padding: 10px;
-      text-align: center;
-      font-size: 14px;
-    }
-    th {
-      background: #181d2f;
-      color: #00ff88;
-      font-weight: bold;
-    }
-    td {
-      background: #0d101a;
-    }
-    .payment-info {
-      text-align: center;
-      font-size: 16px;
-      line-height: 1.8;
-    }
-    .payment-info a {
-      color: #00ff88;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+}
+</style>
 </head>
+
 <body>
 
-  <header>
-    <div class="logo">👑 ADL 👑</div>
-    <div class="subtitle">TRUSTED GAME • PLAY SAFE • WIN BIG</div>
-  </header>
-
-  <div class="ticker-wrap">
-    <div class="ticker">
-      नमस्कार दोस्तों! ADL के बारे में पूरी जानकारी नीचे दी गई है। 4 घर • 6 घर • 7 घर • 8 घर • 01 से 100 तक के अंक। पूरी जानकारी ध्यान से पढ़ें।
+<!-- HEADER -->
+<header class="header">
+    <div class="logo">♛ ADL ♛</div>
+    <div class="subtitle">
+        TRUSTED RESULTS • FAST UPDATES
     </div>
-  </div>
+</header>
 
-  <div class="container">
+<!-- MOVING TEXT -->
+<div class="marquee">
+    <span>
+        ♛ ADL ♛ &nbsp; • &nbsp; RESULT CHART &nbsp; • &nbsp;
+        FAST RESULT UPDATES &nbsp; • &nbsp; CHECK LATEST RESULTS &nbsp; • &nbsp;
+    </span>
+</div>
 
-    <!-- ADL Info Card -->
-    <div class="card">
-      <div class="title">ADL की जानकारी</div>
-      <p>ADL लॉटरी जिसमें आपको 4 घर, 6 घर, 7 घर और 8 घर की फ्री क्रॉसिंग खेल सकते हैं।</p>
-      <p>01 से 100 तक के अंकों में से चुना जाएगा।</p>
-      <p>नमस्कार दोस्तों! ADL लॉटरी जिसमें हर 15 मिनट बाद रिजल्ट आता है। ADL के बारे में पूरी जानकारी यहाँ दी गई है। रेट और अन्य जानकारी नीचे दी गई है।</p>
-    </div>
+<main class="container">
 
-    <!-- Live Game Results Table -->
-    <div class="card">
-      <div class="title">ADL GAME RESULTS</div>
-      <table>
-        <thead>
-          <tr>
-            <th>TIME</th>
-            <th>HARUF</th>
-            <th>JODI</th>
-          </tr>
-        </thead>
-        <tbody id="results-body">
-          <tr>
-            <td colspan="3" style="color: #aaa;">Loading results...</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <!-- LATEST RESULT -->
+    <section class="card">
 
-    <!-- Game Passing Rate Card -->
-    <div class="card">
-      <div class="title">GAME PASSING RATE</div>
-      <table>
-        <thead>
-          <tr>
-            <th>HARUF</th>
-            <th>JODI</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>10 / 1000</td>
-            <td>20 / 2000</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+        <div class="card-title">
+            <h2>Latest Result</h2>
+            <span class="live">LIVE</span>
+        </div>
 
-    <!-- Payment Info Card -->
-    <div class="card">
-      <div class="title">PAYMENT INFORMATION</div>
-      <div class="payment-info">
-        <p>Paytm: <strong style="color: #fff;">9953878139</strong></p>
-        <p>Whatsapp: <a href="https://wa.me/919953878139" target="_blank">9953878139</a></p>
-      </div>
-    </div>
+        <div id="latestResult" class="status">
+            Loading...
+        </div>
 
-    <!-- Important Info Card -->
-    <div class="card">
-      <div class="title">IMPORTANT INFORMATION</div>
-      <p style="text-align: center;">वेबसाइट पर दी गई जानकारी को ध्यान से पढ़ें।</p>
-      <p style="text-align: center; color: #888; font-size: 13px;">जानकारी में बदलाव होने पर वेबसाइट पर अपडेट किया जाएगा।</p>
-    </div>
+    </section>
 
-  </div>
 
-  <!-- Supabase Live Data Script -->
-  <script>
-    const SUPABASE_URL = "YOUR_SUPABASE_URL";
-    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+    <!-- RESULT CHART -->
+    <section class="card">
 
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        <div class="chart-title">
+            📊 Result Chart
+        </div>
 
-    async function fetchResults() {
-      const { data, error } = await supabaseClient
-        .from('adl_results') // Apni Supabase table ka naam yahan likhein
-        .select('*')
-        .order('id', { ascending: false })
-        .limit(10);
+        <div class="chart-head">
+            <div>Round</div>
+            <div>Time</div>
+            <div style="text-align:right;">Result</div>
+        </div>
 
-      const tableBody = document.getElementById('results-body');
+        <div id="resultChart" class="status">
+            Loading chart...
+        </div>
 
-      if (error || !data || data.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="3" style="color: #ff5555;">No results found</td></tr>';
-        return;
-      }
+    </section>
 
-      tableBody.innerHTML = '';
-      data.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${row.time || '--'}</td>
-          <td style="font-weight:bold; color:#00ff88;">${row.haruf || '--'}</td>
-          <td style="font-weight:bold; color:#ffcc00;">${row.jodi || '--'}</td>
+</main>
+
+
+<!-- WHATSAPP -->
+<a
+    class="whatsapp"
+    href="https://wa.me/9953878139"
+    target="_blank"
+    rel="noopener noreferrer"
+>
+    💬 WhatsApp Contact
+</a>
+
+
+<footer class="footer">
+    © 2026 ♛ ADL ♛ — Results Information
+</footer>
+
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+"https://ohabwwdntwbbeeemcdsk.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_-YCOmi2FAzIwlQkVk3Utvg_utjw6IqJ";
+
+const supabaseClient =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* =========================================
+   YOUR SUPABASE TABLE
+========================================= */
+
+const TABLE_NAME = "game_results";
+
+
+/* =========================================
+   LOAD DATA
+========================================= */
+
+async function loadResults(){
+
+    const latest =
+        document.getElementById("latestResult");
+
+    const chart =
+        document.getElementById("resultChart");
+
+    try{
+
+        /*
+         * Screenshot mein visible columns:
+         * id
+         * round_number
+         * game_time
+         *
+         * Baaki columns bhi read kiye ja rahe hain
+         * taaki result column automatically mil sake.
+         */
+
+        const { data, error } =
+        await supabaseClient
+        .from(TABLE_NAME)
+        .select("*")
+        .order("id", { ascending:false })
+        .limit(20);
+
+
+        if(error){
+            throw error;
+        }
+
+
+        if(!data || data.length === 0){
+
+            latest.innerHTML =
+            "No results available.";
+
+            chart.innerHTML =
+            "No chart data available.";
+
+            return;
+        }
+
+
+        /* =====================================
+           FIND RESULT COLUMN AUTOMATICALLY
+        ===================================== */
+
+        function getResult(row){
+
+            const possibleColumns = [
+                "result",
+                "result_number",
+                "winning_number",
+                "number",
+                "result_value",
+                "value"
+            ];
+
+            for(
+                const column of possibleColumns
+            ){
+
+                if(
+                    row[column] !== undefined &&
+                    row[column] !== null &&
+                    row[column] !== ""
+                ){
+
+                    return row[column];
+                }
+            }
+
+            return "-";
+        }
+
+
+        /* =====================================
+           LATEST
+        ===================================== */
+
+        const first = data[0];
+
+        const latestRound =
+            first.round_number ?? "-";
+
+        const latestTime =
+            first.game_time ?? "-";
+
+        const latestResult =
+            getResult(first);
+
+
+        latest.innerHTML = `
+
+            <div class="latest-grid">
+
+                <div class="box">
+
+                    <small>Round</small>
+
+                    <div class="value">
+                        ${escapeHTML(
+                            String(latestRound)
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="box">
+
+                    <small>Time</small>
+
+                    <div class="value">
+                        ${escapeHTML(
+                            String(latestTime)
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="box">
+
+                    <small>Result</small>
+
+                    <div class="value">
+                        ${escapeHTML(
+                            String(latestResult)
+                        )}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="latest-time">
+                Latest available result
+            </div>
+
         `;
-        tableBody.appendChild(tr);
-      });
+
+
+        /* =====================================
+           CHART
+        ===================================== */
+
+        chart.innerHTML = "";
+
+
+        data.forEach(function(row){
+
+            const round =
+                row.round_number ?? "-";
+
+            const time =
+                row.game_time ?? "-";
+
+            const result =
+                getResult(row);
+
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "chart-row";
+
+
+            div.innerHTML = `
+
+                <div class="round">
+                    ${escapeHTML(
+                        String(round)
+                    )}
+                </div>
+
+                <div class="time">
+                    ${escapeHTML(
+                        String(time)
+                    )}
+                </div>
+
+                <div class="result">
+                    ${escapeHTML(
+                        String(result)
+                    )}
+                </div>
+
+            `;
+
+
+            chart.appendChild(div);
+
+        });
+
     }
 
-    fetchResults();
-  </script>
+    catch(error){
+
+        console.error(
+            "Supabase Error:",
+            error
+        );
+
+        latest.innerHTML =
+        '<div class="error">Unable to load results.</div>';
+
+        chart.innerHTML =
+        '<div class="error">Check Supabase table permissions and columns.</div>';
+    }
+}
+
+
+/* =========================================
+   HTML SECURITY
+========================================= */
+
+function escapeHTML(value){
+
+    return value
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+
+/* =========================================
+   REALTIME UPDATE
+========================================= */
+
+supabaseClient
+.channel("game-results-live")
+
+.on(
+    "postgres_changes",
+    {
+        event:"*",
+        schema:"public",
+        table:TABLE_NAME
+    },
+    function(){
+
+        loadResults();
+
+    }
+)
+
+.subscribe();
+
+
+/* =========================================
+   FIRST LOAD
+========================================= */
+
+loadResults();
+
+
+/* =========================================
+   AUTO REFRESH
+========================================= */
+
+setInterval(
+    loadResults,
+    30000
+);
+
+</script>
 
 </body>
 </html>
