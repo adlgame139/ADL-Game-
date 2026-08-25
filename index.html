@@ -1,544 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ADL Game Results</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#090b14;
-    color:white;
-}
-
-header{
-    text-align:center;
-    padding:25px 15px;
-    background:#121522;
-}
-
-.logo{
-    font-size:30px;
-    font-weight:bold;
-}
-
-.subtitle{
-    color:#aaa;
-    margin-top:8px;
-}
-
-.container{
-    max-width:700px;
-    margin:auto;
-    padding:20px;
-}
-
-.card{
-    background:#121522;
-    border:1px solid #292d3d;
-    border-radius:15px;
-    padding:20px;
-    margin-bottom:20px;
-}
-
-.title{
-    text-align:center;
-    font-size:21px;
-    font-weight:bold;
-    margin-bottom:18px;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th,td{
-    padding:13px 8px;
-    border-bottom:1px solid #292d3d;
-    text-align:center;
-}
-
-th{
-    color:#aaa;
-}
-
-.result{
-    font-weight:bold;
-    font-size:20px;
-}
-
-#message{
-    text-align:center;
-    color:#aaa;
-    margin-top:15px;
-}
-
-footer{
-    text-align:center;
-    color:#777;
-    padding:25px;
-    font-size:13px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADL Game Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d0d0d;
+            color: #fff;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #1f1f1f;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00e676; /* Green accent */
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #b0bec5;
+        }
+        .scroll-box {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .scroll-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll 20s linear infinite;
+            color: #ff9100; /* Orange accent */
+        }
+        @keyframes scroll {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+        .card {
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #2a2a2a;
+        }
+        .card h2 {
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #00e676;
+        }
+        .card p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: #1f1f1f;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #333;
+            color: #00e676;
+        }
+        td {
+            color: #fff;
+        }
+        .contact {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .contact a {
+            color: #00e676;
+            text-decoration: none;
+        }
+        footer {
+            text-align: center;
+            color: #777;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+    </style>
 </head>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: "Noto Sans Devanagari", sans-serif;
-      background:
-        radial-gradient(circle at top, #3b2a05 0%, #15120b 25%, #080808 65%);
-      color: #f5f5f5;
-      min-height: 100vh;
-      padding: 18px 12px 40px;
-    }
-
-    .container {
-      max-width: 850px;
-      margin: auto;
-    }
-
-    /* HEADER */
-    .header {
-      text-align: center;
-      padding: 25px 15px;
-      border: 1px solid rgba(212,175,55,.45);
-      border-radius: 22px;
-      background: linear-gradient(
-        145deg,
-        rgba(255,215,90,.10),
-        rgba(0,0,0,.75)
-      );
-      box-shadow: 0 0 35px rgba(212,175,55,.10);
-      margin-bottom: 15px;
-    }
-
-    .logo {
-      color: #f5d76e;
-      font-size: 38px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-shadow: 0 0 15px rgba(245,215,110,.35);
-    }
-
-    .trusted {
-      margin-top: 7px;
-      color: #ffffff;
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
-
-    .safe {
-      color: #d4af37;
-      margin-top: 4px;
-      font-size: 13px;
-      letter-spacing: 2px;
-    }
-
-    /* SCROLLING BAR */
-    .scroll-box {
-      overflow: hidden;
-      white-space: nowrap;
-      border: 1px solid #b99124;
-      border-radius: 12px;
-      background: #11100d;
-      padding: 11px 0;
-      margin: 15px 0;
-      box-shadow: 0 0 18px rgba(212,175,55,.08);
-    }
-
-    .scroll-text {
-      display: inline-block;
-      padding-left: 100%;
-      color: #f5d76e;
-      font-weight: 700;
-      animation: scroll 28s linear infinite;
-    }
-
-    @keyframes scroll {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(-100%);
-      }
-    }
-
-    /* CONTENT CARD */
-    .card {
-      background: linear-gradient(
-        145deg,
-        rgba(30,27,18,.95),
-        rgba(10,10,10,.98)
-      );
-      border: 1px solid rgba(212,175,55,.35);
-      border-radius: 18px;
-      padding: 22px;
-      margin: 15px 0;
-      box-shadow: 0 10px 35px rgba(0,0,0,.35);
-    }
-
-    .card h2 {
-      color: #f5d76e;
-      font-size: 22px;
-      margin-bottom: 14px;
-      border-bottom: 1px solid rgba(212,175,55,.25);
-      padding-bottom: 10px;
-    }
-
-    .card p {
-      color: #eeeeee;
-      line-height: 1.9;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
-    /* RATE TABLE */
-    .table-title {
-      text-align: center;
-      color: #f5d76e;
-      font-size: 23px;
-      font-weight: 800;
-      margin-bottom: 15px;
-      letter-spacing: 1px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      overflow: hidden;
-      border-radius: 12px;
-    }
-
-    th, td {
-      padding: 13px 10px;
-      text-align: center;
-      border: 1px solid #4b3b18;
-    }
-
-    th {
-      background: #241d0d;
-      color: #f5d76e;
-      font-weight: 800;
-    }
-
-    td {
-      background: #11110f;
-      color: #ffffff;
-      font-weight: 600;
-    }
-
-    /* INFO BOX */
-    .info {
-      border-left: 4px solid #d4af37;
-      background: rgba(212,175,55,.07);
-      padding: 15px;
-      border-radius: 8px;
-      line-height: 1.9;
-      margin-top: 12px;
-    }
-
-    /* CONTACT */
-    .contact {
-      text-align: center;
-    }
-
-    .number {
-      display: inline-block;
-      margin: 8px;
-      padding: 12px 18px;
-      border-radius: 12px;
-      background: #17150e;
-      border: 1px solid #8f7120;
-      color: #f5d76e;
-      font-size: 18px;
-      font-weight: 800;
-    }
-
-    .whatsapp {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 13px 22px;
-      border-radius: 12px;
-      background: #15130d;
-      border: 1px solid #d4af37;
-      color: #f5d76e;
-      text-decoration: none;
-      font-weight: 800;
-    }
-
-    .whatsapp:hover {
-      background: #2a230f;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      color: #777;
-      font-size: 13px;
-      margin-top: 25px;
-    }
-
-    /* MOBILE */
-    @media (max-width: 600px) {
-
-      body {
-        padding: 10px 8px 30px;
-      }
-
-      .logo {
-        font-size: 30px;
-      }
-
-      .trusted {
-        font-size: 14px;
-      }
-
-      .card {
-        padding: 16px;
-      }
-
-      .card h2 {
-        font-size: 19px;
-      }
-
-      .card p {
-        font-size: 15px;
-      }
-
-      th, td {
-        padding: 10px 6px;
-        font-size: 14px;
-      }
-
-      .number {
-        font-size: 16px;
-      }
-    }
-  </style>
-</head>
-
 <body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">♛ ADL ♛</div>
+            <div class="subtitle">TRUSTED GAME</div>
+            <div class="subtitle">PLAY SAFE • WIN BIG</div>
+        </div>
 
-<div class="container">
+        <div class="scroll-box">
+            <div class="scroll-text">नमस्कार दोस्तों! ADL के बारे में पूरी जानकारी नीचे दी गई है। 6 घर • 7 घर • 5 घर • 01 से 100 तक के अंक। पूरी जानकारी ध्यान से पढ़ें।</div>
+        </div>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="logo">♛ ADL ♛</div>
-    <div class="trusted">TRUSTED GAME</div>
-    <div class="safe">PLAY SAFE • WIN BIG</div>
-  </div>
+        <div class="card">
+            <h2>ADL की जानकारी</h2>
+            <p>ADL लॉटरी जिसमें आपको 4 घर 6 घर 7 घर और 8 घर की फ्री क्रॉसिंग खेल सकते हैं।</p>
+            <p>01 से 100 तक के अंकों में से चुना जाएगा।</p>
+            <p>नमस्कार दोस्तों ADL लॉटरी जिसमें हर 15 मिनट बाद रिजल्ट आता है। ADL के बारे में पूरी जानकारी यहाँ दी गई है। रेट और अन्य जानकारी नीचे दी गई है।</p>
+        </div>
 
+        <div class="card">
+            <h2>GAME PASSING RATE</h2>
+            <table>
+                <tr>
+                    <th>RATE</th>
+                    <th>AMOUNT</th>
+                </tr>
+                <tr>
+                    <td>10 / 1000</td>
+                    <td>20 / 2000</td>
+                </tr>
+            </table>
+        </div>
 
-  <!-- SCROLLING ANNOUNCEMENT -->
-  <div class="scroll-box">
-    <div class="scroll-text">
-      नमस्कार दोस्तों • ADL के बारे में पूरी जानकारी नीचे दी गई है • 4 घर • 5 घर • 6 घर • 7 घर • 8 घर • 01 से 100 तक के अंक • पूरी जानकारी ध्यान से पढ़ें
+        <div class="card">
+            <h2>PAYMENT INFORMATION</h2>
+            <div class="contact">
+                <p>Paytm: 9953878139</p>
+                <p>Whatsapp: <a href="https://wa.me/919953878139">9953878139</a></p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>IMPORTANT INFORMATION</h2>
+            <p>वेबसाइट पर दी गई जानकारी को ध्यान से पढ़ें।</p>
+            <p>किसी भी जानकारी में बदलाव होने पर वेबसाइट पर अपडेट किया जाएगा।</p>
+        </div>
+
+        <footer>
+            ♛ ADL ♛ — Information Page
+        </footer>
     </div>
-  </div>
-
-
-  <!-- MAIN INFORMATION -->
-  <div class="card">
-
-    <h2>♛ ADL की जानकारी ♛</h2>
-
-    <p>
-      ADL लॉटरी जिसमें आप
-      <b>4 घर 5 घर 6 घर 7 घर 8 घर</b>
-      की क्रॉसिंग खेल सकते हैं।
-    </p>
-
-    <p>
-      01 से 100 तक के अंकों में से एक चुना जाएगा।
-    </p>
-
-    <div class="info">
-      नमस्कार दोस्तों ADL लॉटरी जिसमें हर 15 मिनट बाद रिजल्ट आता है।
-      ADL के बारे में पूरी जानकारी यहाँ दी गई है।
-      रेट और अन्य जानकारी नीचे दी गई है।
-    </div>
-
-  </div>
-
-
-  <!-- RATE CHART -->
-  <div class="card">
-
-    <div class="table-title">
-      GAME PASSING RATE
-    </div>
-
-    <table>
-
-      <tr>
-        <th>TYPE</th>
-        <th>RATE</th>
-      </tr>
-
-      <tr>
-        <td>JODI</td>
-        <td>10 / 1000</td>
-      </tr>
-
-      <tr>
-        <td>HARF</td>
-        <td>100 / 1000</td>
-      </tr>
-
-    </table>
-
-  </div>
-
-
-  <!-- PAYMENT INFORMATION -->
-  <div class="card">
-
-    <h2>♻️ PAYMENT INFORMATION</h2>
-
-    <div class="contact">
-
-      <div class="number">
-        Paytm: 9953878139
-      </div>
-
-      <br>
-
-      <div class="number">
-        WhatsApp: 9953878139
-      </div>
-
-      <br>
-
-      <a
-        class="whatsapp"
-        href="https://wa.me/9953878139"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        WhatsApp Contact
-      </a>
-
-    </div>
-
-  </div>
-
-
-  <!-- NOTICE -->
-  <div class="card">
-
-    <h2>📢 IMPORTANT INFORMATION</h2>
-
-    <p>
-      वेबसाइट पर दी गई जानकारी को ध्यान से पढ़ें।
-    </p>
-
-    <p>
-      किसी भी जानकारी में बदलाव होने पर वेबसाइट पर अपडेट किया जाएगा।
-    </p>
-
-  </div>
-
-
-  <footer>
-    ♛ ADL ♛ — Information Page
-  </footer>
-
-</div>
-
-</body>
-    </html>
-
-
-
-<script>
-
-const SUPABASE_URL =
-"https://ohabwwdntwbbeeemcdsk.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_-YCOmi2FAzIwlQkVk3Utvg_utjw6IqJ";
-
-const supabaseClient =
-supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-
-
-async function loadResults(){
-
-    const { data, error } =
-        await supabaseClient
-        .from("game_results")
-        .select("round_number, game_time, result")
-        .order("round_number", {
-            ascending:true
-        });
-
-    if(error){
-
-        console.error(error);
-
-        document.getElementById("message")
-        .textContent =
-        "Database connection error.";
-
-        return;
-    }
-
-    const table =
-        document.getElementById("resultsTable");
-
-    table.innerHTML = "";
-
-    data.forEach(game => {
-
-        const row =
-            document.createElement("tr");
-
-        row.innerHTML = `
-            <td>
-                Game ${String(game.round_number).padStart(2,"0")}
-            </td>
-
-            <td>
-                ${game.game_time}
-            </td>
-
-            <td class="result">
-                ${game.result || "--"}
-            </td>
-        `;
-
-        table.appendChild(row);
-
-    });
-
-    document.getElementById("message")
-    .textContent =
-    "Results loaded successfully.";
-
-}
-
-
-loadResults();
-
-</script>
-
 </body>
 </html>
