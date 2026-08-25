@@ -324,7 +324,7 @@
       try {
         // Table name aapke Supabase table ke anusar (e.g., 'results' ya jo bhi aapka table name hai)
         const { data, error } = await supabase
-          .from('results')
+          .from('game_results')
           .select('*')
           .order('id', { ascending: false }); // Latest entry pehle aayegi
 
