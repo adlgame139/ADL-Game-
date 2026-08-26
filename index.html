@@ -1,330 +1,253 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ADL Information</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    min-height:100vh;
-    font-family:Arial, sans-serif;
-    color:#fff;
-    background:
-        linear-gradient(135deg,
-        #8b0000 0%,
-        #d00000 45%,
-        #006b24 55%,
-        #008f39 100%);
-    overflow-x:hidden;
-}
-
-/* TOP */
-.header{
-    text-align:center;
-    padding:25px 15px 15px;
-}
-
-.logo{
-    font-size:34px;
-    font-weight:900;
-    letter-spacing:2px;
-    text-shadow:0 3px 8px #000;
-}
-
-.trusted{
-    margin-top:7px;
-    font-size:18px;
-    font-weight:bold;
-}
-
-.safe{
-    margin-top:5px;
-    font-size:14px;
-    font-weight:bold;
-}
-
-/* MOVING TEXT */
-.marquee-box{
-    width:100%;
-    overflow:hidden;
-    background:rgba(0,0,0,.45);
-    border-top:2px solid #fff;
-    border-bottom:2px solid #fff;
-    padding:12px 0;
-    margin-top:15px;
-}
-
-.marquee{
-    display:inline-block;
-    white-space:nowrap;
-    padding-left:100%;
-    animation:scroll 22s linear infinite;
-    font-size:16px;
-    font-weight:bold;
-}
-
-@keyframes scroll{
-    0%{
-        transform:translateX(0);
-    }
-    100%{
-        transform:translateX(-100%);
-    }
-}
-
-/* MAIN CARD */
-.card{
-    width:92%;
-    max-width:700px;
-    margin:25px auto;
-    padding:22px;
-    border-radius:18px;
-    background:rgba(0,0,0,.42);
-    border:2px solid rgba(255,255,255,.7);
-    box-shadow:0 8px 25px rgba(0,0,0,.45);
-}
-
-.card h2{
-    text-align:center;
-    margin-bottom:18px;
-    font-size:23px;
-}
-
-.text{
-    line-height:1.8;
-    font-size:16px;
-    text-align:center;
-}
-
-/* RATE */
-.rate-box{
-    width:92%;
-    max-width:600px;
-    margin:20px auto;
-    padding:22px;
-    border-radius:18px;
-    background:linear-gradient(
-        145deg,
-        rgba(120,0,0,.9),
-        rgba(0,100,40,.9)
-    );
-    border:3px solid #fff;
-    box-shadow:0 8px 25px rgba(0,0,0,.5);
-}
-
-.rate-title{
-    text-align:center;
-    font-size:24px;
-    font-weight:900;
-    margin-bottom:18px;
-    letter-spacing:1px;
-}
-
-.rate-line{
-    background:rgba(255,255,255,.13);
-    margin:10px 0;
-    padding:13px;
-    border-radius:10px;
-    text-align:center;
-    font-size:18px;
-    font-weight:bold;
-}
-
-/* NOTICE */
-.notice{
-    width:92%;
-    max-width:700px;
-    margin:20px auto 30px;
-    padding:16px;
-    text-align:center;
-    border-radius:14px;
-    background:rgba(0,0,0,.4);
-    font-size:14px;
-    line-height:1.6;
-}
-
-/* FOOTER */
-footer{
-    text-align:center;
-    padding:20px;
-    background:rgba(0,0,0,.5);
-    font-size:13px;
-}
-
-/* MOBILE */
-@media(max-width:500px){
-
-    .logo{
-        font-size:28px;
-    }
-
-    .trusted{
-        font-size:16px;
-    }
-
-    .card{
-        padding:17px;
-    }
-
-    .text{
-        font-size:15px;
-    }
-
-    .rate-title{
-        font-size:20px;
-    }
-
-    .rate-line{
-        font-size:16px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADL Information</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background: linear-gradient(135deg, #b80000 0%, #0d0000 45%, #006b24 55%, #008f39 100%);
+            overflow-x: hidden;
+        }
+        .header {
+            text-align: center;
+            padding: 25px 15px 15px;
+        }
+        .logo {
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 0 8px 8px #000;
+        }
+        .trusted {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .safe {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .marquee-box {
+            width: 100%;
+            background: rgba(0, 0, 0, .42);
+            padding: 12px 0;
+            margin-top: 20px;
+        }
+        .marquee {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: scroll 22s linear infinite;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        .card {
+            width: 92%;
+            max-width: 700px;
+            margin: 25px auto;
+            padding: 22px;
+            border-radius: 18px;
+            background: rgba(0, 0, 0, .42);
+            border: 2px solid rgba(255, 255, 255, .7);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .45);
+        }
+        .card h2 {
+            text-align: center;
+            margin-bottom: 18px;
+            font-size: 23px;
+        }
+        .text {
+            line-height: 1.8;
+            font-size: 16px;
+            text-align: center;
+        }
+        .text p {
+            margin-bottom: 15px;
+        }
+        .rate-box {
+            width: 92%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 22px;
+            border-radius: 18px;
+            background: linear-gradient(145deg, rgba(120, 0, 0, .9), rgba(0, 100, 40, .9));
+            border: 3px solid #fff;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .5);
+        }
+        .rate-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+        }
+        .rate-line {
+            background: rgba(255, 255, 255, .13);
+            margin: 10px 0;
+            padding: 13px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .results-box {
+            width: 92%;
+            max-width: 700px;
+            margin: 25px auto;
+            padding: 22px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, .95);
+            color: #333;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .45);
+        }
+        .results-box h2 {
+            text-align: center;
+            margin-bottom: 18px;
+            color: #b80000;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #b80000;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .notice {
+            width: 92%;
+            max-width: 700px;
+            margin: 20px auto 30px;
+            padding: 16px;
+            font-size: 13px;
+            text-align: center;
+            background: rgba(0, 0, 0, .3);
+            border-radius: 10px;
+            line-height: 1.5;
+        }
+        .footer {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        @media (max-width: 600px) {
+            .logo { font-size: 28px; }
+            .card h2 { font-size: 20px; }
+            .rate-title { font-size: 20px; }
+            .rate-line { font-size: 16px; }
+            table { font-size: 14px; }
+            th, td { padding: 8px; }
+        }
+    </style>
 </head>
-
 <body>
+    <header class="header">
+        <div class="logo">👑 ADL 👑</div>
+        <div class="trusted">TRUSTED GAME</div>
+        <div class="safe">PLAY SAFE • WIN BIG</div>
 
-<header class="header">
+        <div class="marquee-box">
+            <div class="marquee">
+                दोस्तों • ADL Information • हर 15 मिनट की जानकारी • 01 से 100 तक के अंकों की जानकारी • 4 घर • 5 घर • 6 घर • 7 घर • 8 घर • कृपया सभी जानकारी ध्यान से पढ़ें • INFORMATION • PLAY SAFE
+            </div>
+        </div>
+    </header>
 
-    <div class="logo">♛ ADL ♛</div>
-
-    <div class="trusted">
-        TRUSTED GAME
-    </div>
-
-    <div class="safe">
-        PLAY SAFE • WIN BIG
-    </div>
-
-</header>
-
-
-<!-- MOVING ANNOUNCEMENT -->
-
-<div class="marquee-box">
-    <div class="marquee">
-
-        नमस्कार दोस्तों • ADL Information • हर 15 मिनट की जानकारी •
-        01 से 100 तक के अंकों की जानकारी • 4 घर • 5 घर • 6 घर •
-        7 घर • 8 घर • कृपया सभी जानकारी ध्यान से पढ़ें •
-        ADL INFORMATION • PLAY SAFE
-
-    </div>
-</div>
-
-
-<!-- INFORMATION -->
-
-<section class="card">
-
-    <h2>♛ ADL INFORMATION ♛</h2>
-
-    <div class="text">
-
-        <p>
-            ADL की जानकारी यहां प्रदर्शित की जाती है।
-        </p>
-
-        <p>
-            4 घर • 5 घर • 6 घर • 7 घर • 8 घर
-        </p>
-
-        <p>
-            01 से 100 तक के अंकों से संबंधित जानकारी
-            इस पेज पर दिखाई जा सकती है।
-        </p>
-
-        <p>
-            कृपया किसी भी जानकारी का उपयोग
-            जिम्मेदारी से करें और स्थानीय कानूनों
-            एवं नियमों का पालन करें।
-        </p>
-
-    </div>
-
-</section>
     <section class="card">
-  <h2>📅 Game Results</h2>
-  <div id="results-table">
-    <p>Loading results...</p>
-  </div>
+        <h2>👑 ADL INFORMATION 👑</h2>
+        <div class="text">
+            <p>ADL की जानकारी यहां प्रदर्शित की जाती है।</p>
+            <p>4 घर • 5 घर • 6 घर • 7 घर • 8 घर</p>
+            <p>01 से 100 तक के अंकों से संबंधित जानकारी इस पेज पर दिखाई जा सकती है।</p>
+            <p>कृपया किसी भी जानकारी का उपयोग जिम्मेदारी से करें और स्थानीय कानूनों एवं नियमों का पालन करें।</p>
+        </div>
     </section>
-    
 
+    <section class="rate-box">
+        <div class="rate-title">GAME PASSING RATE</div>
+        <div class="rate-line">☛ JODI - 10 / 1000</div>
+        <div class="rate-line">☛ HARF - 100 / 1000</div>
+        <div class="rate-line">=============</div>
+    </section>
 
-<!-- PASSING RATE -->
+    <section class="results-box">
+        <h2>Game Results</h2>
+        <div id="results-table">
+            <p>Loading results...</p>
+        </div>
+    </section>
 
-<section class="rate-box">
-
-    <div class="rate-title">
-        𝗚𝗔𝗠𝗘 𝗣𝗔𝗦𝗦𝗜𝗡𝗚 𝗥𝗔𝗧𝗘
+    <div class="notice">
+        यह पेज केवल informational/demo purpose के लिए है। किसी भी खेल, भुगतान या भागीदारी से पहले अपने क्षेत्र के लागू कानूनों और नियमों की जांच करें。
     </div>
 
-    <div class="rate-line">
-        ☛ 𝗝𝗢𝗗𝗜 — 10 / 1000
-    </div>
+    <footer class="footer">
+        © 2026 ADL Information
+    </footer>
 
-    <div class="rate-line">
-        ☛ 𝗛𝗔𝗥𝗙 — 100 / 1000
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://ohabwwdntwbbeeemcdsk.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.sb_publishable_YCOmi2FAzIwLQkVkK3Utvg_utjw6IqJ';
 
-    <div class="rate-line">
-        ⩸⩸⩸⩸⩸⩸⩸⩸⩸⩸
-    </div>
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-</section>
+        async function fetchResults() {
+            const { data, error } = await supabase
+                .from('game_results')
+                .select('round_number, game_time, game_Date, result')
+                .order('round_number', { ascending: true });
 
+            if (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('results-table').innerHTML = '<p>Error loading results.</p>';
+                return;
+            }
 
-<!-- NOTICE -->
+            if (!data || data.length === 0) {
+                document.getElementById('results-table').innerHTML = '<p>No results found.</p>';
+                return;
+            }
 
-<div class="notice">
+            let html = '<table border="1" width="100%"><tr><th>Round</th><th>Time</th><th>Date</th><th>Result</th></tr>';
+            
+            data.forEach(row => {
+                html += `<tr>
+                    <td>${row.round_number}</td>
+                    <td>${row.game_time}</td>
+                    <td>${row.game_Date}</td>
+                    <td>${row.result || 'NULL'}</td>
+                </tr>`;
+            });
+            
+            html += '</table>';
+            document.getElementById('results-table').innerHTML = html;
+        }
 
-    यह पेज केवल informational/demo purpose के लिए है।
-    किसी भी खेल, भुगतान या भागीदारी से पहले
-    अपने क्षेत्र के लागू कानूनों और नियमों की जांच करें।
-
-</div>
-
-
-<footer>
-    © 2026 ADL Information
-</footer>
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL = 'https://ohabwwdntwbbeeemcdsk.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_-YCOmi2FAzIwlQkVk3Utvg_utjw6IqJ';
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-async function fetchResults() {
- const { data, error } = await supabase
- .from('game_results')
- .select('round_number, game_time,game_Date, result')
- .order('round_number', { ascending: true });
-console.log(data, error)
- if (error) {
- document.getElementById('results-table').innerHTML = '<p>Error loading results.</p>';
- return;
- }
-
- let html = '<table border="1" width="100%"><tr><td>Round</td><td>Time</td><td>Date</td><td>Result</td></tr>';
- data.forEach(row => {
- html += (<tr><td>${row.round_number}</td><td>${row.game_time}</td><td>${row.game_Date}</td><td>${row.result ||'NULL'}</td></tr>);
- });
- html += '</table>';
- document.getElementById('results-table').innerHTML = html;
-}
-
-fetchResults();
-
-</script>
-    
+        fetchResults();
+    </script>
 </body>
-</html>
+    </html>
+    
