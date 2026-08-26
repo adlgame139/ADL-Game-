@@ -309,7 +309,7 @@ async function fetchResults() {
  .from('game_results')
  .select('round_number, game_time, Date, result')
  .order('round_number', { ascending: true });
-
+console.log(data, error)
  if (error) {
  document.getElementById('results-table').innerHTML = '<p>Error loading results.</p>';
  return;
