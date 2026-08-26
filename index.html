@@ -217,7 +217,7 @@
         async function fetchResults() {
             const { data, error } = await supabase
                 .from('game_results')
-                .select('round_number, game_time, game_Date, result')
+                .select('round_number, game_time, game_date, result')
                 .order('round_number', { ascending: true });
 
             if (error) {
@@ -237,7 +237,7 @@
                 html += `<tr>
                     <td>${row.round_number}</td>
                     <td>${row.game_time}</td>
-                    <td>${row.game_Date}</td>
+                    <td>${row.game_date}</td>
                     <td>${row.result || 'NULL'}</td>
                 </tr>`;
             });
