@@ -250,6 +250,13 @@ footer{
     </div>
 
 </section>
+    <section class="card">
+  <h2>📅 Game Results</h2>
+  <div id="results-table">
+    <p>Loading results...</p>
+  </div>
+    </section>
+    
 
 
 <!-- PASSING RATE -->
@@ -290,6 +297,34 @@ footer{
     © 2026 ADL Information
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = '[https://ohabwwdntwbbeeemcdsk.supabase.co]https://ohabwwdntwbbeeemcdsk.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_-YCOmi2FAzIwlQkVk3Utvg_utjw6IqJ';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  async function fetchResults() {
+    const { data, error } = await supabase
+      .from('game_results')
+      .select('round_number, game_time')
+      .order('round_number', { ascending: true });
+
+    if (error) {
+      document.getElementById('results-table').innerHTML = '<p>Error loading results.</p>';
+      return;
+    }
+
+    let html = '<table border="1" width="100%"><tr><th>Round</th><th>Time</th></tr>';
+    data.forEach(row => {
+      html += `<tr><td>${row.round_number}</td><td>${row.game_time}</td></tr>`;
+    });
+    html += '</table>';
+    document.getElementById('results-table').innerHTML = html;
+  }
+
+  fetchResults();
+</script>
+    
 
 </body>
 </html>
