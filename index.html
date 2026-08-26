@@ -302,8 +302,7 @@ footer{
 <script>
   const SUPABASE_URL = 'https://ohabwwdntwbbeeemcdsk.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_-YCOmi2FAzIwlQkVk3Utvg_utjw6IqJ';
-const supabase = createClient([https://ohabwwdntwbbeeemcdsk.supabase.co](https://ohabwwdntwbbeeemcdsk.supabase.co), sb_publishable_-YCOmi2FAzIwlQkVk3Utvg_utjw6IqJ);
-
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 async function fetchResults() {
  const { data, error } = await supabase
  .from('game_results')
