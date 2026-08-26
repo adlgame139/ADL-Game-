@@ -316,7 +316,7 @@ console.log(data, error)
 
  let html = '<table border="1" width="100%"><tr><td>Round</td><td>Time</td><td>Date</td><td>Result</td></tr>';
  data.forEach(row => {
- html += `<tr><td>${row.round_number}</td><td>${row.game_time}</td><td>${row.Date}</td><td>${row.result || 'NULL'}</td></tr>`;
+ html += (<tr><td>${row.round_number}</td><td>${row.game_time}</td><td>${row.Date}</td><td>${row.result ||'NULL'}</td></tr>);
  });
  html += '</table>';
  document.getElementById('results-table').innerHTML = html;
