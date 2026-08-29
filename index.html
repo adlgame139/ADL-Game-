@@ -14,7 +14,7 @@
             min-height: 100vh;
             font-family: Arial, sans-serif;
             color: #fff;
-            background: linear-gradient(135deg, #b80000 0%, #0d0000 45%, #006b24 55%, #008f39 100%);
+            background: linear-gradient(135deg, #4b0800 0%, #006b24 55%, #008f39 100%);
             overflow-x: hidden;
         }
         .header {
@@ -68,7 +68,7 @@
         .card h2 {
             text-align: center;
             margin-bottom: 18px;
-            font-size: 23px;
+            color: #b80000;
         }
         .text {
             line-height: 1.8;
@@ -142,8 +142,6 @@
             margin: 20px auto 30px;
             padding: 16px;
             font-size: 13px;
-            text-align: center;
-            background: rgba(0, 0, 0, .3);
             border-radius: 10px;
             line-height: 1.5;
         }
@@ -167,14 +165,15 @@
         <div class="logo">👑 ADL 👑</div>
         <div class="trusted">TRUSTED GAME</div>
         <div class="safe">PLAY SAFE • WIN BIG</div>
-
-        <div class="marquee-box">
-            <div class="marquee">
-                दोस्तों • ADL Information • हर 15 मिनट की जानकारी • 01 से 100 तक के अंकों की जानकारी • 4 घर • 5 घर • 6 घर • 7 घर • 8 घर • कृपया सभी जानकारी ध्यान से पढ़ें • INFORMATION • PLAY SAFE
-            </div>
-        </div>
     </header>
 
+    <div class="marquee-box">
+        <div class="marquee">
+            दोस्तों • ADL Information • हर 15 मिनट की जानकारी के लिए बने रहें • ADL
+        </div>
+    </div>
+
+    <!-- ADL Information Section -->
     <section class="card">
         <h2>👑 ADL INFORMATION 👑</h2>
         <div class="text">
@@ -185,13 +184,7 @@
         </div>
     </section>
 
-    <section class="rate-box">
-        <div class="rate-title">GAME PASSING RATE</div>
-        <div class="rate-line">☛ JODI - 10 / 1000</div>
-        <div class="rate-line">☛ HARF - 100 / 1000</div>
-        <div class="rate-line">=============</div>
-    </section>
-
+    <!-- Game Results Section (Supabase Table) -->
     <section class="results-box">
         <h2>Game Results</h2>
         <div id="results-table">
@@ -199,18 +192,26 @@
         </div>
     </section>
 
+    <!-- Rate Box Section -->
+    <section class="rate-box">
+        <div class="rate-title">GAME PASSING RATE</div>
+        <div class="rate-line">👉 JODI - 10 / 1000</div>
+        <div class="rate-line">👉 HARF - 100 / 1000</div>
+        <div class="rate-line">====================</div>
+    </section>
+
     <div class="notice">
-        यह पेज केवल informational/demo purpose के लिए है। किसी भी खेल, भुगतान या भागीदारी से पहले अपने क्षेत्र के लागू कानूनों और नियमों की जांच करें。
+        यह पेज केवल informational/demo purpose के लिए है। किसी भी खेल, भुगतान या भागीदारी से पहले अपने क्षेत्र के लागू कानूनों और नियमों की पुष्टि करें।
     </div>
 
     <footer class="footer">
-        © 2026 ADL Information
+        <p>&copy; 2026 ADL Information</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = 'https://ohabwwdntwbbeeemcdsk.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.sb_publishable_YCOmi2FAzIwLQkVkK3Utvg_utjw6IqJ';
+        const SUPABASE_URL = 'https://hjfzngpuxbfoflxoyxgu.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhmam5uZ3B1eGJmb2ZseG95eGd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ2ODE4NDUsImV4cCI6MjA0MDI0MTg0NX0.V5k8_x1q_x8-8G1t-x_8Q1x'; 
 
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -241,7 +242,7 @@
                     <td>${row.result || 'NULL'}</td>
                 </tr>`;
             });
-            
+
             html += '</table>';
             document.getElementById('results-table').innerHTML = html;
         }
