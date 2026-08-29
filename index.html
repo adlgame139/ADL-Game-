@@ -1,376 +1,541 @@
-   <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ADL Results - Fast Updates</title>
-  
-  <!-- Supabase JS Client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
-  <!-- Google Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-primary: #0f172a;        /* Deep Midnight Slate */
-      --bg-card: #1e293b;           /* Elegant Card Background */
-      --bg-card-alt: #24344d;       /* Alternate Row Color */
-      --accent-gold: #f59e0b;       /* Gold / Yellow Accent */
-      --accent-green: #10b981;      /* Live Green */
-      --accent-red: #ef4444;        /* Live Indicator / Notice */
-      --text-main: #f8fafc;         /* Crisp White Text */
-      --text-muted: #94a3b8;        /* Soft Gray Muted Text */
-      --border-color: #334155;      /* Subtle Borders */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A.D.L Lottery - Results</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:
+        linear-gradient(135deg,#8b0000 0%,#d40000 35%,#006b24 65%,#004d1a 100%);
+    color:#fff;
+}
+
+/* MAIN */
+.container{
+    width:94%;
+    max-width:900px;
+    margin:15px auto;
+}
+
+/* HEADER */
+.header{
+    text-align:center;
+    background:linear-gradient(135deg,#b30000,#006b24);
+    border:3px solid #ffd700;
+    padding:20px 12px;
+    border-radius:18px;
+    box-shadow:0 0 20px rgba(255,215,0,.45);
+}
+
+.header h1{
+    margin:0;
+    color:#ffd700;
+    font-size:32px;
+    text-shadow:2px 2px 3px #000;
+}
+
+.header p{
+    margin:7px 0;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+/* INFORMATION */
+.info{
+    margin-top:15px;
+    background:#fff;
+    color:#111;
+    padding:20px;
+    border-radius:18px;
+    border:4px solid #ffd700;
+    line-height:1.7;
+    box-shadow:0 5px 18px rgba(0,0,0,.4);
+}
+
+.info h2{
+    text-align:center;
+    color:#c40000;
+    margin-top:0;
+    font-size:25px;
+}
+
+.info p{
+    margin:9px 0;
+}
+
+/* NOTICE */
+.notice{
+    margin-top:15px;
+    padding:14px;
+    background:#ffd700;
+    color:#8b0000;
+    border:3px solid #fff;
+    border-radius:14px;
+    text-align:center;
+    font-weight:bold;
+    font-size:17px;
+    box-shadow:0 4px 15px rgba(0,0,0,.35);
+}
+
+/* DATE */
+.date-box{
+    margin-top:15px;
+    background:#006b24;
+    border:3px solid #ffd700;
+    padding:15px;
+    border-radius:14px;
+    text-align:center;
+    font-size:16px;
+}
+
+.date-box span{
+    color:#ffd700;
+    font-weight:bold;
+}
+
+/* TABLE */
+.table-box{
+    margin-top:15px;
+    overflow-x:auto;
+    border-radius:15px;
+    border:3px solid #ffd700;
+    box-shadow:0 5px 18px rgba(0,0,0,.45);
+}
+
+table{
+    width:100%;
+    min-width:450px;
+    border-collapse:collapse;
+    background:#fff;
+    color:#111;
+}
+
+th{
+    background:#b30000;
+    color:#ffd700;
+    padding:14px 8px;
+    font-size:16px;
+    border-bottom:3px solid #ffd700;
+}
+
+td{
+    padding:12px 8px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+/* ALTERNATE ROW */
+tbody tr:nth-child(even){
+    background:#e9ffe9;
+}
+
+tbody tr:nth-child(odd){
+    background:#fff;
+}
+
+/* ROUND */
+.round{
+    font-weight:bold;
+    color:#b30000;
+}
+
+/* RESULT */
+.result{
+    font-weight:bold;
+    color:#00852b;
+    font-size:18px;
+}
+
+/* GAME INFO */
+.rate{
+    margin-top:15px;
+    background:#006b24;
+    border:3px solid #ffd700;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 5px 18px rgba(0,0,0,.4);
+}
+
+.rate h2{
+    color:#ffd700;
+    text-align:center;
+    margin-top:0;
+}
+
+.rate p{
+    margin:10px 0;
+}
+
+.line{
+    text-align:center;
+    color:#ffd700;
+    letter-spacing:2px;
+}
+
+.payment{
+    text-align:center;
+    background:#ffd700;
+    color:#8b0000;
+    padding:10px;
+    border-radius:10px;
+    font-weight:bold;
+    margin-top:18px;
+}
+
+/* FOOTER */
+.footer{
+    text-align:center;
+    padding:20px 10px;
+    font-size:13px;
+    color:#ffd700;
+}
+
+/* ERROR */
+.error{
+    color:#b00000;
+    font-weight:bold;
+}
+
+/* MOBILE */
+@media(max-width:500px){
+
+    .container{
+        width:96%;
+        margin:10px auto;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+    .header h1{
+        font-size:26px;
     }
 
-    body {
-      background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
-      color: var(--text-main);
-      min-height: 100vh;
-      padding-bottom: 30px;
+    .header p{
+        font-size:14px;
     }
 
-    /* Top Banner */
-    .header {
-      text-align: center;
-      padding: 16px 10px;
-      background: linear-gradient(180deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
-      border-bottom: 1px solid var(--border-color);
-    }
-    .header h1 {
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--accent-gold);
-      letter-spacing: 1px;
-    }
-    .header p {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 2px;
-      margin-top: 4px;
+    .info{
+        padding:16px;
+        font-size:14px;
     }
 
-    /* Marquee / Ticker */
-    .ticker-bar {
-      background: linear-gradient(90deg, #b91c1c, #dc2626, #b91c1c);
-      color: #ffffff;
-      padding: 7px 0;
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(220, 38, 38, 0.3);
+    .info h2{
+        font-size:22px;
     }
 
-    .container {
-      max-width: 520px;
-      margin: 15px auto;
-      padding: 0 12px;
+    th,td{
+        padding:10px 6px;
+        font-size:14px;
     }
 
-    /* Latest Result Card */
-    .latest-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 18px 14px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      margin-bottom: 20px;
+    .result{
+        font-size:16px;
     }
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-    .card-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-    .live-badge {
-      background: rgba(16, 185, 129, 0.2);
-      color: var(--accent-green);
-      border: 1px solid var(--accent-green);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 20px;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .live-dot {
-      width: 7px;
-      height: 7px;
-      background: var(--accent-green);
-      border-radius: 50%;
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(1.2); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    .latest-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      background: rgba(15, 23, 42, 0.6);
-      padding: 12px 8px;
-      border-radius: 10px;
-      text-align: center;
-    }
-    .latest-item .label {
-      font-size: 10px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-    .latest-item .value {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--accent-gold);
-      margin-top: 4px;
-    }
-    .latest-item .value.result-highlight {
-      color: var(--accent-green);
-      font-size: 18px;
-    }
-
-    /* Table Section */
-    .table-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-    .table-header-title {
-      padding: 14px 16px;
-      font-size: 16px;
-      font-weight: 700;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .results-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: center;
-    }
-    .results-table th {
-      background: #152238;
-      color: var(--text-muted);
-      font-size: 11px;
-      text-transform: uppercase;
-      font-weight: 600;
-      padding: 12px 6px;
-      border-bottom: 1px solid var(--border-color);
-    }
-    .results-table td {
-      padding: 12px 6px;
-      font-size: 13px;
-      border-bottom: 1px solid rgba(51, 65, 85, 0.4);
-      color: var(--text-main);
-    }
-    .results-table tr:nth-child(even) {
-      background: rgba(15, 23, 42, 0.4);
-    }
-    .results-table td.col-round {
-      font-weight: 700;
-      color: var(--accent-gold);
-    }
-    .results-table td.col-date {
-      color: var(--text-muted);
-      font-size: 12px;
-    }
-    .results-table td.col-time {
-      color: #cbd5e1;
-      font-size: 12px;
-    }
-    .results-table td.col-result {
-      font-weight: 700;
-      color: var(--accent-green);
-      font-size: 15px;
-    }
-
-    /* WhatsApp Button */
-    .whatsapp-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: #16a34a;
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 15px;
-      padding: 13px;
-      border-radius: 10px;
-      margin-top: 20px;
-      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
-    }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 18px;
-    }
-
-    .loading-text {
-      padding: 24px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 13px;
-    }
-  </style>
+}
+</style>
 </head>
+
 <body>
 
-  <div class="header">
-    <h1>👑 ADL 👑</h1>
-    <p>TRUSTED RESULTS • FAST UPDATES</p>
-  </div>
+<div class="container">
 
-  <div class="ticker-bar">
-    ⚡ CHECK LATEST RESULTS • LIVE UPDATES ⚡
-  </div>
+<!-- HEADER -->
+<div class="header">
 
-  <div class="container">
-    <!-- Latest Result Section -->
-    <div class="latest-card">
-      <div class="card-top">
-        <span class="card-title">Latest Result</span>
-        <span class="live-badge"><span class="live-dot"></span> LIVE</span>
-      </div>
-      <div class="latest-grid">
-        <div class="latest-item">
-          <div class="label">Date</div>
-          <div class="value" id="latest-date">--</div>
-        </div>
-        <div class="latest-item">
-          <div class="label">Round</div>
-          <div class="value" id="latest-round">--</div>
-        </div>
-        <div class="latest-item">
-          <div class="label">Time</div>
-          <div class="value" id="latest-time">--</div>
-        </div>
-        <div class="latest-item">
-          <div class="label">Result</div>
-          <div class="value result-highlight" id="latest-result">--</div>
-        </div>
-      </div>
+    <h1>♛ A.D.L Lottery ♛</h1>
+
+    <p>TRUSTED GAME</p>
+
+    <p>PLAY SAFE • WIN BIG</p>
+
+</div>
+
+
+<!-- INFORMATION -->
+<div class="info">
+
+    <h2>ADL लॉटरी</h2>
+
+    <p>
+        <b>ADL लॉटरी जिसमें आप</b>
+    </p>
+
+    <p>
+        4 घर 5 घर 6 घर 7 घर की क्रॉसिंग खेल सकते हैं।
+    </p>
+
+    <p>
+        01 से 100 तक के अंकों में से एक नंबर चुना जाएगा।
+    </p>
+
+    <p>
+        नमस्कार दोस्तों! ADL लॉटरी में हर 30 मिनट बाद रिजल्ट आता है।
+    </p>
+
+    <p>
+        रिजल्ट नीचे दिए गए टेबल में देखा जा सकता है।
+    </p>
+
+</div>
+
+
+<!-- NOTICE -->
+<div class="notice">
+    🔴 🟢 A.D.L RESULT — हर 30 मिनट 🟢 🔴
+</div>
+
+
+<!-- DATE -->
+<div class="date-box">
+
+    📅 आज की तारीख:
+    <span id="todayDate">Loading...</span>
+
+</div>
+
+
+<!-- RESULTS -->
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+    <th>Round</th>
+    <th>Time</th>
+    <th>Result</th>
+</tr>
+
+</thead>
+
+<tbody id="resultsTable">
+
+<tr>
+    <td colspan="3">
+        Results Loading...
+    </td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<!-- GAME INFORMATION -->
+<div class="rate">
+
+    <h2>GAME INFORMATION</h2>
+
+    <p>☛ 26 Rounds</p>
+
+    <p>☛ हर 30 मिनट में Result</p>
+
+    <p>☛ Number Range: 01 से 100</p>
+
+    <p class="line">
+        ⩸⩸⩸⩸⩸⩸⩸⩸⩸⩸⩸⩸
+    </p>
+
+    <div class="payment">
+        ♻️ SUPER FAST RESULT UPDATE
     </div>
 
-    <!-- Results Table Section -->
-    <div class="table-card">
-      <div class="table-header-title">
-        📊 Result Chart
-      </div>
-      <table class="results-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Round</th>
-            <th>Time</th>
-            <th>Result</th>
-          </tr>
-        </thead>
-        <tbody id="table-body">
-          <tr>
-            <td colspan="4" class="loading-text">Loading results...</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+</div>
 
-    <!-- WhatsApp Contact Button -->
-    <a href="https://wa.me/" class="whatsapp-btn" id="whatsapp-link" target="_blank">
-      💬 WhatsApp Contact
-    </a>
 
-    <div class="footer">
-      © 2026 👑 ADL 👑 — Results Information
-    </div>
-  </div>
+<!-- FOOTER -->
+<div class="footer">
+    © 2026 A.D.L Lottery
+</div>
 
-  <script>
-    // 1. Aapka Supabase Configuration
-    const SUPABASE_URL = "https://hjfzngpuxbfoflxoyxgu.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_92WFOUihtffMjWhMfLNN3A_mvNVKzgB";
-    
-    // Supabase initialize
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</div>
 
-    async function fetchResults() {
-      try {
-        // Table name aapke Supabase table ke anusar (e.g., 'results' ya jo bhi aapka table name hai)
-        const { data, error } = await supabase
-          .from('results')
-          .select('*')
-          .order('id', { ascending: false }); // Latest entry pehle aayegi
 
-        if (error) throw error;
+<script>
 
-        if (data && data.length > 0) {
-          // 1. Update Latest Result Card
-          const latest = data[0];
-          document.getElementById('latest-round').innerText = latest.round || '--';
-          document.getElementById('latest-time').innerText = latest.time. || '--';
-          document.getElementById('latest-date').innerText = latest.date|| '--';
-          document.getElementById('latest-game_result').innerText = latest.game_result || '--';
+/* ==========================================
+   SUPABASE
+========================================== */
 
-          // 2. Populate Table Rows
-          const tableBody = document.getElementById('table-body');
-          tableBody.innerHTML = '';
+const SUPABASE_URL =
+"https://hjfzngpuxbfoflxoyxgu.supabase.co";
 
-          data.forEach(row => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td class="col-round">${row.round || '-'}</td>
-              <td class="col-time">${row.time|| '-'}</td>
-              <td class="col-date">${row.date|| '-'}</td>
-              <td class="col-game_result">${row.game_result || '-'}</td>
-            `;
-            tableBody.appendChild(tr);
-          });
-        } else {
-          document.getElementById('table-body').innerHTML = `
-            <tr><td colspan="4" class="loading-text">No results found</td></tr>
-          `;
-        }
-      } catch (err) {
-        console.error('Error fetching data:', err);
-        document.getElementById('table-body').innerHTML = `
-          <tr><td colspan="4" class="loading-text" style="color: #ef4444;">Unable to load results. Check Supabase permissions.</td></tr>
-        `;
-      }
+const SUPABASE_KEY =
+"sb_publishable_92WFOUihtffMjWhMfLNN3A_mvNVKzgB";
+
+const supabaseClient =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* ==========================================
+   DATE
+========================================== */
+
+function showToday(){
+
+    const now = new Date();
+
+    const day =
+        String(now.getDate()).padStart(2,"0");
+
+    const month =
+        String(now.getMonth()+1).padStart(2,"0");
+
+    const year =
+        now.getFullYear();
+
+    document.getElementById("todayDate")
+        .textContent =
+        `${day}-${month}-${year}`;
+}
+
+
+/* ==========================================
+   TIME
+========================================== */
+
+function formatTime(time){
+
+    if(!time){
+        return "—";
     }
 
-    // Load results on page open
-    fetchResults();
+    let parts =
+        time.split(":");
 
-    // Auto-refresh every 30 seconds
-    setInterval(fetchResults, 30000);
-  </script>
+    let hour =
+        parseInt(parts[0]);
+
+    let minute =
+        parts[1];
+
+    let ampm =
+        hour >= 12 ? "PM" : "AM";
+
+    hour =
+        hour % 12 || 12;
+
+    return `${hour}:${minute} ${ampm}`;
+}
+
+
+/* ==========================================
+   LOAD RESULTS
+========================================== */
+
+async function loadResults(){
+
+    const table =
+        document.getElementById("resultsTable");
+
+    const { data, error } =
+        await supabaseClient
+            .from("game_results")
+            .select(
+                "round_number, game_time, result"
+            )
+            .order(
+                "round_number",
+                { ascending:true }
+            );
+
+
+    if(error){
+
+        console.error(error);
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="3">
+                    <span class="error">
+                        Result load नहीं हो रहा।
+                    </span>
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    if(!data || data.length === 0){
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="3">
+                    अभी कोई result उपलब्ध नहीं है।
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    table.innerHTML = "";
+
+
+    data.forEach(row => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td class="round">
+                    ${row.round_number}
+                </td>
+
+                <td>
+                    ${formatTime(row.game_time)}
+                </td>
+
+                <td class="result">
+                    ${row.result || "—"}
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+showToday();
+
+loadResults();
+
+
+/* ==========================================
+   AUTO REFRESH
+========================================== */
+
+setInterval(
+    loadResults,
+    30000
+);
+
+</script>
+
 </body>
-    </html>
-        
+</html>
