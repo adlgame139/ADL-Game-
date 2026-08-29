@@ -9,6 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -19,10 +20,12 @@ body{
     font-family:Arial,Helvetica,sans-serif;
     min-height:100vh;
     color:#fff;
+
     background:
-    radial-gradient(circle at 15% 5%,rgba(255,215,0,.22),transparent 25%),
-    radial-gradient(circle at 90% 25%,rgba(0,255,120,.18),transparent 28%),
-    linear-gradient(135deg,#650000,#b80000,#006b2c,#003d1c);
+    radial-gradient(circle at 10% 5%,rgba(255,215,0,.25),transparent 25%),
+    radial-gradient(circle at 90% 20%,rgba(0,255,100,.18),transparent 25%),
+    radial-gradient(circle at 50% 100%,rgba(255,70,0,.25),transparent 30%),
+    linear-gradient(135deg,#650000,#b90000,#006b2c,#003d1c);
 }
 
 .container{
@@ -31,183 +34,313 @@ body{
     margin:15px auto 30px;
 }
 
-/* HEADER */
+
+/* ================= HEADER ================= */
 
 .header{
     position:relative;
     overflow:hidden;
     text-align:center;
+
     padding:25px 12px;
+
     border:3px solid #ffd700;
     border-radius:24px;
-    background:linear-gradient(135deg,#a00000,#e12c00,#087735);
-    box-shadow:0 0 28px rgba(255,215,0,.4),0 10px 30px rgba(0,0,0,.4);
+
+    background:
+    linear-gradient(
+        135deg,
+        #970000,
+        #e12c00,
+        #087735
+    );
+
+    box-shadow:
+    0 0 28px rgba(255,215,0,.4),
+    0 10px 30px rgba(0,0,0,.4);
 }
 
 .header:before{
     content:"🔱";
+
     position:absolute;
     left:12px;
     top:10px;
+
     font-size:43px;
 }
 
 .header:after{
     content:"🔱";
+
     position:absolute;
     right:12px;
     top:10px;
+
     font-size:43px;
 }
 
 .om{
     color:#ffd700;
     font-size:23px;
-    text-shadow:0 2px 5px #000;
+
+    text-shadow:
+    0 2px 5px #000;
 }
 
 .logo{
     margin-top:3px;
+
     color:#ffe66b;
+
     font-size:34px;
     font-weight:900;
+
     letter-spacing:2px;
-    text-shadow:0 3px 5px #000,0 0 12px rgba(255,215,0,.7);
+
+    text-shadow:
+    0 3px 5px #000,
+    0 0 12px rgba(255,215,0,.7);
 }
 
 .trusted{
     margin-top:7px;
+
     font-weight:bold;
+
     letter-spacing:3px;
 }
 
 .play{
     margin-top:5px;
+
     color:#fff1a6;
+
     font-size:13px;
 }
 
-/* NOTICE */
+
+/* ================= NOTICE ================= */
 
 .notice{
     margin-top:14px;
+
     padding:13px 10px;
+
     text-align:center;
+
     font-weight:bold;
+
     border:2px solid #ffd700;
     border-radius:15px;
-    background:linear-gradient(90deg,#970000,#ed2600,#087a35);
-    box-shadow:0 5px 18px rgba(0,0,0,.35);
+
+    background:
+    linear-gradient(
+        90deg,
+        #970000,
+        #ed2600,
+        #087a35
+    );
+
+    box-shadow:
+    0 5px 18px rgba(0,0,0,.35);
 }
 
 .live-dot{
     display:inline-block;
+
     width:9px;
     height:9px;
+
     margin-right:6px;
+
     border-radius:50%;
+
     background:#00ff55;
-    box-shadow:0 0 12px #00ff55;
+
+    box-shadow:
+    0 0 12px #00ff55;
 }
 
-/* INFO */
+
+/* ================= INFO ================= */
 
 .info{
     margin-top:16px;
+
     padding:21px;
+
     border:3px solid #ffd700;
     border-radius:21px;
-    background:linear-gradient(145deg,#fff,#fff6cf);
+
+    background:
+    linear-gradient(
+        145deg,
+        #ffffff,
+        #fff6cf
+    );
+
     color:#222;
-    box-shadow:0 8px 25px rgba(0,0,0,.35);
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.35);
 }
 
 .info h2{
     text-align:center;
+
     color:#aa0000;
+
     margin-bottom:15px;
 }
 
 .info p{
     margin:9px 0;
+
     line-height:1.6;
 }
 
 .highlight{
     margin-top:15px;
+
     padding:12px;
+
     text-align:center;
+
     color:#7b0000;
+
     font-weight:bold;
+
     border-radius:12px;
+
     background:#ffe48a;
+
     border:1px solid #e0a700;
 }
 
-/* FILTER */
+
+/* ================= FILTER ================= */
 
 .filter-box{
     margin-top:16px;
+
     padding:20px;
+
     text-align:center;
+
     border:3px solid #ffd700;
     border-radius:20px;
-    background:linear-gradient(145deg,#420000,#100000);
-    box-shadow:0 8px 25px rgba(0,0,0,.4);
+
+    background:
+    linear-gradient(
+        145deg,
+        #420000,
+        #100000
+    );
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.4);
 }
 
 .filter-title{
     color:#ffd700;
+
     font-size:18px;
+
     font-weight:bold;
+
     margin-bottom:14px;
 }
 
 .date-input{
     width:200px;
+
     padding:12px;
+
     border:2px solid #ffd700;
     border-radius:10px;
+
     font-weight:bold;
 }
 
 .btn{
     padding:12px 18px;
+
     margin:5px 3px;
+
     border:0;
+
     border-radius:10px;
+
     font-weight:bold;
+
     cursor:pointer;
+
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
 }
 
 .search-btn{
-    background:linear-gradient(135deg,#ffd700,#ffad00);
+    background:
+    linear-gradient(
+        135deg,
+        #ffd700,
+        #ffad00
+    );
+
     color:#650000;
 }
 
 .today-btn{
-    background:linear-gradient(135deg,#00a947,#006a2b);
-    color:white;
+    background:
+    linear-gradient(
+        135deg,
+        #00a947,
+        #006a2b
+    );
+
+    color:#fff;
+
     border:1px solid #61ff9c;
 }
 
-/* RESULTS HEADER */
+
+/* ================= RESULTS HEADER ================= */
 
 .results-head{
     margin-top:18px;
+
     padding:14px 15px;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     gap:12px;
+
     border:3px solid #ffd700;
+
     border-bottom:0;
+
     border-radius:20px 20px 0 0;
-    background:linear-gradient(90deg,#780000,#c60000,#00752f);
+
+    background:
+    linear-gradient(
+        90deg,
+        #780000,
+        #c60000,
+        #00752f
+    );
 }
 
 .results-head h2{
     color:#ffe36b;
+
     font-size:20px;
 }
 
@@ -217,50 +350,78 @@ body{
 
 .selected-date{
     color:#fff;
+
     font-size:12px;
+
     font-weight:bold;
 }
 
 .auto-update{
     margin-top:4px;
+
     color:#9cffb9;
+
     font-size:10px;
+
     font-weight:bold;
 }
 
-/* COLOURFUL TABLE */
+
+/* ================= TABLE ================= */
 
 .table-box{
-    overflow:hidden;
+    width:100%;
+
+    overflow-x:auto;
+
+    -webkit-overflow-scrolling:touch;
+
     border:3px solid #ffd700;
+
     border-top:0;
-    border-radius:0 0 20px 20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.45);
+
+    border-radius:
+    0 0 20px 20px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.45);
 }
 
 table{
     width:100%;
-    min-width:440px;
+
+    min-width:480px;
+
     border-collapse:separate;
+
     border-spacing:0;
+
     background:#fff;
+
     color:#111;
+
+    table-layout:auto;
 }
 
 thead th{
     padding:16px 8px;
+
     color:#fff;
+
     font-size:14px;
-    background:linear-gradient(135deg,#7c0000,#d00000,#8b0000);
-    border-bottom:3px solid #ffd700;
-}
 
-thead th:first-child{
-    border-right:1px solid rgba(255,215,0,.5);
-}
+    background:
+    linear-gradient(
+        135deg,
+        #7c0000,
+        #d00000,
+        #8b0000
+    );
 
-thead th:last-child{
-    border-left:1px solid rgba(255,215,0,.5);
+    border-bottom:
+    3px solid #ffd700;
+
+    white-space:nowrap;
 }
 
 tbody tr{
@@ -268,11 +429,21 @@ tbody tr{
 }
 
 tbody tr:nth-child(odd){
-    background:linear-gradient(90deg,#fff9df,#fff);
+    background:
+    linear-gradient(
+        90deg,
+        #fff8d9,
+        #ffffff
+    );
 }
 
 tbody tr:nth-child(even){
-    background:linear-gradient(90deg,#e5ffec,#fafffb);
+    background:
+    linear-gradient(
+        90deg,
+        #e1ffea,
+        #ffffff
+    );
 }
 
 tbody tr:hover{
@@ -280,77 +451,148 @@ tbody tr:hover{
 }
 
 td{
-    padding:13px 8px;
+    padding:14px 8px;
+
     text-align:center;
-    border-bottom:1px solid #ddd;
+
+    border-bottom:
+    1px solid #ddd;
+
+    white-space:nowrap;
 }
 
 .round{
     color:#9b0000;
+
     font-weight:900;
 }
 
 .round-badge{
-    display:inline-block;
-    min-width:45px;
-    padding:6px 9px;
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:48px;
+
+    padding:6px 10px;
+
     border-radius:20px;
+
     color:#fff;
-    background:linear-gradient(135deg,#d00000,#850000);
+
+    background:
+    linear-gradient(
+        135deg,
+        #d00000,
+        #850000
+    );
+
     border:2px solid #ffd700;
+
     font-weight:900;
-    box-shadow:0 3px 8px rgba(0,0,0,.2);
+
+    box-shadow:
+    0 3px 8px rgba(0,0,0,.25);
 }
 
 .time-cell{
     color:#333;
+
     font-weight:bold;
 }
 
 .result{
-    font-size:22px;
-    font-weight:900;
     color:#00852f;
+
+    font-size:22px;
+
+    font-weight:900;
 }
 
 .result-badge{
-    display:inline-block;
-    min-width:65px;
-    padding:7px 13px;
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:72px;
+
+    width:auto;
+
+    padding:7px 14px;
+
     border-radius:12px;
+
     color:#fff;
-    background:linear-gradient(135deg,#00a947,#006e2c);
+
+    background:
+    linear-gradient(
+        135deg,
+        #00a947,
+        #006e2c
+    );
+
     border:2px solid #ffd700;
-    box-shadow:0 3px 10px rgba(0,100,40,.3);
+
+    box-shadow:
+    0 3px 10px rgba(0,100,40,.3);
+
+    font-size:20px;
+
+    font-weight:900;
+
+    white-space:nowrap;
 }
 
 .loading{
-    padding:28px!important;
+    padding:28px !important;
+
     color:#777;
 }
 
-/* GAME INFO */
+
+/* ================= GAME INFO ================= */
 
 .game-info{
     margin-top:18px;
+
     padding:21px;
+
     border:3px solid #ffd700;
+
     border-radius:21px;
-    background:linear-gradient(145deg,#006c2d,#003e1b);
-    box-shadow:0 8px 25px rgba(0,0,0,.4);
+
+    background:
+    linear-gradient(
+        145deg,
+        #006c2d,
+        #003e1b
+    );
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.4);
 }
 
 .game-info h2{
     text-align:center;
+
     color:#ffd700;
+
     margin-bottom:15px;
 }
 
 .game-row{
     display:flex;
+
     gap:10px;
+
     padding:12px 4px;
-    border-bottom:1px solid rgba(255,255,255,.15);
+
+    border-bottom:
+    1px solid rgba(255,255,255,.15);
 }
 
 .game-icon{
@@ -359,15 +601,22 @@ td{
 
 .fast{
     margin-top:17px;
+
     padding:11px;
+
     text-align:center;
+
     color:#700000;
+
     font-weight:bold;
+
     border-radius:12px;
+
     background:#ffd700;
 }
 
-/* WHATSAPP */
+
+/* ================= WHATSAPP ================= */
 
 .whatsapp{
     margin-top:20px;
@@ -375,31 +624,56 @@ td{
 
 .whatsapp a{
     display:flex;
+
     justify-content:center;
+
     align-items:center;
+
     gap:8px;
+
     width:100%;
+
     padding:16px;
+
     color:#fff;
+
     text-decoration:none;
+
     font-size:18px;
+
     font-weight:bold;
-    border:2px solid #baffd0;
+
+    border:
+    2px solid #baffd0;
+
     border-radius:15px;
-    background:linear-gradient(135deg,#25d366,#07963e);
-    box-shadow:0 8px 23px rgba(0,0,0,.4);
+
+    background:
+    linear-gradient(
+        135deg,
+        #25d366,
+        #07963e
+    );
+
+    box-shadow:
+    0 8px 23px rgba(0,0,0,.4);
 }
 
-/* FOOTER */
+
+/* ================= FOOTER ================= */
 
 .footer{
     padding:22px 5px 10px;
+
     text-align:center;
+
     color:#ffe58a;
+
     font-size:12px;
 }
 
-/* MOBILE */
+
+/* ================= MOBILE ================= */
 
 @media(max-width:600px){
 
@@ -420,18 +694,25 @@ td{
         font-size:27px;
     }
 
+    .trusted{
+        font-size:13px;
+    }
+
     .info{
         padding:17px;
+
         font-size:14px;
     }
 
     .date-input{
         width:100%;
+
         margin-bottom:7px;
     }
 
     .btn{
         width:100%;
+
         margin:4px 0;
     }
 
@@ -451,37 +732,60 @@ td{
         font-size:8px;
     }
 
-    th,td{
-        padding:11px 5px;
-        font-size:13px;
+    /*
+       Mobile table:
+       Full result number will remain visible.
+    */
+
+    .table-box{
+        overflow-x:auto;
+    }
+
+    table{
+        min-width:480px;
+        table-layout:auto;
+    }
+
+    th,
+    td{
+        white-space:nowrap;
     }
 
     .round-badge{
-        min-width:38px;
-        padding:5px 6px;
+        min-width:42px;
+
+        padding:5px 8px;
     }
 
     .result-badge{
-        min-width:55px;
-        padding:6px 8px;
+        min-width:75px;
+
+        padding:7px 13px;
+
+        font-size:19px;
     }
 
     .result{
         font-size:19px;
     }
 }
+
 </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
-<!-- HEADER -->
+
+<!-- ================= HEADER ================= -->
 
 <div class="header">
 
-    <div class="om">ॐ</div>
+    <div class="om">
+        ॐ
+    </div>
 
     <div class="logo">
         ♛ A.D.L LOTTERY ♛
@@ -498,21 +802,28 @@ td{
 </div>
 
 
-<!-- NOTICE -->
+<!-- ================= NOTICE ================= -->
 
 <div class="notice">
+
     <span class="live-dot"></span>
+
     🔱 🔴 A.D.L RESULT — हर 30 मिनट 🟢 🔱
+
 </div>
 
 
-<!-- INFO -->
+<!-- ================= INFO ================= -->
 
 <div class="info">
 
-    <h2>🔱 ADL लॉटरी 🔱</h2>
+    <h2>
+        🔱 ADL लॉटरी 🔱
+    </h2>
 
-    <p><b>ADL लॉटरी जिसमें आप</b></p>
+    <p>
+        <b>ADL लॉटरी जिसमें आप</b>
+    </p>
 
     <p>
         4 घर 5 घर 6 घर 7 घर की क्रॉसिंग खेल सकते हैं।
@@ -531,19 +842,24 @@ td{
     </p>
 
     <div class="highlight">
+
         🔱 नया Result आते ही Results Table में Update होगा 🔱
+
     </div>
 
 </div>
 
 
-<!-- DATE FILTER -->
+<!-- ================= FILTER ================= -->
 
 <div class="filter-box">
 
     <div class="filter-title">
+
         📅 पुरानी तारीख का Result देखें
+
     </div>
+
 
     <input
         type="date"
@@ -551,26 +867,33 @@ td{
         class="date-input"
     >
 
+
     <br>
+
 
     <button
         class="btn search-btn"
         onclick="loadResultsByDate()"
     >
+
         🔍 Result देखें
+
     </button>
+
 
     <button
         class="btn today-btn"
         onclick="loadTodayResults()"
     >
+
         🏠 आज का Result
+
     </button>
 
 </div>
 
 
-<!-- RESULTS HEADER -->
+<!-- ================= RESULTS HEADER ================= -->
 
 <div class="results-head">
 
@@ -578,17 +901,23 @@ td{
         📊 A.D.L RESULTS
     </h2>
 
+
     <div class="result-meta">
 
         <div
             class="selected-date"
             id="tableDate"
         >
+
             📅 --/--/----
+
         </div>
 
+
         <div class="auto-update">
+
             ● AUTO UPDATE
+
         </div>
 
     </div>
@@ -596,26 +925,46 @@ td{
 </div>
 
 
-<!-- RESULTS TABLE -->
+<!-- ================= RESULTS TABLE ================= -->
 
 <div class="table-box">
 
 <table>
 
 <thead>
+
 <tr>
-    <th>ROUND</th>
-    <th>TIME</th>
-    <th>RESULT</th>
+
+    <th>
+        ROUND
+    </th>
+
+    <th>
+        TIME
+    </th>
+
+    <th>
+        RESULT
+    </th>
+
 </tr>
+
 </thead>
+
 
 <tbody id="resultsTable">
 
 <tr>
-    <td colspan="3" class="loading">
+
+    <td
+        colspan="3"
+        class="loading"
+    >
+
         ⏳ Results Loading...
+
     </td>
+
 </tr>
 
 </tbody>
@@ -625,7 +974,7 @@ td{
 </div>
 
 
-<!-- GAME INFORMATION -->
+<!-- ================= GAME INFO ================= -->
 
 <div class="game-info">
 
@@ -633,29 +982,56 @@ td{
         🔱 GAME INFORMATION 🔱
     </h2>
 
-    <div class="game-row">
-        <span class="game-icon">☛</span>
-        <span>26 Rounds</span>
-    </div>
 
     <div class="game-row">
-        <span class="game-icon">☛</span>
-        <span>हर 30 मिनट में Result</span>
+
+        <span class="game-icon">
+            ☛
+        </span>
+
+        <span>
+            26 Rounds
+        </span>
+
     </div>
 
+
     <div class="game-row">
-        <span class="game-icon">☛</span>
-        <span>Number Range: 01 से 100</span>
+
+        <span class="game-icon">
+            ☛
+        </span>
+
+        <span>
+            हर 30 मिनट में Result
+        </span>
+
     </div>
+
+
+    <div class="game-row">
+
+        <span class="game-icon">
+            ☛
+        </span>
+
+        <span>
+            Number Range: 01 से 100
+        </span>
+
+    </div>
+
 
     <div class="fast">
+
         ♻️ SUPER FAST RESULT UPDATE
+
     </div>
 
 </div>
 
 
-<!-- WHATSAPP -->
+<!-- ================= WHATSAPP ================= -->
 
 <div class="whatsapp">
 
@@ -664,15 +1040,22 @@ td{
         target="_blank"
         rel="noopener noreferrer"
     >
+
         💬 WhatsApp Contact
+
     </a>
 
 </div>
 
 
+<!-- ================= FOOTER ================= -->
+
 <div class="footer">
+
     🔱 © 2026 A.D.L Lottery 🔱
+
 </div>
+
 
 </div>
 
@@ -686,8 +1069,10 @@ td{
 const SUPABASE_URL =
 "https://hjfzngpuxbfoflxoyxgu.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_92WFOUihtffMjWhMfLNN3A_mvNVKzgB";
+
 
 const supabaseClient =
 supabase.createClient(
@@ -708,12 +1093,14 @@ function getToday(){
         now.getFullYear();
 
     const month =
-        String(now.getMonth()+1)
-        .padStart(2,"0");
+        String(
+            now.getMonth()+1
+        ).padStart(2,"0");
 
     const day =
-        String(now.getDate())
-        .padStart(2,"0");
+        String(
+            now.getDate()
+        ).padStart(2,"0");
 
     return `${year}-${month}-${day}`;
 }
@@ -729,10 +1116,14 @@ function displayDate(date){
         date.split("-");
 
     if(parts.length !== 3){
+
         return date;
+
     }
 
-    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    return `
+        ${parts[2]}/${parts[1]}/${parts[0]}
+    `;
 }
 
 
@@ -743,23 +1134,33 @@ function displayDate(date){
 function formatTime(time){
 
     if(!time){
+
         return "—";
+
     }
+
 
     const parts =
         time.split(":");
 
+
     let hour =
         parseInt(parts[0]);
+
 
     const minute =
         parts[1] || "00";
 
+
     const ampm =
-        hour >= 12 ? "PM" : "AM";
+        hour >= 12
+        ? "PM"
+        : "AM";
+
 
     hour =
         hour % 12 || 12;
+
 
     return `${hour}:${minute} ${ampm}`;
 }
@@ -776,18 +1177,23 @@ async function loadResultsByDate(){
             "resultDate"
         ).value;
 
+
     if(!selectedDate){
 
-        alert("कृपया तारीख चुनें।");
+        alert(
+            "कृपया तारीख चुनें।"
+        );
 
         return;
+
     }
 
 
     document.getElementById(
         "tableDate"
     ).textContent =
-        "📅 " + displayDate(selectedDate);
+        "📅 " +
+        displayDate(selectedDate);
 
 
     const table =
@@ -797,24 +1203,39 @@ async function loadResultsByDate(){
 
 
     table.innerHTML = `
+
         <tr>
-            <td colspan="3" class="loading">
+
+            <td
+                colspan="3"
+                class="loading"
+            >
+
                 ⏳ Results Loading...
+
             </td>
+
         </tr>
+
     `;
 
 
     const { data, error } =
         await supabaseClient
-        .from("game_results")
+
+        .from(
+            "game_results"
+        )
+
         .select(
             "round_number,game_time,result"
         )
+
         .eq(
             "game_date",
             selectedDate
         )
+
         .order(
             "round_number",
             {
@@ -827,29 +1248,55 @@ async function loadResultsByDate(){
 
         console.error(error);
 
+
         table.innerHTML = `
+
             <tr>
-                <td colspan="3" class="loading">
+
+                <td
+                    colspan="3"
+                    class="loading"
+                >
+
                     ⚠️ Result load नहीं हो पाया।
+
                 </td>
+
             </tr>
+
         `;
 
+
         return;
+
     }
 
 
-    if(!data || data.length === 0){
+    if(
+        !data ||
+        data.length === 0
+    ){
 
         table.innerHTML = `
+
             <tr>
-                <td colspan="3" class="loading">
+
+                <td
+                    colspan="3"
+                    class="loading"
+                >
+
                     📭 इस तारीख का कोई result उपलब्ध नहीं है।
+
                 </td>
+
             </tr>
+
         `;
 
+
         return;
+
     }
 
 
@@ -863,19 +1310,33 @@ async function loadResultsByDate(){
             <tr>
 
                 <td class="round">
+
                     <span class="round-badge">
+
                         ${row.round_number}
+
                     </span>
+
                 </td>
+
 
                 <td class="time-cell">
-                    ${formatTime(row.game_time)}
+
+                    ${formatTime(
+                        row.game_time
+                    )}
+
                 </td>
 
+
                 <td class="result">
+
                     <span class="result-badge">
+
                         ${row.result || "—"}
+
                     </span>
+
                 </td>
 
             </tr>
@@ -888,7 +1349,7 @@ async function loadResultsByDate(){
 
 
 /* =========================
-   TODAY BUTTON
+   TODAY
 ========================= */
 
 function loadTodayResults(){
@@ -896,12 +1357,15 @@ function loadTodayResults(){
     const today =
         getToday();
 
+
     document.getElementById(
         "resultDate"
     ).value =
         today;
 
+
     loadResultsByDate();
+
 }
 
 
@@ -912,10 +1376,12 @@ function loadTodayResults(){
 const today =
     getToday();
 
+
 document.getElementById(
     "resultDate"
 ).value =
     today;
+
 
 loadResultsByDate();
 
