@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A.D.L Lottery - Results</title>
+<title>♛ A.D.L Lottery ♛</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -20,121 +20,129 @@ body{
     min-height:100vh;
     color:#fff;
     background:
-        radial-gradient(circle at top,#7b0000 0%,transparent 38%),
-        radial-gradient(circle at bottom,#004d1b 0%,transparent 42%),
-        linear-gradient(135deg,#090909,#300000,#061c0d);
+        radial-gradient(circle at 15% 10%,rgba(255,215,0,.25),transparent 25%),
+        radial-gradient(circle at 85% 20%,rgba(0,255,100,.18),transparent 25%),
+        radial-gradient(circle at 50% 90%,rgba(255,80,0,.22),transparent 30%),
+        linear-gradient(135deg,#650000,#b50000,#075b2b,#003d1c);
 }
-
-/* MAIN */
 
 .container{
     width:94%;
-    max-width:850px;
-    margin:18px auto 30px;
+    max-width:900px;
+    margin:14px auto 30px;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 
 .header{
     position:relative;
     overflow:hidden;
     text-align:center;
-    padding:25px 15px;
-    border:1px solid rgba(255,215,0,.8);
-    border-radius:22px;
+    padding:25px 15px 22px;
+    border:3px solid #ffd700;
+    border-radius:24px;
     background:
-        linear-gradient(145deg,rgba(170,0,0,.95),rgba(0,105,35,.95));
+        linear-gradient(135deg,
+        rgba(150,0,0,.96),
+        rgba(220,40,0,.92),
+        rgba(0,105,45,.96));
     box-shadow:
-        0 10px 35px rgba(0,0,0,.45),
-        inset 0 0 25px rgba(255,215,0,.12);
+        0 0 25px rgba(255,215,0,.45),
+        0 10px 35px rgba(0,0,0,.45);
 }
 
 .header:before{
-    content:"";
+    content:"🔱";
     position:absolute;
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    background:rgba(255,215,0,.08);
-    top:-100px;
-    left:-80px;
+    left:12px;
+    top:12px;
+    font-size:45px;
+    opacity:.85;
+    transform:rotate(-8deg);
 }
 
 .header:after{
-    content:"";
+    content:"🔱";
     position:absolute;
-    width:160px;
-    height:160px;
-    border-radius:50%;
-    background:rgba(255,255,255,.05);
-    right:-70px;
-    bottom:-100px;
+    right:12px;
+    top:12px;
+    font-size:45px;
+    opacity:.85;
+    transform:rotate(8deg);
+}
+
+.om{
+    color:#ffd700;
+    font-size:24px;
+    margin-bottom:5px;
+    text-shadow:0 2px 5px #000;
 }
 
 .logo{
-    position:relative;
-    z-index:2;
+    color:#ffe066;
     font-size:34px;
     font-weight:900;
-    color:#ffd700;
-    letter-spacing:1px;
-    text-shadow:0 3px 5px #000;
+    letter-spacing:2px;
+    text-shadow:
+        0 2px 3px #000,
+        0 0 12px rgba(255,215,0,.6);
 }
 
 .trusted{
-    margin-top:9px;
+    margin-top:8px;
     font-size:15px;
     font-weight:bold;
-    letter-spacing:2px;
+    letter-spacing:3px;
 }
 
 .play{
     margin-top:5px;
+    color:#fff4a8;
     font-size:13px;
-    color:#ffe88a;
     letter-spacing:1px;
 }
 
-/* LIVE BAR */
+/* ================= NOTICE ================= */
 
-.live-bar{
+.notice{
     margin-top:14px;
-    padding:12px;
+    padding:13px 10px;
     text-align:center;
-    border-radius:13px;
-    background:linear-gradient(90deg,#9b0000,#e00000,#00852b);
-    border:1px solid #ffd700;
-    box-shadow:0 5px 18px rgba(0,0,0,.3);
     font-weight:bold;
+    border-radius:15px;
+    border:2px solid #ffd700;
+    background:
+        linear-gradient(90deg,#a00000,#ef2600,#087d35);
+    box-shadow:0 5px 18px rgba(0,0,0,.35);
 }
 
-.live-dot{
+.live{
     display:inline-block;
     width:9px;
     height:9px;
     background:#00ff55;
     border-radius:50%;
     margin-right:6px;
-    box-shadow:0 0 10px #00ff55;
+    box-shadow:0 0 12px #00ff55;
 }
 
-/* INFO */
+/* ================= INFO ================= */
 
 .info{
     margin-top:16px;
-    padding:22px;
-    border-radius:20px;
-    background:rgba(255,255,255,.97);
-    color:#171717;
-    border:2px solid #ffd700;
+    padding:21px;
+    border-radius:21px;
+    background:linear-gradient(145deg,#fff,#fff8d9);
+    color:#222;
+    border:3px solid #ffd700;
     box-shadow:0 8px 25px rgba(0,0,0,.35);
 }
 
 .info h2{
     text-align:center;
-    color:#a90000;
+    color:#b00000;
     margin-bottom:15px;
-    font-size:23px;
+    font-size:24px;
 }
 
 .info p{
@@ -142,65 +150,68 @@ body{
     line-height:1.6;
 }
 
-.highlight{
+.info-highlight{
     margin-top:15px;
     padding:12px;
     text-align:center;
-    border-radius:12px;
-    background:#fff4c2;
-    border-left:5px solid #ffd700;
+    color:#7c0000;
     font-weight:bold;
+    border-radius:12px;
+    background:#ffe68a;
+    border:1px solid #e2a900;
 }
 
-/* DATE */
+/* ================= DATE ================= */
 
 .date-box{
     margin-top:16px;
-    padding:17px;
+    padding:18px;
     text-align:center;
-    border-radius:18px;
-    background:linear-gradient(135deg,#075f26,#00852f);
-    border:2px solid #ffd700;
-    box-shadow:0 7px 20px rgba(0,0,0,.3);
+    border-radius:20px;
+    border:3px solid #ffd700;
+    background:
+        linear-gradient(135deg,#006b2c,#009b43,#00702e);
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
 }
 
-.date-label{
+.date-title{
     font-size:13px;
-    opacity:.9;
+    letter-spacing:1px;
 }
 
 .date-value{
     display:block;
     margin-top:5px;
-    color:#ffd700;
-    font-size:23px;
+    color:#ffe066;
+    font-size:25px;
     font-weight:900;
 }
 
-/* FILTER */
+/* ================= FILTER ================= */
 
 .filter-box{
     margin-top:16px;
     padding:20px;
     text-align:center;
-    border-radius:18px;
-    background:rgba(10,10,10,.92);
-    border:2px solid #ffd700;
-    box-shadow:0 7px 20px rgba(0,0,0,.35);
+    border-radius:20px;
+    border:3px solid #ffd700;
+    background:
+        linear-gradient(145deg,#3b0000,#120000);
+    box-shadow:0 8px 25px rgba(0,0,0,.4);
 }
 
 .filter-title{
+    margin-bottom:14px;
     color:#ffd700;
-    font-size:17px;
+    font-size:18px;
     font-weight:bold;
-    margin-bottom:15px;
 }
 
 .date-input{
-    width:190px;
+    width:200px;
     padding:12px;
-    border-radius:10px;
     border:2px solid #ffd700;
+    border-radius:10px;
     background:#fff;
     color:#111;
     font-size:15px;
@@ -208,215 +219,226 @@ body{
 }
 
 .btn{
-    padding:12px 17px;
+    padding:12px 18px;
     margin:5px 3px;
-    border:none;
     border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
+    border:none;
     font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
     transition:.2s;
-}
-
-.btn-result{
-    background:#ffd700;
-    color:#700000;
-}
-
-.btn-today{
-    background:#00852b;
-    color:#fff;
-    border:1px solid #38ff7b;
 }
 
 .btn:hover{
     transform:translateY(-2px);
 }
 
-/* RESULT TITLE */
+.search-btn{
+    background:linear-gradient(135deg,#ffd700,#ffad00);
+    color:#680000;
+}
 
-.results-heading{
+.today-btn{
+    background:linear-gradient(135deg,#00a844,#006c2b);
+    color:#fff;
+    border:1px solid #5cff98;
+}
+
+/* ================= RESULTS HEADER ================= */
+
+.results-head{
     margin-top:18px;
+    padding:16px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:10px;
-    padding:15px 17px;
-    border-radius:16px 16px 0 0;
-    background:linear-gradient(90deg,#a90000,#750000);
-    border:2px solid #ffd700;
+    border:3px solid #ffd700;
     border-bottom:none;
+    border-radius:19px 19px 0 0;
+    background:
+        linear-gradient(90deg,#9c0000,#e52b00,#087b35);
 }
 
-.results-heading h2{
-    font-size:19px;
-    color:#ffd700;
+.results-head h2{
+    color:#ffe066;
+    font-size:20px;
 }
 
-.update{
+.auto{
     font-size:11px;
-    color:#b9ffcc;
+    font-weight:bold;
+    color:#c9ffd9;
 }
 
-/* TABLE */
+/* ================= TABLE ================= */
 
 .table-box{
     overflow-x:auto;
-    border:2px solid #ffd700;
+    border:3px solid #ffd700;
     border-top:none;
-    border-radius:0 0 16px 16px;
-    box-shadow:0 8px 25px rgba(0,0,0,.4);
+    border-radius:0 0 19px 19px;
+    box-shadow:0 10px 28px rgba(0,0,0,.4);
 }
 
 table{
     width:100%;
-    min-width:430px;
+    min-width:440px;
     border-collapse:collapse;
     background:#fff;
     color:#111;
 }
 
 th{
-    padding:14px 8px;
-    background:#171717;
+    padding:15px 8px;
+    background:
+        linear-gradient(135deg,#750000,#bd0000);
     color:#ffd700;
     font-size:14px;
-    border-bottom:2px solid #ffd700;
+    border-bottom:3px solid #ffd700;
 }
 
 td{
-    padding:13px 8px;
+    padding:14px 8px;
     text-align:center;
-    border-bottom:1px solid #e5e5e5;
-    font-size:15px;
+    border-bottom:1px solid #ddd;
 }
 
 tbody tr:nth-child(even){
-    background:#f3fff5;
+    background:#effff3;
 }
 
 tbody tr:hover{
-    background:#fff8d5;
+    background:#fff4c5;
 }
 
 .round{
-    color:#a90000;
+    color:#a30000;
     font-weight:900;
 }
 
 .result{
-    color:#00852b;
-    font-size:21px;
+    color:#008b38;
+    font-size:23px;
     font-weight:900;
 }
-
-/* LOADING */
 
 .loading{
     padding:25px!important;
     color:#777;
 }
 
-/* GAME INFORMATION */
+/* ================= GAME INFO ================= */
 
-.rate{
+.game-info{
     margin-top:18px;
     padding:21px;
-    border-radius:19px;
-    background:linear-gradient(145deg,#075d26,#003d19);
-    border:2px solid #ffd700;
-    box-shadow:0 8px 25px rgba(0,0,0,.35);
+    border-radius:21px;
+    border:3px solid #ffd700;
+    background:
+        linear-gradient(145deg,#006b2c,#00491d);
+    box-shadow:0 8px 25px rgba(0,0,0,.4);
 }
 
-.rate h2{
+.game-info h2{
     text-align:center;
     color:#ffd700;
-    margin-bottom:17px;
+    margin-bottom:16px;
 }
 
-.game-item{
+.game-row{
     display:flex;
     align-items:center;
     gap:10px;
-    padding:11px 5px;
-    border-bottom:1px solid rgba(255,255,255,.12);
+    padding:12px 4px;
+    border-bottom:1px solid rgba(255,255,255,.15);
 }
 
-.game-item:last-child{
+.game-row:last-of-type{
     border-bottom:none;
 }
 
-.icon{
+.game-icon{
     color:#ffd700;
-    font-size:17px;
+    font-size:18px;
 }
 
 .fast{
-    margin-top:16px;
+    margin-top:17px;
+    padding:11px;
     text-align:center;
-    color:#ffd700;
+    color:#7d0000;
     font-weight:bold;
+    border-radius:12px;
+    background:#ffd700;
 }
 
-/* WHATSAPP */
+/* ================= WHATSAPP ================= */
 
-.whatsapp-box{
+.whatsapp{
     margin-top:20px;
-    text-align:center;
 }
 
-.whatsapp-button{
+.whatsapp a{
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     gap:9px;
     width:100%;
-    padding:15px 20px;
-    border-radius:14px;
-    background:#25D366;
-    color:#fff;
+    padding:16px;
+    border-radius:15px;
     text-decoration:none;
-    font-size:17px;
-    font-weight:bold;
+    color:#fff;
+    background:linear-gradient(135deg,#25d366,#0b9e45);
     border:2px solid #baffd0;
-    box-shadow:0 7px 22px rgba(0,0,0,.4);
+    box-shadow:0 8px 23px rgba(0,0,0,.4);
+    font-size:18px;
+    font-weight:bold;
     transition:.2s;
 }
 
-.whatsapp-button:hover{
+.whatsapp a:hover{
     transform:translateY(-2px);
-    background:#1ebe5d;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 .footer{
     text-align:center;
-    margin-top:22px;
-    padding:18px 5px;
-    color:#d9d9d9;
+    padding:22px 5px 10px;
+    color:#ffe58a;
     font-size:12px;
 }
 
-.footer strong{
-    color:#ffd700;
+.footer span{
+    color:#fff;
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
 
 @media(max-width:600px){
 
     .container{
         width:95%;
-        margin-top:10px;
+        margin-top:9px;
+    }
+
+    .header{
+        padding:22px 9px;
+    }
+
+    .header:before,
+    .header:after{
+        font-size:32px;
     }
 
     .logo{
         font-size:27px;
+        letter-spacing:1px;
     }
 
-    .header{
-        padding:21px 10px;
+    .trusted{
+        font-size:13px;
+        letter-spacing:2px;
     }
 
     .info{
@@ -425,16 +447,16 @@ tbody tr:hover{
     }
 
     .date-value{
-        font-size:20px;
+        font-size:21px;
     }
 
     .filter-box{
-        padding:16px 12px;
+        padding:17px 12px;
     }
 
     .date-input{
         width:100%;
-        margin-bottom:8px;
+        margin-bottom:7px;
     }
 
     .btn{
@@ -442,15 +464,15 @@ tbody tr:hover{
         margin:4px 0;
     }
 
-    .results-heading{
+    .results-head{
         padding:13px;
     }
 
-    .results-heading h2{
+    .results-head h2{
         font-size:16px;
     }
 
-    .update{
+    .auto{
         font-size:9px;
     }
 
@@ -460,7 +482,7 @@ tbody tr:hover{
     }
 
     .result{
-        font-size:19px;
+        font-size:20px;
     }
 }
 </style>
@@ -470,180 +492,215 @@ tbody tr:hover{
 
 <div class="container">
 
-    <!-- HEADER -->
+<!-- HEADER -->
 
-    <div class="header">
-        <div class="logo">♛ A.D.L LOTTERY ♛</div>
-        <div class="trusted">TRUSTED GAME</div>
-        <div class="play">PLAY SAFE • WIN BIG</div>
+<div class="header">
+
+    <div class="om">ॐ</div>
+
+    <div class="logo">
+        ♛ A.D.L LOTTERY ♛
     </div>
 
-    <div class="live-bar">
-        <span class="live-dot"></span>
-        🔴 🟢 A.D.L RESULT — हर 30 मिनट 🟢 🔴
+    <div class="trusted">
+        TRUSTED GAME
     </div>
 
-    <!-- INFO -->
-
-    <div class="info">
-
-        <h2>ADL लॉटरी</h2>
-
-        <p><b>ADL लॉटरी जिसमें आप</b></p>
-
-        <p>
-            4 घर 5 घर 6 घर 7 घर की क्रॉसिंग खेल सकते हैं।
-        </p>
-
-        <p>
-            01 से 100 तक के अंकों में से एक नंबर चुना जाएगा।
-        </p>
-
-        <p>
-            नमस्कार दोस्तों! ADL लॉटरी में हर 30 मिनट बाद रिजल्ट आता है।
-        </p>
-
-        <p>
-            रिजल्ट नीचे दिए गए टेबल में देखा जा सकता है।
-        </p>
-
-        <div class="highlight">
-            📢 नया Result आते ही नीचे Results Table में Update होगा।
-        </div>
-
+    <div class="play">
+        PLAY SAFE • WIN BIG
     </div>
 
-    <!-- DATE -->
+</div>
 
-    <div class="date-box">
 
-        <div class="date-label">
-            📅 SELECTED DATE
-        </div>
+<!-- NOTICE -->
 
-        <span class="date-value" id="todayDate">
-            Loading...
-        </span>
+<div class="notice">
 
+    <span class="live"></span>
+    🔱 🔴 A.D.L RESULT — हर 30 मिनट 🟢 🔱
+
+</div>
+
+
+<!-- INFORMATION -->
+
+<div class="info">
+
+    <h2>🔱 ADL लॉटरी 🔱</h2>
+
+    <p>
+        <b>ADL लॉटरी जिसमें आप</b>
+    </p>
+
+    <p>
+        4 घर 5 घर 6 घर 7 घर की क्रॉसिंग खेल सकते हैं।
+    </p>
+
+    <p>
+        01 से 100 तक के अंकों में से एक नंबर चुना जाएगा।
+    </p>
+
+    <p>
+        नमस्कार दोस्तों! ADL लॉटरी में हर 30 मिनट बाद रिजल्ट आता है।
+    </p>
+
+    <p>
+        रिजल्ट नीचे दिए गए Results Table में देखा जा सकता है।
+    </p>
+
+    <div class="info-highlight">
+        🔱 नया Result आते ही Results Table में Update होगा 🔱
     </div>
 
-    <!-- FILTER -->
+</div>
 
-    <div class="filter-box">
 
-        <div class="filter-title">
-            📅 पुरानी तारीख का Result देखें
-        </div>
+<!-- SELECTED DATE -->
 
-        <input
-            type="date"
-            id="resultDate"
-            class="date-input"
-        >
+<div class="date-box">
 
-        <br>
-
-        <button
-            class="btn btn-result"
-            onclick="loadResultsByDate()"
-        >
-            🔍 Result देखें
-        </button>
-
-        <button
-            class="btn btn-today"
-            onclick="loadTodayResults()"
-        >
-            🏠 आज का Result
-        </button>
-
+    <div class="date-title">
+        📅 SELECTED DATE
     </div>
 
-    <!-- RESULTS -->
+    <span
+        class="date-value"
+        id="todayDate"
+    >
+        Loading...
+    </span>
 
-    <div class="results-heading">
+</div>
 
-        <h2>📊 A.D.L RESULTS</h2>
 
-        <div class="update">
-            ● AUTO UPDATE
-        </div>
+<!-- DATE FILTER -->
 
+<div class="filter-box">
+
+    <div class="filter-title">
+        📅 पुरानी तारीख का Result देखें
     </div>
 
-    <div class="table-box">
+    <input
+        type="date"
+        id="resultDate"
+        class="date-input"
+    >
 
-        <table>
+    <br>
 
-            <thead>
-                <tr>
-                    <th>ROUND</th>
-                    <th>TIME</th>
-                    <th>RESULT</th>
-                </tr>
-            </thead>
+    <button
+        class="btn search-btn"
+        onclick="loadResultsByDate()"
+    >
+        🔍 Result देखें
+    </button>
 
-            <tbody id="resultsTable">
+    <button
+        class="btn today-btn"
+        onclick="loadTodayResults()"
+    >
+        🏠 आज का Result
+    </button>
 
-                <tr>
-                    <td colspan="3" class="loading">
-                        ⏳ Results Loading...
-                    </td>
-                </tr>
+</div>
 
-            </tbody>
 
-        </table>
+<!-- RESULTS -->
 
+<div class="results-head">
+
+    <h2>
+        📊 A.D.L RESULTS
+    </h2>
+
+    <div class="auto">
+        ● AUTO UPDATE
     </div>
 
-    <!-- GAME INFORMATION -->
+</div>
 
-    <div class="rate">
+<div class="table-box">
 
-        <h2>GAME INFORMATION</h2>
+<table>
 
-        <div class="game-item">
-            <span class="icon">☛</span>
-            <span>26 Rounds</span>
-        </div>
+<thead>
+<tr>
+    <th>ROUND</th>
+    <th>TIME</th>
+    <th>RESULT</th>
+</tr>
+</thead>
 
-        <div class="game-item">
-            <span class="icon">☛</span>
-            <span>हर 30 मिनट में Result</span>
-        </div>
+<tbody id="resultsTable">
 
-        <div class="game-item">
-            <span class="icon">☛</span>
-            <span>Number Range: 01 से 100</span>
-        </div>
+<tr>
+    <td
+        colspan="3"
+        class="loading"
+    >
+        ⏳ Results Loading...
+    </td>
+</tr>
 
-        <div class="fast">
-            ♻️ SUPER FAST RESULT UPDATE
-        </div>
+</tbody>
 
+</table>
+
+</div>
+
+
+<!-- GAME INFORMATION -->
+
+<div class="game-info">
+
+    <h2>
+        🔱 GAME INFORMATION 🔱
+    </h2>
+
+    <div class="game-row">
+        <span class="game-icon">☛</span>
+        <span>26 Rounds</span>
     </div>
 
-    <!-- WHATSAPP -->
-
-    <div class="whatsapp-box">
-
-        <a
-            class="whatsapp-button"
-            href="https://wa.me/9953878139"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            💬 WhatsApp Contact
-        </a>
-
+    <div class="game-row">
+        <span class="game-icon">☛</span>
+        <span>हर 30 मिनट में Result</span>
     </div>
 
-    <!-- FOOTER -->
-
-    <div class="footer">
-        © 2026 <strong>A.D.L Lottery</strong> • Results Portal
+    <div class="game-row">
+        <span class="game-icon">☛</span>
+        <span>Number Range: 01 से 100</span>
     </div>
+
+    <div class="fast">
+        ♻️ SUPER FAST RESULT UPDATE
+    </div>
+
+</div>
+
+
+<!-- WHATSAPP -->
+
+<div class="whatsapp">
+
+    <a
+        href="https://wa.me/9953878139"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        💬 WhatsApp Contact
+    </a>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+    🔱 <span>© 2026 A.D.L Lottery</span> 🔱
+</div>
 
 </div>
 
@@ -651,7 +708,7 @@ tbody tr:hover{
 <script>
 
 /* =========================
-   SUPABASE CONNECTION
+   SUPABASE
 ========================= */
 
 const SUPABASE_URL =
@@ -855,7 +912,7 @@ async function loadResultsByDate(){
 
 
 /* =========================
-   TODAY BUTTON
+   TODAY
 ========================= */
 
 function loadTodayResults(){
@@ -889,7 +946,6 @@ loadResultsByDate();
 
 /* =========================
    AUTO REFRESH
-   Every 30 seconds
 ========================= */
 
 setInterval(
