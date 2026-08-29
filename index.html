@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,10 +11,20 @@
 
 <style>
 
+/* =========================
+   BASIC
+========================= */
+
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
+}
+
+html,
+body{
+    width:100%;
+    overflow-x:hidden;
 }
 
 body{
@@ -22,10 +33,23 @@ body{
     color:#fff;
 
     background:
-    radial-gradient(circle at 10% 5%,rgba(255,215,0,.25),transparent 25%),
-    radial-gradient(circle at 90% 20%,rgba(0,255,100,.18),transparent 25%),
-    radial-gradient(circle at 50% 100%,rgba(255,70,0,.25),transparent 30%),
-    linear-gradient(135deg,#650000,#b90000,#006b2c,#003d1c);
+    radial-gradient(
+        circle at 10% 5%,
+        rgba(255,215,0,.25),
+        transparent 25%
+    ),
+    radial-gradient(
+        circle at 90% 20%,
+        rgba(0,255,100,.18),
+        transparent 25%
+    ),
+    linear-gradient(
+        135deg,
+        #650000,
+        #b90000,
+        #006b2c,
+        #003d1c
+    );
 }
 
 .container{
@@ -35,14 +59,17 @@ body{
 }
 
 
-/* ================= HEADER ================= */
+/* =========================
+   HEADER
+========================= */
 
 .header{
     position:relative;
     overflow:hidden;
+
     text-align:center;
 
-    padding:25px 12px;
+    padding:24px 10px;
 
     border:3px solid #ffd700;
     border-radius:24px;
@@ -64,25 +91,27 @@ body{
     content:"🔱";
 
     position:absolute;
-    left:12px;
+
+    left:10px;
     top:10px;
 
-    font-size:43px;
+    font-size:40px;
 }
 
 .header:after{
     content:"🔱";
 
     position:absolute;
-    right:12px;
+
+    right:10px;
     top:10px;
 
-    font-size:43px;
+    font-size:40px;
 }
 
 .om{
     color:#ffd700;
-    font-size:23px;
+    font-size:22px;
 
     text-shadow:
     0 2px 5px #000;
@@ -93,7 +122,8 @@ body{
 
     color:#ffe66b;
 
-    font-size:34px;
+    font-size:32px;
+
     font-weight:900;
 
     letter-spacing:2px;
@@ -104,7 +134,7 @@ body{
 }
 
 .trusted{
-    margin-top:7px;
+    margin-top:6px;
 
     font-weight:bold;
 
@@ -120,18 +150,21 @@ body{
 }
 
 
-/* ================= NOTICE ================= */
+/* =========================
+   NOTICE
+========================= */
 
 .notice{
     margin-top:14px;
 
-    padding:13px 10px;
+    padding:12px 8px;
 
     text-align:center;
 
     font-weight:bold;
 
     border:2px solid #ffd700;
+
     border-radius:15px;
 
     background:
@@ -152,7 +185,7 @@ body{
     width:9px;
     height:9px;
 
-    margin-right:6px;
+    margin-right:5px;
 
     border-radius:50%;
 
@@ -163,14 +196,17 @@ body{
 }
 
 
-/* ================= INFO ================= */
+/* =========================
+   INFO
+========================= */
 
 .info{
     margin-top:16px;
 
-    padding:21px;
+    padding:20px;
 
     border:3px solid #ffd700;
+
     border-radius:21px;
 
     background:
@@ -191,19 +227,19 @@ body{
 
     color:#aa0000;
 
-    margin-bottom:15px;
+    margin-bottom:14px;
 }
 
 .info p{
-    margin:9px 0;
+    margin:8px 0;
 
     line-height:1.6;
 }
 
 .highlight{
-    margin-top:15px;
+    margin-top:14px;
 
-    padding:12px;
+    padding:11px;
 
     text-align:center;
 
@@ -219,16 +255,19 @@ body{
 }
 
 
-/* ================= FILTER ================= */
+/* =========================
+   FILTER
+========================= */
 
 .filter-box{
     margin-top:16px;
 
-    padding:20px;
+    padding:18px;
 
     text-align:center;
 
     border:3px solid #ffd700;
+
     border-radius:20px;
 
     background:
@@ -249,22 +288,23 @@ body{
 
     font-weight:bold;
 
-    margin-bottom:14px;
+    margin-bottom:13px;
 }
 
 .date-input{
     width:200px;
 
-    padding:12px;
+    padding:11px;
 
     border:2px solid #ffd700;
+
     border-radius:10px;
 
     font-weight:bold;
 }
 
 .btn{
-    padding:12px 18px;
+    padding:11px 17px;
 
     margin:5px 3px;
 
@@ -275,12 +315,6 @@ body{
     font-weight:bold;
 
     cursor:pointer;
-
-    transition:.2s;
-}
-
-.btn:hover{
-    transform:translateY(-2px);
 }
 
 .search-btn{
@@ -308,12 +342,14 @@ body{
 }
 
 
-/* ================= RESULTS HEADER ================= */
+/* =========================
+   RESULTS TOP
+========================= */
 
 .results-head{
     margin-top:18px;
 
-    padding:14px 15px;
+    padding:12px 13px;
 
     display:flex;
 
@@ -321,7 +357,7 @@ body{
 
     align-items:center;
 
-    gap:12px;
+    gap:8px;
 
     border:3px solid #ffd700;
 
@@ -341,40 +377,42 @@ body{
 .results-head h2{
     color:#ffe36b;
 
-    font-size:20px;
+    font-size:19px;
 }
 
 .result-meta{
     text-align:right;
+
+    flex-shrink:0;
 }
 
 .selected-date{
     color:#fff;
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:bold;
 }
 
 .auto-update{
-    margin-top:4px;
+    margin-top:3px;
 
     color:#9cffb9;
 
-    font-size:10px;
+    font-size:9px;
 
     font-weight:bold;
 }
 
 
-/* ================= TABLE ================= */
+/* =========================
+   RESULTS TABLE
+========================= */
 
 .table-box{
     width:100%;
 
-    overflow-x:auto;
-
-    -webkit-overflow-scrolling:touch;
+    overflow:hidden;
 
     border:3px solid #ffd700;
 
@@ -390,25 +428,42 @@ body{
 table{
     width:100%;
 
-    min-width:480px;
+    table-layout:fixed;
 
-    border-collapse:separate;
-
-    border-spacing:0;
+    border-collapse:collapse;
 
     background:#fff;
 
     color:#111;
-
-    table-layout:auto;
 }
 
+
+/* COLUMN WIDTH */
+
+th:nth-child(1),
+td:nth-child(1){
+    width:22%;
+}
+
+th:nth-child(2),
+td:nth-child(2){
+    width:34%;
+}
+
+th:nth-child(3),
+td:nth-child(3){
+    width:44%;
+}
+
+
+/* TABLE HEADER */
+
 thead th{
-    padding:16px 8px;
+    padding:13px 4px;
 
     color:#fff;
 
-    font-size:14px;
+    font-size:13px;
 
     background:
     linear-gradient(
@@ -424,9 +479,8 @@ thead th{
     white-space:nowrap;
 }
 
-tbody tr{
-    transition:.2s;
-}
+
+/* TABLE ROWS */
 
 tbody tr:nth-child(odd){
     background:
@@ -450,8 +504,11 @@ tbody tr:hover{
     background:#ffeaa0;
 }
 
+
+/* CELLS */
+
 td{
-    padding:14px 8px;
+    padding:12px 3px;
 
     text-align:center;
 
@@ -459,7 +516,12 @@ td{
     1px solid #ddd;
 
     white-space:nowrap;
+
+    overflow:hidden;
 }
+
+
+/* ROUND */
 
 .round{
     color:#9b0000;
@@ -474,11 +536,11 @@ td{
 
     justify-content:center;
 
-    min-width:48px;
+    min-width:34px;
 
-    padding:6px 10px;
+    padding:5px 6px;
 
-    border-radius:20px;
+    border-radius:18px;
 
     color:#fff;
 
@@ -491,22 +553,29 @@ td{
 
     border:2px solid #ffd700;
 
-    font-weight:900;
+    font-size:13px;
 
-    box-shadow:
-    0 3px 8px rgba(0,0,0,.25);
+    font-weight:900;
 }
+
+
+/* TIME */
 
 .time-cell{
     color:#333;
 
+    font-size:12px;
+
     font-weight:bold;
 }
+
+
+/* RESULT */
 
 .result{
     color:#00852f;
 
-    font-size:22px;
+    font-size:20px;
 
     font-weight:900;
 }
@@ -518,13 +587,13 @@ td{
 
     justify-content:center;
 
-    min-width:72px;
+    min-width:58px;
 
-    width:auto;
+    max-width:100%;
 
-    padding:7px 14px;
+    padding:6px 8px;
 
-    border-radius:12px;
+    border-radius:11px;
 
     color:#fff;
 
@@ -540,26 +609,33 @@ td{
     box-shadow:
     0 3px 10px rgba(0,100,40,.3);
 
-    font-size:20px;
+    font-size:19px;
 
     font-weight:900;
 
     white-space:nowrap;
 }
 
+
+/* LOADING */
+
 .loading{
-    padding:28px !important;
+    padding:27px !important;
 
     color:#777;
+
+    font-size:14px;
 }
 
 
-/* ================= GAME INFO ================= */
+/* =========================
+   GAME INFORMATION
+========================= */
 
 .game-info{
     margin-top:18px;
 
-    padding:21px;
+    padding:20px;
 
     border:3px solid #ffd700;
 
@@ -581,7 +657,7 @@ td{
 
     color:#ffd700;
 
-    margin-bottom:15px;
+    margin-bottom:14px;
 }
 
 .game-row{
@@ -589,7 +665,7 @@ td{
 
     gap:10px;
 
-    padding:12px 4px;
+    padding:11px 4px;
 
     border-bottom:
     1px solid rgba(255,255,255,.15);
@@ -600,9 +676,9 @@ td{
 }
 
 .fast{
-    margin-top:17px;
+    margin-top:16px;
 
-    padding:11px;
+    padding:10px;
 
     text-align:center;
 
@@ -616,7 +692,9 @@ td{
 }
 
 
-/* ================= WHATSAPP ================= */
+/* =========================
+   WHATSAPP
+========================= */
 
 .whatsapp{
     margin-top:20px;
@@ -633,7 +711,7 @@ td{
 
     width:100%;
 
-    padding:16px;
+    padding:15px;
 
     color:#fff;
 
@@ -643,8 +721,7 @@ td{
 
     font-weight:bold;
 
-    border:
-    2px solid #baffd0;
+    border:2px solid #baffd0;
 
     border-radius:15px;
 
@@ -660,10 +737,12 @@ td{
 }
 
 
-/* ================= FOOTER ================= */
+/* =========================
+   FOOTER
+========================= */
 
 .footer{
-    padding:22px 5px 10px;
+    padding:21px 5px 10px;
 
     text-align:center;
 
@@ -673,41 +752,55 @@ td{
 }
 
 
-/* ================= MOBILE ================= */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
 
     .container{
-        width:95%;
+        width:94%;
     }
 
     .header{
-        padding:22px 8px;
+        padding:21px 7px;
     }
 
     .header:before,
     .header:after{
-        font-size:32px;
+        font-size:31px;
     }
 
     .logo{
-        font-size:27px;
+        font-size:26px;
+
+        letter-spacing:1px;
     }
 
     .trusted{
-        font-size:13px;
+        font-size:12px;
+
+        letter-spacing:2px;
+    }
+
+    .play{
+        font-size:11px;
     }
 
     .info{
-        padding:17px;
+        padding:16px;
 
         font-size:14px;
+    }
+
+    .filter-box{
+        padding:16px 12px;
     }
 
     .date-input{
         width:100%;
 
-        margin-bottom:7px;
+        margin-bottom:6px;
     }
 
     .btn{
@@ -716,70 +809,127 @@ td{
         margin:4px 0;
     }
 
+
+    /* RESULTS HEADER */
+
     .results-head{
-        padding:13px 10px;
+        padding:11px 8px;
+
+        gap:5px;
     }
 
     .results-head h2{
-        font-size:16px;
+        font-size:15px;
     }
 
     .selected-date{
-        font-size:10px;
+        font-size:9px;
     }
 
     .auto-update{
         font-size:8px;
     }
 
-    /*
-       Mobile table:
-       Full result number will remain visible.
-    */
+
+    /* TABLE */
 
     .table-box{
-        overflow-x:auto;
+        overflow:hidden;
     }
 
     table{
-        min-width:480px;
-        table-layout:auto;
+        width:100%;
+
+        min-width:0;
+
+        table-layout:fixed;
     }
 
-    th,
-    td{
-        white-space:nowrap;
+    th{
+        padding:11px 2px;
+
+        font-size:11px;
     }
+
+    td{
+        padding:10px 2px;
+
+        font-size:12px;
+    }
+
+
+    /* SMALL ROUND */
+
+    th:nth-child(1),
+    td:nth-child(1){
+        width:21%;
+    }
+
+
+    /* SMALL TIME */
+
+    th:nth-child(2),
+    td:nth-child(2){
+        width:35%;
+    }
+
+
+    /* BIG RESULT */
+
+    th:nth-child(3),
+    td:nth-child(3){
+        width:44%;
+    }
+
 
     .round-badge{
-        min-width:42px;
+        min-width:31px;
 
-        padding:5px 8px;
+        padding:4px 5px;
+
+        font-size:12px;
     }
 
-    .result-badge{
-        min-width:75px;
-
-        padding:7px 13px;
-
-        font-size:19px;
+    .time-cell{
+        font-size:11px;
     }
 
     .result{
-        font-size:19px;
+        font-size:18px;
     }
+
+    .result-badge{
+        min-width:54px;
+
+        padding:6px 7px;
+
+        font-size:18px;
+    }
+
+    .game-info{
+        padding:16px;
+    }
+
+    .whatsapp a{
+        font-size:16px;
+    }
+
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
 <div class="container">
 
 
-<!-- ================= HEADER ================= -->
+<!-- =========================
+     HEADER
+========================= -->
 
 <div class="header">
 
@@ -802,7 +952,9 @@ td{
 </div>
 
 
-<!-- ================= NOTICE ================= -->
+<!-- =========================
+     NOTICE
+========================= -->
 
 <div class="notice">
 
@@ -813,7 +965,9 @@ td{
 </div>
 
 
-<!-- ================= INFO ================= -->
+<!-- =========================
+     INFO
+========================= -->
 
 <div class="info">
 
@@ -850,7 +1004,9 @@ td{
 </div>
 
 
-<!-- ================= FILTER ================= -->
+<!-- =========================
+     DATE FILTER
+========================= -->
 
 <div class="filter-box">
 
@@ -893,7 +1049,9 @@ td{
 </div>
 
 
-<!-- ================= RESULTS HEADER ================= -->
+<!-- =========================
+     RESULTS HEADER
+========================= -->
 
 <div class="results-head">
 
@@ -925,7 +1083,9 @@ td{
 </div>
 
 
-<!-- ================= RESULTS TABLE ================= -->
+<!-- =========================
+     RESULTS TABLE
+========================= -->
 
 <div class="table-box">
 
@@ -974,7 +1134,9 @@ td{
 </div>
 
 
-<!-- ================= GAME INFO ================= -->
+<!-- =========================
+     GAME INFORMATION
+========================= -->
 
 <div class="game-info">
 
@@ -1031,7 +1193,9 @@ td{
 </div>
 
 
-<!-- ================= WHATSAPP ================= -->
+<!-- =========================
+     WHATSAPP
+========================= -->
 
 <div class="whatsapp">
 
@@ -1048,7 +1212,9 @@ td{
 </div>
 
 
-<!-- ================= FOOTER ================= -->
+<!-- =========================
+     FOOTER
+========================= -->
 
 <div class="footer">
 
@@ -1062,8 +1228,9 @@ td{
 
 <script>
 
+
 /* =========================
-   SUPABASE CONNECTION
+   SUPABASE
 ========================= */
 
 const SUPABASE_URL =
@@ -1087,22 +1254,34 @@ supabase.createClient(
 
 function getToday(){
 
-    const now = new Date();
+    const now =
+        new Date();
+
 
     const year =
         now.getFullYear();
 
+
     const month =
         String(
             now.getMonth()+1
-        ).padStart(2,"0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     const day =
         String(
             now.getDate()
-        ).padStart(2,"0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     return `${year}-${month}-${day}`;
+
 }
 
 
@@ -1115,15 +1294,16 @@ function displayDate(date){
     const parts =
         date.split("-");
 
+
     if(parts.length !== 3){
 
         return date;
 
     }
 
-    return `
-        ${parts[2]}/${parts[1]}/${parts[0]}
-    `;
+
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+
 }
 
 
@@ -1145,7 +1325,9 @@ function formatTime(time){
 
 
     let hour =
-        parseInt(parts[0]);
+        parseInt(
+            parts[0]
+        );
 
 
     const minute =
@@ -1163,6 +1345,7 @@ function formatTime(time){
 
 
     return `${hour}:${minute} ${ampm}`;
+
 }
 
 
@@ -1193,7 +1376,9 @@ async function loadResultsByDate(){
         "tableDate"
     ).textContent =
         "📅 " +
-        displayDate(selectedDate);
+        displayDate(
+            selectedDate
+        );
 
 
     const table =
@@ -1396,6 +1581,7 @@ setInterval(
 );
 
 </script>
+
 
 </body>
     </html>
