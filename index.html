@@ -9,251 +9,460 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
     box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:linear-gradient(135deg,#8b0000,#d40000,#006b24,#004d1a);
-    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    color:#fff;
+    background:
+        radial-gradient(circle at top,#7b0000 0%,transparent 38%),
+        radial-gradient(circle at bottom,#004d1b 0%,transparent 42%),
+        linear-gradient(135deg,#090909,#300000,#061c0d);
 }
+
+/* MAIN */
 
 .container{
     width:94%;
-    max-width:900px;
-    margin:15px auto;
+    max-width:850px;
+    margin:18px auto 30px;
 }
+
+/* HEADER */
 
 .header{
+    position:relative;
+    overflow:hidden;
     text-align:center;
-    background:linear-gradient(135deg,#b30000,#006b24);
-    border:3px solid #ffd700;
-    padding:20px 12px;
-    border-radius:18px;
-    box-shadow:0 0 20px rgba(255,215,0,.45);
+    padding:25px 15px;
+    border:1px solid rgba(255,215,0,.8);
+    border-radius:22px;
+    background:
+        linear-gradient(145deg,rgba(170,0,0,.95),rgba(0,105,35,.95));
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.45),
+        inset 0 0 25px rgba(255,215,0,.12);
 }
 
-.header h1{
-    margin:0;
+.header:before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(255,215,0,.08);
+    top:-100px;
+    left:-80px;
+}
+
+.header:after{
+    content:"";
+    position:absolute;
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    background:rgba(255,255,255,.05);
+    right:-70px;
+    bottom:-100px;
+}
+
+.logo{
+    position:relative;
+    z-index:2;
+    font-size:34px;
+    font-weight:900;
     color:#ffd700;
-    font-size:32px;
-    text-shadow:2px 2px 3px #000;
+    letter-spacing:1px;
+    text-shadow:0 3px 5px #000;
 }
 
-.header p{
-    margin:7px 0;
+.trusted{
+    margin-top:9px;
+    font-size:15px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.play{
+    margin-top:5px;
+    font-size:13px;
+    color:#ffe88a;
+    letter-spacing:1px;
+}
+
+/* LIVE BAR */
+
+.live-bar{
+    margin-top:14px;
+    padding:12px;
+    text-align:center;
+    border-radius:13px;
+    background:linear-gradient(90deg,#9b0000,#e00000,#00852b);
+    border:1px solid #ffd700;
+    box-shadow:0 5px 18px rgba(0,0,0,.3);
     font-weight:bold;
 }
 
+.live-dot{
+    display:inline-block;
+    width:9px;
+    height:9px;
+    background:#00ff55;
+    border-radius:50%;
+    margin-right:6px;
+    box-shadow:0 0 10px #00ff55;
+}
+
+/* INFO */
+
 .info{
-    margin-top:15px;
-    background:white;
-    color:#111;
-    padding:20px;
-    border-radius:18px;
-    border:4px solid #ffd700;
-    line-height:1.7;
+    margin-top:16px;
+    padding:22px;
+    border-radius:20px;
+    background:rgba(255,255,255,.97);
+    color:#171717;
+    border:2px solid #ffd700;
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
 }
 
 .info h2{
     text-align:center;
-    color:#c40000;
-    margin-top:0;
+    color:#a90000;
+    margin-bottom:15px;
+    font-size:23px;
 }
 
-.notice{
-    margin-top:15px;
-    padding:14px;
-    background:#ffd700;
-    color:#8b0000;
-    border:3px solid white;
-    border-radius:14px;
-    text-align:center;
-    font-weight:bold;
-    font-size:17px;
+.info p{
+    margin:9px 0;
+    line-height:1.6;
 }
+
+.highlight{
+    margin-top:15px;
+    padding:12px;
+    text-align:center;
+    border-radius:12px;
+    background:#fff4c2;
+    border-left:5px solid #ffd700;
+    font-weight:bold;
+}
+
+/* DATE */
 
 .date-box{
-    margin-top:15px;
-    background:#006b24;
-    border:3px solid #ffd700;
-    padding:15px;
-    border-radius:14px;
+    margin-top:16px;
+    padding:17px;
     text-align:center;
+    border-radius:18px;
+    background:linear-gradient(135deg,#075f26,#00852f);
+    border:2px solid #ffd700;
+    box-shadow:0 7px 20px rgba(0,0,0,.3);
 }
 
-.date-box span{
-    color:#ffd700;
-    font-weight:bold;
+.date-label{
+    font-size:13px;
+    opacity:.9;
 }
+
+.date-value{
+    display:block;
+    margin-top:5px;
+    color:#ffd700;
+    font-size:23px;
+    font-weight:900;
+}
+
+/* FILTER */
 
 .filter-box{
-    margin-top:15px;
-    background:#111;
-    border:3px solid #ffd700;
-    padding:16px;
-    border-radius:15px;
+    margin-top:16px;
+    padding:20px;
     text-align:center;
+    border-radius:18px;
+    background:rgba(10,10,10,.92);
+    border:2px solid #ffd700;
+    box-shadow:0 7px 20px rgba(0,0,0,.35);
 }
 
 .filter-title{
     color:#ffd700;
+    font-size:17px;
     font-weight:bold;
-    margin-bottom:12px;
+    margin-bottom:15px;
 }
 
-.filter-box input{
-    padding:11px;
-    border-radius:8px;
+.date-input{
+    width:190px;
+    padding:12px;
+    border-radius:10px;
     border:2px solid #ffd700;
+    background:#fff;
+    color:#111;
     font-size:15px;
-    width:180px;
+    font-weight:bold;
 }
 
-.filter-box button{
-    margin:5px;
-    padding:11px 15px;
+.btn{
+    padding:12px 17px;
+    margin:5px 3px;
     border:none;
-    border-radius:8px;
-    background:#ffd700;
-    color:#8b0000;
-    font-weight:bold;
+    border-radius:10px;
     cursor:pointer;
+    font-weight:bold;
+    font-size:14px;
+    transition:.2s;
 }
+
+.btn-result{
+    background:#ffd700;
+    color:#700000;
+}
+
+.btn-today{
+    background:#00852b;
+    color:#fff;
+    border:1px solid #38ff7b;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+/* RESULT TITLE */
+
+.results-heading{
+    margin-top:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:15px 17px;
+    border-radius:16px 16px 0 0;
+    background:linear-gradient(90deg,#a90000,#750000);
+    border:2px solid #ffd700;
+    border-bottom:none;
+}
+
+.results-heading h2{
+    font-size:19px;
+    color:#ffd700;
+}
+
+.update{
+    font-size:11px;
+    color:#b9ffcc;
+}
+
+/* TABLE */
 
 .table-box{
-    margin-top:15px;
     overflow-x:auto;
-    border-radius:15px;
-    border:3px solid #ffd700;
+    border:2px solid #ffd700;
+    border-top:none;
+    border-radius:0 0 16px 16px;
+    box-shadow:0 8px 25px rgba(0,0,0,.4);
 }
 
 table{
     width:100%;
-    min-width:450px;
+    min-width:430px;
     border-collapse:collapse;
-    background:white;
+    background:#fff;
     color:#111;
 }
 
 th{
-    background:#b30000;
-    color:#ffd700;
     padding:14px 8px;
-    font-size:16px;
-    border-bottom:3px solid #ffd700;
+    background:#171717;
+    color:#ffd700;
+    font-size:14px;
+    border-bottom:2px solid #ffd700;
 }
 
 td{
-    padding:12px 8px;
+    padding:13px 8px;
     text-align:center;
-    border-bottom:1px solid #ddd;
+    border-bottom:1px solid #e5e5e5;
+    font-size:15px;
 }
 
 tbody tr:nth-child(even){
-    background:#e9ffe9;
+    background:#f3fff5;
+}
+
+tbody tr:hover{
+    background:#fff8d5;
 }
 
 .round{
-    font-weight:bold;
-    color:#b30000;
+    color:#a90000;
+    font-weight:900;
 }
 
 .result{
-    font-weight:bold;
     color:#00852b;
-    font-size:18px;
+    font-size:21px;
+    font-weight:900;
 }
 
+/* LOADING */
+
+.loading{
+    padding:25px!important;
+    color:#777;
+}
+
+/* GAME INFORMATION */
+
 .rate{
-    margin-top:15px;
-    background:#006b24;
-    border:3px solid #ffd700;
-    padding:20px;
-    border-radius:18px;
+    margin-top:18px;
+    padding:21px;
+    border-radius:19px;
+    background:linear-gradient(145deg,#075d26,#003d19);
+    border:2px solid #ffd700;
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
 }
 
 .rate h2{
-    color:#ffd700;
     text-align:center;
-    margin-top:0;
+    color:#ffd700;
+    margin-bottom:17px;
 }
 
-.line{
+.game-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:11px 5px;
+    border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.game-item:last-child{
+    border-bottom:none;
+}
+
+.icon{
+    color:#ffd700;
+    font-size:17px;
+}
+
+.fast{
+    margin-top:16px;
     text-align:center;
     color:#ffd700;
+    font-weight:bold;
 }
+
+/* WHATSAPP */
 
 .whatsapp-box{
-    margin-top:18px;
+    margin-top:20px;
     text-align:center;
 }
 
 .whatsapp-button{
-    display:inline-block;
-    width:90%;
-    max-width:350px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    width:100%;
     padding:15px 20px;
-    background:#25D366;
-    color:white;
-    text-decoration:none;
-    border:3px solid #ffd700;
     border-radius:14px;
-    font-size:18px;
+    background:#25D366;
+    color:#fff;
+    text-decoration:none;
+    font-size:17px;
     font-weight:bold;
-    box-shadow:0 5px 15px rgba(0,0,0,.4);
+    border:2px solid #baffd0;
+    box-shadow:0 7px 22px rgba(0,0,0,.4);
+    transition:.2s;
 }
 
 .whatsapp-button:hover{
+    transform:translateY(-2px);
     background:#1ebe5d;
-    transform:scale(1.02);
 }
+
+/* FOOTER */
 
 .footer{
     text-align:center;
-    padding:20px 10px;
-    font-size:13px;
+    margin-top:22px;
+    padding:18px 5px;
+    color:#d9d9d9;
+    font-size:12px;
+}
+
+.footer strong{
     color:#ffd700;
 }
 
-@media(max-width:500px){
+/* MOBILE */
+
+@media(max-width:600px){
 
     .container{
-        width:96%;
+        width:95%;
+        margin-top:10px;
     }
 
-    .header h1{
-        font-size:26px;
+    .logo{
+        font-size:27px;
+    }
+
+    .header{
+        padding:21px 10px;
     }
 
     .info{
-        padding:16px;
+        padding:17px;
         font-size:14px;
     }
 
-    th,td{
-        padding:10px 6px;
-        font-size:14px;
+    .date-value{
+        font-size:20px;
     }
 
-    .filter-box input{
+    .filter-box{
+        padding:16px 12px;
+    }
+
+    .date-input{
         width:100%;
         margin-bottom:8px;
     }
 
-    .filter-box button{
+    .btn{
         width:100%;
         margin:4px 0;
     }
 
-    .whatsapp-button{
-        width:100%;
+    .results-heading{
+        padding:13px;
+    }
+
+    .results-heading h2{
+        font-size:16px;
+    }
+
+    .update{
+        font-size:9px;
+    }
+
+    th,td{
+        padding:11px 6px;
+        font-size:13px;
+    }
+
+    .result{
+        font-size:19px;
     }
 }
-
 </style>
 </head>
 
@@ -261,141 +470,189 @@ tbody tr:nth-child(even){
 
 <div class="container">
 
-<div class="header">
-    <h1>♛ A.D.L Lottery ♛</h1>
-    <p>TRUSTED GAME</p>
-    <p>PLAY SAFE • WIN BIG</p>
-</div>
+    <!-- HEADER -->
 
-<div class="info">
-
-    <h2>ADL लॉटरी</h2>
-
-    <p><b>ADL लॉटरी जिसमें आप</b></p>
-
-    <p>
-        4 घर 5 घर 6 घर 7 घर की क्रॉसिंग खेल सकते हैं।
-    </p>
-
-    <p>
-        01 से 100 तक के अंकों में से एक नंबर चुना जाएगा।
-    </p>
-
-    <p>
-        नमस्कार दोस्तों! ADL लॉटरी में हर 30 मिनट बाद रिजल्ट आता है।
-    </p>
-
-    <p>
-        रिजल्ट नीचे दिए गए टेबल में देखा जा सकता है।
-    </p>
-
-</div>
-
-<div class="notice">
-    🔴 🟢 A.D.L RESULT — हर 30 मिनट 🟢 🔴
-</div>
-
-<div class="date-box">
-
-    📅 Selected Date:
-    <span id="todayDate">Loading...</span>
-
-</div>
-
-<div class="filter-box">
-
-    <div class="filter-title">
-        📅 पुरानी तारीख का Result देखें
+    <div class="header">
+        <div class="logo">♛ A.D.L LOTTERY ♛</div>
+        <div class="trusted">TRUSTED GAME</div>
+        <div class="play">PLAY SAFE • WIN BIG</div>
     </div>
 
-    <input
-        type="date"
-        id="resultDate"
-    >
-
-    <button onclick="loadResultsByDate()">
-        🔍 Result देखें
-    </button>
-
-    <button onclick="loadTodayResults()">
-        🏠 आज का Result
-    </button>
-
-</div>
-
-<div class="table-box">
-
-<table>
-
-<thead>
-<tr>
-    <th>Round</th>
-    <th>Time</th>
-    <th>Result</th>
-</tr>
-</thead>
-
-<tbody id="resultsTable">
-
-<tr>
-    <td colspan="3">
-        Results Loading...
-    </td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-<div class="rate">
-
-    <h2>GAME INFORMATION</h2>
-
-    <p>☛ 26 Rounds</p>
-
-    <p>☛ हर 30 मिनट में Result</p>
-
-    <p>☛ Number Range: 01 से 100</p>
-
-    <p class="line">
-        ⩸⩸⩸⩸⩸⩸⩸⩸⩸⩸⩸⩸
-    </p>
-
-    <div style="text-align:center;color:#ffd700;font-weight:bold;">
-        ♻️ SUPER FAST RESULT UPDATE
+    <div class="live-bar">
+        <span class="live-dot"></span>
+        🔴 🟢 A.D.L RESULT — हर 30 मिनट 🟢 🔴
     </div>
 
-</div>
+    <!-- INFO -->
 
+    <div class="info">
 
-<!-- WHATSAPP BUTTON -->
+        <h2>ADL लॉटरी</h2>
 
-<div class="whatsapp-box">
+        <p><b>ADL लॉटरी जिसमें आप</b></p>
 
-    <a
-        class="whatsapp-button"
-        href="https://wa.me/9953878139"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        💬 WhatsApp Contact
-    </a>
+        <p>
+            4 घर 5 घर 6 घर 7 घर की क्रॉसिंग खेल सकते हैं।
+        </p>
 
-</div>
+        <p>
+            01 से 100 तक के अंकों में से एक नंबर चुना जाएगा।
+        </p>
 
+        <p>
+            नमस्कार दोस्तों! ADL लॉटरी में हर 30 मिनट बाद रिजल्ट आता है।
+        </p>
 
-<div class="footer">
-    © 2024 A.D.L Lottery
-</div>
+        <p>
+            रिजल्ट नीचे दिए गए टेबल में देखा जा सकता है।
+        </p>
+
+        <div class="highlight">
+            📢 नया Result आते ही नीचे Results Table में Update होगा।
+        </div>
+
+    </div>
+
+    <!-- DATE -->
+
+    <div class="date-box">
+
+        <div class="date-label">
+            📅 SELECTED DATE
+        </div>
+
+        <span class="date-value" id="todayDate">
+            Loading...
+        </span>
+
+    </div>
+
+    <!-- FILTER -->
+
+    <div class="filter-box">
+
+        <div class="filter-title">
+            📅 पुरानी तारीख का Result देखें
+        </div>
+
+        <input
+            type="date"
+            id="resultDate"
+            class="date-input"
+        >
+
+        <br>
+
+        <button
+            class="btn btn-result"
+            onclick="loadResultsByDate()"
+        >
+            🔍 Result देखें
+        </button>
+
+        <button
+            class="btn btn-today"
+            onclick="loadTodayResults()"
+        >
+            🏠 आज का Result
+        </button>
+
+    </div>
+
+    <!-- RESULTS -->
+
+    <div class="results-heading">
+
+        <h2>📊 A.D.L RESULTS</h2>
+
+        <div class="update">
+            ● AUTO UPDATE
+        </div>
+
+    </div>
+
+    <div class="table-box">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ROUND</th>
+                    <th>TIME</th>
+                    <th>RESULT</th>
+                </tr>
+            </thead>
+
+            <tbody id="resultsTable">
+
+                <tr>
+                    <td colspan="3" class="loading">
+                        ⏳ Results Loading...
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- GAME INFORMATION -->
+
+    <div class="rate">
+
+        <h2>GAME INFORMATION</h2>
+
+        <div class="game-item">
+            <span class="icon">☛</span>
+            <span>26 Rounds</span>
+        </div>
+
+        <div class="game-item">
+            <span class="icon">☛</span>
+            <span>हर 30 मिनट में Result</span>
+        </div>
+
+        <div class="game-item">
+            <span class="icon">☛</span>
+            <span>Number Range: 01 से 100</span>
+        </div>
+
+        <div class="fast">
+            ♻️ SUPER FAST RESULT UPDATE
+        </div>
+
+    </div>
+
+    <!-- WHATSAPP -->
+
+    <div class="whatsapp-box">
+
+        <a
+            class="whatsapp-button"
+            href="https://wa.me/9953878139"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            💬 WhatsApp Contact
+        </a>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+        © 2026 <strong>A.D.L Lottery</strong> • Results Portal
+    </div>
 
 </div>
 
 
 <script>
 
-/* SUPABASE */
+/* =========================
+   SUPABASE CONNECTION
+========================= */
 
 const SUPABASE_URL =
 "https://hjfzngpuxbfoflxoyxgu.supabase.co";
@@ -410,7 +667,9 @@ supabase.createClient(
 );
 
 
-/* TODAY */
+/* =========================
+   TODAY
+========================= */
 
 function getToday(){
 
@@ -431,18 +690,26 @@ function getToday(){
 }
 
 
-/* DISPLAY DATE */
+/* =========================
+   DISPLAY DATE
+========================= */
 
 function displayDate(date){
 
     const parts =
         date.split("-");
 
+    if(parts.length !== 3){
+        return date;
+    }
+
     return `${parts[2]}-${parts[1]}-${parts[0]}`;
 }
 
 
-/* TIME */
+/* =========================
+   TIME
+========================= */
 
 function formatTime(time){
 
@@ -457,7 +724,7 @@ function formatTime(time){
         parseInt(parts[0]);
 
     const minute =
-        parts[1];
+        parts[1] || "00";
 
     const ampm =
         hour >= 12 ? "PM" : "AM";
@@ -469,7 +736,9 @@ function formatTime(time){
 }
 
 
-/* LOAD RESULTS */
+/* =========================
+   LOAD RESULTS
+========================= */
 
 async function loadResultsByDate(){
 
@@ -485,6 +754,7 @@ async function loadResultsByDate(){
         return;
     }
 
+
     document.getElementById(
         "todayDate"
     ).textContent =
@@ -499,8 +769,8 @@ async function loadResultsByDate(){
 
     table.innerHTML = `
         <tr>
-            <td colspan="3">
-                Results Loading...
+            <td colspan="3" class="loading">
+                ⏳ Results Loading...
             </td>
         </tr>
     `;
@@ -530,8 +800,8 @@ async function loadResultsByDate(){
 
         table.innerHTML = `
             <tr>
-                <td colspan="3">
-à                    Result load नहीं हो रहा।
+                <td colspan="3" class="loading">
+                    ⚠️ Result load नहीं हो पाया।
                 </td>
             </tr>
         `;
@@ -544,8 +814,8 @@ async function loadResultsByDate(){
 
         table.innerHTML = `
             <tr>
-                <td colspan="3">
-                    इस तारीख का कोई result उपलब्ध नहीं है।
+                <td colspan="3" class="loading">
+                    📭 इस तारीख का कोई result उपलब्ध नहीं है।
                 </td>
             </tr>
         `;
@@ -584,7 +854,9 @@ async function loadResultsByDate(){
 }
 
 
-/* TODAY BUTTON */
+/* =========================
+   TODAY BUTTON
+========================= */
 
 function loadTodayResults(){
 
@@ -600,7 +872,9 @@ function loadTodayResults(){
 }
 
 
-/* START */
+/* =========================
+   START
+========================= */
 
 const today =
     getToday();
@@ -613,7 +887,10 @@ document.getElementById(
 loadResultsByDate();
 
 
-/* AUTO REFRESH */
+/* =========================
+   AUTO REFRESH
+   Every 30 seconds
+========================= */
 
 setInterval(
     loadResultsByDate,
@@ -623,4 +900,4 @@ setInterval(
 </script>
 
 </body>
-</html>
+    </html>
