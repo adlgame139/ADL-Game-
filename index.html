@@ -17,7 +17,8 @@
     padding:0;
 }
 
-html,body{
+html,
+body{
     width:100%;
     overflow-x:hidden;
 }
@@ -28,9 +29,23 @@ body{
     color:#fff;
 
     background:
-    radial-gradient(circle at 10% 5%,rgba(255,215,0,.25),transparent 25%),
-    radial-gradient(circle at 90% 20%,rgba(0,255,100,.18),transparent 25%),
-    linear-gradient(135deg,#650000,#b90000,#006b2c,#003d1c);
+    radial-gradient(
+        circle at 10% 5%,
+        rgba(255,215,0,.25),
+        transparent 25%
+    ),
+    radial-gradient(
+        circle at 90% 20%,
+        rgba(0,255,100,.18),
+        transparent 25%
+    ),
+    linear-gradient(
+        135deg,
+        #650000,
+        #b90000,
+        #006b2c,
+        #003d1c
+    );
 }
 
 .container{
@@ -38,6 +53,9 @@ body{
     max-width:900px;
     margin:15px auto 30px;
 }
+
+
+/* HEADER */
 
 .header{
     position:relative;
@@ -49,7 +67,12 @@ body{
     border-radius:24px;
 
     background:
-    linear-gradient(135deg,#970000,#e12c00,#087735);
+    linear-gradient(
+        135deg,
+        #970000,
+        #e12c00,
+        #087735
+    );
 
     box-shadow:
     0 0 28px rgba(255,215,0,.4),
@@ -102,6 +125,9 @@ body{
     font-size:13px;
 }
 
+
+/* NOTICE */
+
 .notice{
     margin-top:14px;
     padding:12px 8px;
@@ -112,9 +138,15 @@ body{
     border-radius:15px;
 
     background:
-    linear-gradient(90deg,#970000,#ed2600,#087a35);
+    linear-gradient(
+        90deg,
+        #970000,
+        #ed2600,
+        #087a35
+    );
 
-    box-shadow:0 5px 18px rgba(0,0,0,.35);
+    box-shadow:
+    0 5px 18px rgba(0,0,0,.35);
 }
 
 .live-dot{
@@ -123,9 +155,15 @@ body{
     height:9px;
     margin-right:5px;
     border-radius:50%;
+
     background:#00ff55;
-    box-shadow:0 0 12px #00ff55;
+
+    box-shadow:
+    0 0 12px #00ff55;
 }
+
+
+/* INFO */
 
 .info{
     margin-top:16px;
@@ -135,11 +173,16 @@ body{
     border-radius:21px;
 
     background:
-    linear-gradient(145deg,#ffffff,#fff6cf);
+    linear-gradient(
+        145deg,
+        #ffffff,
+        #fff6cf
+    );
 
     color:#222;
 
-    box-shadow:0 8px 25px rgba(0,0,0,.35);
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.35);
 }
 
 .info h2{
@@ -164,6 +207,9 @@ body{
     border:1px solid #e0a700;
 }
 
+
+/* FILTER */
+
 .filter-box{
     margin-top:16px;
     padding:18px;
@@ -173,9 +219,14 @@ body{
     border-radius:20px;
 
     background:
-    linear-gradient(145deg,#420000,#100000);
+    linear-gradient(
+        145deg,
+        #420000,
+        #100000
+    );
 
-    box-shadow:0 8px 25px rgba(0,0,0,.4);
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.4);
 }
 
 .filter-title{
@@ -203,15 +254,30 @@ body{
 }
 
 .search-btn{
-    background:linear-gradient(135deg,#ffd700,#ffad00);
+    background:
+    linear-gradient(
+        135deg,
+        #ffd700,
+        #ffad00
+    );
+
     color:#650000;
 }
 
 .today-btn{
-    background:linear-gradient(135deg,#00a947,#006a2b);
+    background:
+    linear-gradient(
+        135deg,
+        #00a947,
+        #006a2b
+    );
+
     color:#fff;
     border:1px solid #61ff9c;
 }
+
+
+/* RESULTS HEADER */
 
 .results-head{
     margin-top:18px;
@@ -227,7 +293,12 @@ body{
     border-radius:20px 20px 0 0;
 
     background:
-    linear-gradient(90deg,#780000,#c60000,#00752f);
+    linear-gradient(
+        90deg,
+        #780000,
+        #c60000,
+        #00752f
+    );
 }
 
 .results-head h2{
@@ -253,6 +324,9 @@ body{
     font-weight:bold;
 }
 
+
+/* TABLE */
+
 .table-box{
     width:100%;
     overflow:hidden;
@@ -261,7 +335,8 @@ body{
     border-top:0;
     border-radius:0 0 20px 20px;
 
-    box-shadow:0 10px 30px rgba(0,0,0,.45);
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.45);
 }
 
 table{
@@ -294,21 +369,35 @@ thead th{
     font-size:13px;
 
     background:
-    linear-gradient(135deg,#7c0000,#d00000,#8b0000);
+    linear-gradient(
+        135deg,
+        #7c0000,
+        #d00000,
+        #8b0000
+    );
 
-    border-bottom:3px solid #ffd700;
+    border-bottom:
+    3px solid #ffd700;
 
     white-space:nowrap;
 }
 
 tbody tr:nth-child(odd){
     background:
-    linear-gradient(90deg,#fff8d9,#ffffff);
+    linear-gradient(
+        90deg,
+        #fff8d9,
+        #ffffff
+    );
 }
 
 tbody tr:nth-child(even){
     background:
-    linear-gradient(90deg,#e1ffea,#ffffff);
+    linear-gradient(
+        90deg,
+        #e1ffea,
+        #ffffff
+    );
 }
 
 tbody tr:hover{
@@ -319,7 +408,8 @@ td{
     padding:12px 3px;
     text-align:center;
 
-    border-bottom:1px solid #ddd;
+    border-bottom:
+    1px solid #ddd;
 
     white-space:nowrap;
     overflow:hidden;
@@ -342,7 +432,11 @@ td{
     color:#fff;
 
     background:
-    linear-gradient(135deg,#d00000,#850000);
+    linear-gradient(
+        135deg,
+        #d00000,
+        #850000
+    );
 
     border:2px solid #ffd700;
 
@@ -375,11 +469,16 @@ td{
     color:#fff;
 
     background:
-    linear-gradient(135deg,#00a947,#006e2c);
+    linear-gradient(
+        135deg,
+        #00a947,
+        #006e2c
+    );
 
     border:2px solid #ffd700;
 
-    box-shadow:0 3px 10px rgba(0,100,40,.3);
+    box-shadow:
+    0 3px 10px rgba(0,100,40,.3);
 
     font-size:19px;
     font-weight:900;
@@ -392,6 +491,9 @@ td{
     font-size:14px;
 }
 
+
+/* RATE */
+
 .rate-box{
     text-align:center;
     margin:15px auto;
@@ -402,11 +504,17 @@ td{
     border-radius:15px;
 
     background:
-    linear-gradient(135deg,#fff7d1,#ffd85c,#fff1a8);
+    linear-gradient(
+        135deg,
+        #fff7d1,
+        #ffd85c,
+        #fff1a8
+    );
 
     border:2px solid #d49b00;
 
-    box-shadow:0 4px 12px rgba(0,0,0,0.18);
+    box-shadow:
+    0 4px 12px rgba(0,0,0,0.18);
 }
 
 .gift{
@@ -429,6 +537,9 @@ td{
     margin:2px 0 6px;
 }
 
+
+/* GAME INFO */
+
 .game-info{
     margin-top:18px;
     padding:20px;
@@ -437,9 +548,14 @@ td{
     border-radius:21px;
 
     background:
-    linear-gradient(145deg,#006c2d,#003e1b);
+    linear-gradient(
+        145deg,
+        #006c2d,
+        #003e1b
+    );
 
-    box-shadow:0 8px 25px rgba(0,0,0,.4);
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.4);
 }
 
 .game-info h2{
@@ -453,7 +569,8 @@ td{
     gap:10px;
     padding:11px 4px;
 
-    border-bottom:1px solid rgba(255,255,255,.15);
+    border-bottom:
+    1px solid rgba(255,255,255,.15);
 }
 
 .game-icon{
@@ -469,6 +586,9 @@ td{
     border-radius:12px;
     background:#ffd700;
 }
+
+
+/* WHATSAPP */
 
 .whatsapp{
     margin-top:20px;
@@ -493,10 +613,18 @@ td{
     border-radius:15px;
 
     background:
-    linear-gradient(135deg,#25d366,#07963e);
+    linear-gradient(
+        135deg,
+        #25d366,
+        #07963e
+    );
 
-    box-shadow:0 8px 23px rgba(0,0,0,.4);
+    box-shadow:
+    0 8px 23px rgba(0,0,0,.4);
 }
+
+
+/* FOOTER */
 
 .footer{
     padding:21px 5px 10px;
@@ -504,6 +632,9 @@ td{
     color:#ffe58a;
     font-size:12px;
 }
+
+
+/* MOBILE */
 
 @media(max-width:600px){
 
@@ -633,13 +764,17 @@ td{
 </style>
 </head>
 
+
 <body>
 
 <div class="container">
 
+
 <div class="header">
 
-    <div class="om">ॐ</div>
+    <div class="om">
+        ॐ
+    </div>
 
     <div class="logo">
         ♛ A.D.L LOTTERY ♛
@@ -655,6 +790,7 @@ td{
 
 </div>
 
+
 <div class="notice">
 
     <span class="live-dot"></span>
@@ -663,9 +799,12 @@ td{
 
 </div>
 
+
 <div class="info">
 
-    <h2>🔱 ADL लॉटरी 🔱</h2>
+    <h2>
+        🔱 ADL लॉटरी 🔱
+    </h2>
 
     <p>
         <b>ADL लॉटरी जिसमें आप</b>
@@ -692,6 +831,7 @@ td{
     </div>
 
 </div>
+
 
 <div class="filter-box">
 
@@ -723,6 +863,7 @@ td{
 
 </div>
 
+
 <div class="results-head">
 
     <h2>
@@ -746,6 +887,7 @@ td{
 
 </div>
 
+
 <div class="table-box">
 
 <table>
@@ -753,19 +895,35 @@ td{
 <thead>
 
 <tr>
-    <th>ROUND</th>
-    <th>TIME</th>
-    <th>RESULT</th>
+
+    <th>
+        ROUND
+    </th>
+
+    <th>
+        TIME
+    </th>
+
+    <th>
+        RESULT
+    </th>
+
 </tr>
 
 </thead>
 
+
 <tbody id="resultsTable">
 
 <tr>
-    <td colspan="3" class="loading">
+
+    <td
+        colspan="3"
+        class="loading"
+    >
         ⏳ Results Loading...
     </td>
+
 </tr>
 
 </tbody>
@@ -773,6 +931,7 @@ td{
 </table>
 
 </div>
+
 
 <div class="rate-box">
 
@@ -802,6 +961,7 @@ td{
 
 </div>
 
+
 <div class="game-info">
 
     <h2>
@@ -809,18 +969,39 @@ td{
     </h2>
 
     <div class="game-row">
-        <span class="game-icon">☛</span>
-        <span>26 Rounds</span>
+
+        <span class="game-icon">
+            ☛
+        </span>
+
+        <span>
+            26 Rounds
+        </span>
+
     </div>
 
     <div class="game-row">
-        <span class="game-icon">☛</span>
-        <span>हर 30 मिनट में Result</span>
+
+        <span class="game-icon">
+            ☛
+        </span>
+
+        <span>
+            हर 30 मिनट में Result
+        </span>
+
     </div>
 
     <div class="game-row">
-        <span class="game-icon">☛</span>
-        <span>Number Range: 00 से 100</span>
+
+        <span class="game-icon">
+            ☛
+        </span>
+
+        <span>
+            Number Range: 00 से 100
+        </span>
+
     </div>
 
     <div class="fast">
@@ -828,6 +1009,7 @@ td{
     </div>
 
 </div>
+
 
 <div class="whatsapp">
 
@@ -841,11 +1023,14 @@ td{
 
 </div>
 
+
 <div class="footer">
     🔱 © 2026 A.D.L Lottery 🔱
 </div>
 
+
 </div>
+
 
 <script>
 
@@ -930,7 +1115,9 @@ function formatTime(time){
     }
 
     const ampm =
-        hour >= 12 ? "PM" : "AM";
+        hour >= 12
+        ? "PM"
+        : "AM";
 
     hour =
         hour % 12 || 12;
@@ -940,7 +1127,7 @@ function formatTime(time){
 
 
 /* =========================
-   LOAD RESULTS BY DATE
+   LOAD RESULTS
 ========================= */
 
 async function loadResultsByDate(){
@@ -954,16 +1141,16 @@ async function loadResultsByDate(){
         return;
     }
 
+    const table =
+        document.getElementById(
+            "resultsTable"
+        );
+
     document.getElementById(
         "tableDate"
     ).textContent =
         "📅 " +
         displayDate(selectedDate);
-
-    const table =
-        document.getElementById(
-            "resultsTable"
-        );
 
     table.innerHTML = `
         <tr>
@@ -975,11 +1162,13 @@ async function loadResultsByDate(){
 
     try{
 
-        const { data, error } =
-            await supabaseClient
+        const {
+            data,
+            error
+        } = await supabaseClient
             .from("game_results")
             .select(
-                "round_number,game_time,result,game_date"
+                "round_number,game_time,result,status"
             )
             .eq(
                 "game_date",
@@ -1041,6 +1230,9 @@ async function loadResultsByDate(){
 
             }
 
+            const isPublished =
+                row.status === "published";
+
             table.innerHTML += `
                 <tr>
 
@@ -1063,7 +1255,13 @@ async function loadResultsByDate(){
                     <td class="result">
 
                         <span class="result-badge">
-                            ${result}
+
+                            ${
+                                isPublished
+                                ? result
+                                : "⏳"
+                            }
+
                         </span>
 
                     </td>
@@ -1092,7 +1290,7 @@ async function loadResultsByDate(){
 
 
 /* =========================
-   TODAY
+   TODAY BUTTON
 ========================= */
 
 function loadTodayResults(){
@@ -1137,7 +1335,6 @@ loadResultsByDate();
 
 /* =========================
    AUTO DATE CHANGE
-   AFTER MIDNIGHT
 ========================= */
 
 setInterval(function(){
@@ -1193,4 +1390,4 @@ setInterval(function(){
 </script>
 
 </body>
-   </html>
+    </html>
