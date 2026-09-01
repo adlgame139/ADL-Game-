@@ -1059,16 +1059,18 @@ function getToday(){
 
     const now = new Date();
 
-    return new Intl.DateTimeFormat(
-        "en-CA",
-        {
-            timeZone: "Asia/Kolkata",
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit"
-        }
-    ).format(now);
+    const year =
+        now.getFullYear();
 
+    const month =
+        String(now.getMonth() + 1)
+        .padStart(2,"0");
+
+    const day =
+        String(now.getDate())
+        .padStart(2,"0");
+
+    return `${year}-${month}-${day}`;
 }
 
 
@@ -1215,27 +1217,21 @@ async function loadResultsByDate(){
 
         data.forEach(row => {
 
-            /*
-             * FIX:
-             * अब result दिखाने के लिए
-             * status = published होना जरूरी नहीं है।
-             *
-             * अगर result में value है तो
-             * वही website पर दिखाई जाएगी।
-             */
-
             let result = "—";
 
             if(
                 row.result !== null &&
                 row.result !== undefined &&
-                String(row.result).trim() !== ""
+                row.result !== ""
             ){
 
                 result =
-                    String(row.result).trim();
+                    String(row.result);
 
             }
+
+            const isPublished =
+                row.status === "published";
 
             table.innerHTML += `
                 <tr>
@@ -1261,7 +1257,7 @@ async function loadResultsByDate(){
                         <span class="result-badge">
 
                             ${
-                                result !== "—"
+                                isPublished
                                 ? result
                                 : "⏳"
                             }
@@ -1384,4 +1380,14 @@ setInterval(function(){
         ).value;
 
     if(selectedDate){
-    
+
+        loadResultsByDate();
+
+    }
+
+},30000);
+
+</script>
+
+</body>
+</html>
