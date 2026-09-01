@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,15 +9,13 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
 }
 
-html,
-body{
+html,body{
     width:100%;
     overflow-x:hidden;
 }
@@ -29,23 +26,9 @@ body{
     color:#fff;
 
     background:
-    radial-gradient(
-        circle at 10% 5%,
-        rgba(255,215,0,.25),
-        transparent 25%
-    ),
-    radial-gradient(
-        circle at 90% 20%,
-        rgba(0,255,100,.18),
-        transparent 25%
-    ),
-    linear-gradient(
-        135deg,
-        #650000,
-        #b90000,
-        #006b2c,
-        #003d1c
-    );
+    radial-gradient(circle at 10% 5%,rgba(255,215,0,.25),transparent 25%),
+    radial-gradient(circle at 90% 20%,rgba(0,255,100,.18),transparent 25%),
+    linear-gradient(135deg,#650000,#b90000,#006b2c,#003d1c);
 }
 
 .container{
@@ -53,7 +36,6 @@ body{
     max-width:900px;
     margin:15px auto 30px;
 }
-
 
 /* HEADER */
 
@@ -66,13 +48,7 @@ body{
     border:3px solid #ffd700;
     border-radius:24px;
 
-    background:
-    linear-gradient(
-        135deg,
-        #970000,
-        #e12c00,
-        #087735
-    );
+    background:linear-gradient(135deg,#970000,#e12c00,#087735);
 
     box-shadow:
     0 0 28px rgba(255,215,0,.4),
@@ -107,10 +83,7 @@ body{
     font-size:32px;
     font-weight:900;
     letter-spacing:2px;
-
-    text-shadow:
-    0 3px 5px #000,
-    0 0 12px rgba(255,215,0,.7);
+    text-shadow:0 3px 5px #000,0 0 12px rgba(255,215,0,.7);
 }
 
 .trusted{
@@ -125,7 +98,6 @@ body{
     font-size:13px;
 }
 
-
 /* NOTICE */
 
 .notice{
@@ -137,16 +109,9 @@ body{
     border:2px solid #ffd700;
     border-radius:15px;
 
-    background:
-    linear-gradient(
-        90deg,
-        #970000,
-        #ed2600,
-        #087a35
-    );
+    background:linear-gradient(90deg,#970000,#ed2600,#087a35);
 
-    box-shadow:
-    0 5px 18px rgba(0,0,0,.35);
+    box-shadow:0 5px 18px rgba(0,0,0,.35);
 }
 
 .live-dot{
@@ -155,13 +120,9 @@ body{
     height:9px;
     margin-right:5px;
     border-radius:50%;
-
     background:#00ff55;
-
-    box-shadow:
-    0 0 12px #00ff55;
+    box-shadow:0 0 12px #00ff55;
 }
-
 
 /* INFO */
 
@@ -172,17 +133,11 @@ body{
     border:3px solid #ffd700;
     border-radius:21px;
 
-    background:
-    linear-gradient(
-        145deg,
-        #ffffff,
-        #fff6cf
-    );
+    background:linear-gradient(145deg,#ffffff,#fff6cf);
 
     color:#222;
 
-    box-shadow:
-    0 8px 25px rgba(0,0,0,.35);
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
 }
 
 .info h2{
@@ -207,7 +162,6 @@ body{
     border:1px solid #e0a700;
 }
 
-
 /* FILTER */
 
 .filter-box{
@@ -218,15 +172,9 @@ body{
     border:3px solid #ffd700;
     border-radius:20px;
 
-    background:
-    linear-gradient(
-        145deg,
-        #420000,
-        #100000
-    );
+    background:linear-gradient(145deg,#420000,#100000);
 
-    box-shadow:
-    0 8px 25px rgba(0,0,0,.4);
+    box-shadow:0 8px 25px rgba(0,0,0,.4);
 }
 
 .filter-title{
@@ -254,28 +202,15 @@ body{
 }
 
 .search-btn{
-    background:
-    linear-gradient(
-        135deg,
-        #ffd700,
-        #ffad00
-    );
-
+    background:linear-gradient(135deg,#ffd700,#ffad00);
     color:#650000;
 }
 
 .today-btn{
-    background:
-    linear-gradient(
-        135deg,
-        #00a947,
-        #006a2b
-    );
-
+    background:linear-gradient(135deg,#00a947,#006a2b);
     color:#fff;
     border:1px solid #61ff9c;
 }
-
 
 /* RESULTS HEADER */
 
@@ -292,13 +227,7 @@ body{
     border-bottom:0;
     border-radius:20px 20px 0 0;
 
-    background:
-    linear-gradient(
-        90deg,
-        #780000,
-        #c60000,
-        #00752f
-    );
+    background:linear-gradient(90deg,#780000,#c60000,#00752f);
 }
 
 .results-head h2{
@@ -324,7 +253,6 @@ body{
     font-weight:bold;
 }
 
-
 /* TABLE */
 
 .table-box{
@@ -335,8 +263,7 @@ body{
     border-top:0;
     border-radius:0 0 20px 20px;
 
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.45);
+    box-shadow:0 10px 30px rgba(0,0,0,.45);
 }
 
 table{
@@ -368,36 +295,19 @@ thead th{
     color:#fff;
     font-size:13px;
 
-    background:
-    linear-gradient(
-        135deg,
-        #7c0000,
-        #d00000,
-        #8b0000
-    );
+    background:linear-gradient(135deg,#7c0000,#d00000,#8b0000);
 
-    border-bottom:
-    3px solid #ffd700;
+    border-bottom:3px solid #ffd700;
 
     white-space:nowrap;
 }
 
 tbody tr:nth-child(odd){
-    background:
-    linear-gradient(
-        90deg,
-        #fff8d9,
-        #ffffff
-    );
+    background:linear-gradient(90deg,#fff8d9,#ffffff);
 }
 
 tbody tr:nth-child(even){
-    background:
-    linear-gradient(
-        90deg,
-        #e1ffea,
-        #ffffff
-    );
+    background:linear-gradient(90deg,#e1ffea,#ffffff);
 }
 
 tbody tr:hover{
@@ -408,8 +318,7 @@ td{
     padding:12px 3px;
     text-align:center;
 
-    border-bottom:
-    1px solid #ddd;
+    border-bottom:1px solid #ddd;
 
     white-space:nowrap;
     overflow:hidden;
@@ -431,12 +340,7 @@ td{
     border-radius:18px;
     color:#fff;
 
-    background:
-    linear-gradient(
-        135deg,
-        #d00000,
-        #850000
-    );
+    background:linear-gradient(135deg,#d00000,#850000);
 
     border:2px solid #ffd700;
 
@@ -468,17 +372,11 @@ td{
     border-radius:11px;
     color:#fff;
 
-    background:
-    linear-gradient(
-        135deg,
-        #00a947,
-        #006e2c
-    );
+    background:linear-gradient(135deg,#00a947,#006e2c);
 
     border:2px solid #ffd700;
 
-    box-shadow:
-    0 3px 10px rgba(0,100,40,.3);
+    box-shadow:0 3px 10px rgba(0,100,40,.3);
 
     font-size:19px;
     font-weight:900;
@@ -491,7 +389,6 @@ td{
     font-size:14px;
 }
 
-
 /* RATE */
 
 .rate-box{
@@ -503,18 +400,11 @@ td{
 
     border-radius:15px;
 
-    background:
-    linear-gradient(
-        135deg,
-        #fff7d1,
-        #ffd85c,
-        #fff1a8
-    );
+    background:linear-gradient(135deg,#fff7d1,#ffd85c,#fff1a8);
 
     border:2px solid #d49b00;
 
-    box-shadow:
-    0 4px 12px rgba(0,0,0,0.18);
+    box-shadow:0 4px 12px rgba(0,0,0,.18);
 }
 
 .gift{
@@ -537,7 +427,6 @@ td{
     margin:2px 0 6px;
 }
 
-
 /* GAME INFO */
 
 .game-info{
@@ -547,15 +436,9 @@ td{
     border:3px solid #ffd700;
     border-radius:21px;
 
-    background:
-    linear-gradient(
-        145deg,
-        #006c2d,
-        #003e1b
-    );
+    background:linear-gradient(145deg,#006c2d,#003e1b);
 
-    box-shadow:
-    0 8px 25px rgba(0,0,0,.4);
+    box-shadow:0 8px 25px rgba(0,0,0,.4);
 }
 
 .game-info h2{
@@ -569,8 +452,7 @@ td{
     gap:10px;
     padding:11px 4px;
 
-    border-bottom:
-    1px solid rgba(255,255,255,.15);
+    border-bottom:1px solid rgba(255,255,255,.15);
 }
 
 .game-icon{
@@ -586,7 +468,6 @@ td{
     border-radius:12px;
     background:#ffd700;
 }
-
 
 /* WHATSAPP */
 
@@ -612,17 +493,10 @@ td{
     border:2px solid #baffd0;
     border-radius:15px;
 
-    background:
-    linear-gradient(
-        135deg,
-        #25d366,
-        #07963e
-    );
+    background:linear-gradient(135deg,#25d366,#07963e);
 
-    box-shadow:
-    0 8px 23px rgba(0,0,0,.4);
+    box-shadow:0 8px 23px rgba(0,0,0,.4);
 }
-
 
 /* FOOTER */
 
@@ -632,7 +506,6 @@ td{
     color:#ffe58a;
     font-size:12px;
 }
-
 
 /* MOBILE */
 
@@ -760,78 +633,44 @@ td{
         font-size:16px;
     }
 }
-
 </style>
 </head>
-
 
 <body>
 
 <div class="container">
 
-
 <div class="header">
-
-    <div class="om">
-        ॐ
-    </div>
-
-    <div class="logo">
-        ♛ A.D.L LOTTERY ♛
-    </div>
-
-    <div class="trusted">
-        TRUSTED GAME
-    </div>
-
-    <div class="play">
-        PLAY SAFE • WIN BIG
-    </div>
-
+    <div class="om">ॐ</div>
+    <div class="logo">♛ A.D.L LOTTERY ♛</div>
+    <div class="trusted">TRUSTED GAME</div>
+    <div class="play">PLAY SAFE • WIN BIG</div>
 </div>
-
 
 <div class="notice">
-
     <span class="live-dot"></span>
-
     🔱 🔴 A.D.L RESULT — हर 30 मिनट 🟢 🔱
-
 </div>
-
 
 <div class="info">
 
-    <h2>
-        🔱 ADL लॉटरी 🔱
-    </h2>
+    <h2>🔱 ADL लॉटरी 🔱</h2>
 
-    <p>
-        <b>ADL लॉटरी जिसमें आप</b>
-    </p>
+    <p><b>ADL लॉटरी जिसमें आप</b></p>
 
-    <p>
-        4 घर 5 घर 6 घर 7 घर की क्रॉसिंग खेल सकते हैं।
-    </p>
+    <p>4 घर 5 घर 6 घर 7 घर की क्रॉसिंग खेल सकते हैं।</p>
 
-    <p>
-        01 से 100 तक के अंकों में से एक नंबर चुना जाएगा।
-    </p>
+    <p>01 से 100 तक के अंकों में से एक नंबर चुना जाएगा।</p>
 
-    <p>
-        नमस्कार दोस्तों! ADL लॉटरी में हर 30 मिनट बाद रिजल्ट आता है।
-    </p>
+    <p>नमस्कार दोस्तों! ADL लॉटरी में हर 30 मिनट बाद रिजल्ट आता है।</p>
 
-    <p>
-        रिजल्ट नीचे दिए गए Results Table में देखा जा सकता है।
-    </p>
+    <p>रिजल्ट नीचे दिए गए Results Table में देखा जा सकता है।</p>
 
     <div class="highlight">
         🔱 नया Result आते ही Results Table में Update होगा 🔱
     </div>
 
 </div>
-
 
 <div class="filter-box">
 
@@ -863,12 +702,9 @@ td{
 
 </div>
 
-
 <div class="results-head">
 
-    <h2>
-        📊 A.D.L RESULTS
-    </h2>
+    <h2>📊 A.D.L RESULTS</h2>
 
     <div class="result-meta">
 
@@ -887,43 +723,24 @@ td{
 
 </div>
 
-
 <div class="table-box">
 
 <table>
 
 <thead>
-
 <tr>
-
-    <th>
-        ROUND
-    </th>
-
-    <th>
-        TIME
-    </th>
-
-    <th>
-        RESULT
-    </th>
-
+    <th>ROUND</th>
+    <th>TIME</th>
+    <th>RESULT</th>
 </tr>
-
 </thead>
-
 
 <tbody id="resultsTable">
 
 <tr>
-
-    <td
-        colspan="3"
-        class="loading"
-    >
+    <td colspan="3" class="loading">
         ⏳ Results Loading...
     </td>
-
 </tr>
 
 </tbody>
@@ -932,12 +749,9 @@ td{
 
 </div>
 
-
 <div class="rate-box">
 
-    <div class="gift">
-        🎁🎁🎁🎁🎁
-    </div>
+    <div class="gift">🎁🎁🎁🎁🎁</div>
 
     <div class="rate-title">
         Jodi Rate
@@ -955,53 +769,27 @@ td{
         10 ke 900 💰
     </div>
 
-    <div class="gift">
-        🎁🎁🎁🎁🎁🎁
-    </div>
+    <div class="gift">🎁🎁🎁🎁🎁🎁</div>
 
 </div>
 
-
 <div class="game-info">
 
-    <h2>
-        🔱 GAME INFORMATION 🔱
-    </h2>
+    <h2>🔱 GAME INFORMATION 🔱</h2>
 
     <div class="game-row">
-
-        <span class="game-icon">
-            ☛
-        </span>
-
-        <span>
-            26 Rounds
-        </span>
-
+        <span class="game-icon">☛</span>
+        <span>26 Rounds</span>
     </div>
 
     <div class="game-row">
-
-        <span class="game-icon">
-            ☛
-        </span>
-
-        <span>
-            हर 30 मिनट में Result
-        </span>
-
+        <span class="game-icon">☛</span>
+        <span>हर 30 मिनट में Result</span>
     </div>
 
     <div class="game-row">
-
-        <span class="game-icon">
-            ☛
-        </span>
-
-        <span>
-            Number Range: 00 से 100
-        </span>
-
+        <span class="game-icon">☛</span>
+        <span>Number Range: 00 से 100</span>
     </div>
 
     <div class="fast">
@@ -1009,7 +797,6 @@ td{
     </div>
 
 </div>
-
 
 <div class="whatsapp">
 
@@ -1023,14 +810,11 @@ td{
 
 </div>
 
-
 <div class="footer">
     🔱 © 2026 A.D.L Lottery 🔱
 </div>
 
-
 </div>
-
 
 <script>
 
@@ -1059,18 +843,30 @@ function getToday(){
 
     const now = new Date();
 
-    const indiaDate =
-        new Intl.DateTimeFormat(
-            "en-CA",
-            {
-                timeZone:"Asia/Kolkata",
-                year:"numeric",
-                month:"2-digit",
-                day:"2-digit"
-            }
-        ).format(now);
+    const indiaTime =
+        new Date(
+            now.toLocaleString(
+                "en-US",
+                {
+                    timeZone:"Asia/Kolkata"
+                }
+            )
+        );
 
-    return indiaDate;
+    const year =
+        indiaTime.getFullYear();
+
+    const month =
+        String(
+            indiaTime.getMonth()+1
+        ).padStart(2,"0");
+
+    const day =
+        String(
+            indiaTime.getDate()
+        ).padStart(2,"0");
+
+    return `${year}-${month}-${day}`;
 }
 
 
@@ -1092,7 +888,7 @@ function displayDate(date){
 
 
 /* =========================
-   TIME
+   FORMAT TIME
 ========================= */
 
 function formatTime(time){
@@ -1168,7 +964,7 @@ async function loadResultsByDate(){
         } = await supabaseClient
             .from("game_results")
             .select(
-                "round_number,game_time,result,status"
+                "id,round_number,game_time,result,game_date,status"
             )
             .eq(
                 "game_date",
@@ -1199,7 +995,6 @@ async function loadResultsByDate(){
             return;
         }
 
-
         if(!data || data.length === 0){
 
             table.innerHTML = `
@@ -1214,116 +1009,59 @@ async function loadResultsByDate(){
             return;
         }
 
-
         table.innerHTML = "";
-
 
         data.forEach(row => {
 
-            const tr =
-                document.createElement("tr");
-
-
-            /* ROUND */
-
-            const roundTd =
-                document.createElement("td");
-
-            roundTd.className =
-                "round";
-
-
-            const roundBadge =
-                document.createElement("span");
-
-            roundBadge.className =
-                "round-badge";
-
-            roundBadge.textContent =
-                row.round_number;
-
-
-            roundTd.appendChild(
-                roundBadge
-            );
-
-
-            /* TIME */
-
-            const timeTd =
-                document.createElement("td");
-
-            timeTd.className =
-                "time-cell";
-
-            timeTd.textContent =
-                formatTime(
-                    row.game_time
-                );
-
-
-            /* RESULT */
-
-            const resultTd =
-                document.createElement("td");
-
-            resultTd.className =
-                "result";
-
-
-            const resultBadge =
-                document.createElement("span");
-
-            resultBadge.className =
-                "result-badge";
-
-
-            const hasResult =
-                row.result !== null &&
-                row.result !== undefined &&
-                String(row.result).trim() !== "";
-
+            let result = "—";
 
             if(
-                row.status === "published" &&
-                hasResult
+                row.result !== null &&
+                row.result !== undefined &&
+                row.result !== ""
             ){
-
-                resultBadge.textContent =
+                result =
                     String(row.result);
-
-            }else{
-
-                resultBadge.textContent =
-                    "⏳";
-
             }
 
+            /*
+              IMPORTANT:
+              अब pending होने पर भी result दिखाई देगा।
+              अगर result खाली है तभी ⏳ दिखेगा।
+            */
 
-            resultTd.appendChild(
-                resultBadge
-            );
+            const showResult =
+                row.result !== null &&
+                row.result !== undefined &&
+                row.result !== "";
 
+            table.innerHTML += `
+                <tr>
 
-            tr.appendChild(
-                roundTd
-            );
+                    <td class="round">
+                        <span class="round-badge">
+                            ${row.round_number}
+                        </span>
+                    </td>
 
-            tr.appendChild(
-                timeTd
-            );
+                    <td class="time-cell">
+                        ${formatTime(row.game_time)}
+                    </td>
 
-            tr.appendChild(
-                resultTd
-            );
+                    <td class="result">
+                        <span class="result-badge">
+                            ${
+                                showResult
+                                ? result
+                                : "⏳"
+                            }
+                        </span>
+                    </td>
 
-
-            table.appendChild(
-                tr
-            );
+                </tr>
+            `;
 
         });
-
 
     }catch(error){
 
@@ -1339,9 +1077,7 @@ async function loadResultsByDate(){
                 </td>
             </tr>
         `;
-
     }
-
 }
 
 
@@ -1363,7 +1099,6 @@ function loadTodayResults(){
         today;
 
     loadResultsByDate();
-
 }
 
 
@@ -1374,21 +1109,16 @@ function loadTodayResults(){
 let currentAutoDate =
     getToday();
 
-
 document.getElementById(
     "resultDate"
 ).value =
     currentAutoDate;
 
-
 document.getElementById(
     "tableDate"
 ).textContent =
     "📅 " +
-    displayDate(
-        currentAutoDate
-    );
-
+    displayDate(currentAutoDate);
 
 loadResultsByDate();
 
@@ -1398,3 +1128,54 @@ loadResultsByDate();
 ========================= */
 
 setInterval(function(){
+
+    const today =
+        getToday();
+
+    if(
+        today !==
+        currentAutoDate
+    ){
+
+        currentAutoDate =
+            today;
+
+        document.getElementById(
+            "resultDate"
+        ).value =
+            today;
+
+        document.getElementById(
+            "tableDate"
+        ).textContent =
+            "📅 " +
+            displayDate(today);
+
+        loadResultsByDate();
+    }
+
+},1000);
+
+
+/* =========================
+   AUTO REFRESH
+   EVERY 30 SECONDS
+========================= */
+
+setInterval(function(){
+
+    const selectedDate =
+        document.getElementById(
+            "resultDate"
+        ).value;
+
+    if(selectedDate){
+        loadResultsByDate();
+    }
+
+},30000);
+
+</script>
+
+</body>
+    </html>
