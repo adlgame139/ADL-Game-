@@ -1039,10 +1039,10 @@ td{
 ========================= */
 
 const SUPABASE_URL =
-"https://hjfzngpuxbfoflxoyxgu.supabase.co";
+"https://qgmfgycymbhsrkyjkhjy.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_92WFOUihtffMjWhMfLNN3A_mvNVKzgB";
+"sb_publishable_9eYJV-pHlQLKZ9gu24s-fg_RnfviCUO";
 
 const supabaseClient =
 supabase.createClient(
@@ -1052,25 +1052,25 @@ supabase.createClient(
 
 
 /* =========================
-   TODAY
+   INDIA DATE
 ========================= */
 
 function getToday(){
 
     const now = new Date();
 
-    const year =
-        now.getFullYear();
+    const indiaDate =
+        new Intl.DateTimeFormat(
+            "en-CA",
+            {
+                timeZone:"Asia/Kolkata",
+                year:"numeric",
+                month:"2-digit",
+                day:"2-digit"
+            }
+        ).format(now);
 
-    const month =
-        String(now.getMonth() + 1)
-        .padStart(2,"0");
-
-    const day =
-        String(now.getDate())
-        .padStart(2,"0");
-
-    return `${year}-${month}-${day}`;
+    return indiaDate;
 }
 
 
@@ -1199,6 +1199,7 @@ async function loadResultsByDate(){
             return;
         }
 
+
         if(!data || data.length === 0){
 
             table.innerHTML = `
@@ -1213,63 +1214,116 @@ async function loadResultsByDate(){
             return;
         }
 
+
         table.innerHTML = "";
+
 
         data.forEach(row => {
 
-            let result = "—";
+            const tr =
+                document.createElement("tr");
 
-            if(
+
+            /* ROUND */
+
+            const roundTd =
+                document.createElement("td");
+
+            roundTd.className =
+                "round";
+
+
+            const roundBadge =
+                document.createElement("span");
+
+            roundBadge.className =
+                "round-badge";
+
+            roundBadge.textContent =
+                row.round_number;
+
+
+            roundTd.appendChild(
+                roundBadge
+            );
+
+
+            /* TIME */
+
+            const timeTd =
+                document.createElement("td");
+
+            timeTd.className =
+                "time-cell";
+
+            timeTd.textContent =
+                formatTime(
+                    row.game_time
+                );
+
+
+            /* RESULT */
+
+            const resultTd =
+                document.createElement("td");
+
+            resultTd.className =
+                "result";
+
+
+            const resultBadge =
+                document.createElement("span");
+
+            resultBadge.className =
+                "result-badge";
+
+
+            const hasResult =
                 row.result !== null &&
                 row.result !== undefined &&
-                row.result !== ""
+                String(row.result).trim() !== "";
+
+
+            if(
+                row.status === "published" &&
+                hasResult
             ){
 
-                result =
+                resultBadge.textContent =
                     String(row.result);
+
+            }else{
+
+                resultBadge.textContent =
+                    "⏳";
 
             }
 
-            const isPublished =
-                row.status === "published";
 
-            table.innerHTML += `
-                <tr>
+            resultTd.appendChild(
+                resultBadge
+            );
 
-                    <td class="round">
 
-                        <span class="round-badge">
-                            ${row.round_number}
-                        </span>
+            tr.appendChild(
+                roundTd
+            );
 
-                    </td>
+            tr.appendChild(
+                timeTd
+            );
 
-                    <td class="time-cell">
+            tr.appendChild(
+                resultTd
+            );
 
-                        ${formatTime(
-                            row.game_time
-                        )}
 
-                    </td>
-
-                    <td class="result">
-
-                        <span class="result-badge">
-
-                            ${
-                                isPublished
-                                ? result
-                                : "⏳"
-                            }
-
-                        </span>
-
-                    </td>
-
-                </tr>
-            `;
+            table.appendChild(
+                tr
+            );
 
         });
+
 
     }catch(error){
 
@@ -1285,7 +1339,9 @@ async function loadResultsByDate(){
                 </td>
             </tr>
         `;
+
     }
+
 }
 
 
@@ -1307,6 +1363,7 @@ function loadTodayResults(){
         today;
 
     loadResultsByDate();
+
 }
 
 
@@ -1317,10 +1374,12 @@ function loadTodayResults(){
 let currentAutoDate =
     getToday();
 
+
 document.getElementById(
     "resultDate"
 ).value =
     currentAutoDate;
+
 
 document.getElementById(
     "tableDate"
@@ -1330,6 +1389,7 @@ document.getElementById(
         currentAutoDate
     );
 
+
 loadResultsByDate();
 
 
@@ -1338,56 +1398,3 @@ loadResultsByDate();
 ========================= */
 
 setInterval(function(){
-
-    const today =
-        getToday();
-
-    if(
-        today !==
-        currentAutoDate
-    ){
-
-        currentAutoDate =
-            today;
-
-        document.getElementById(
-            "resultDate"
-        ).value =
-            today;
-
-        document.getElementById(
-            "tableDate"
-        ).textContent =
-            "📅 " +
-            displayDate(today);
-
-        loadResultsByDate();
-    }
-
-},1000);
-
-
-/* =========================
-   AUTO REFRESH
-   EVERY 30 SECONDS
-========================= */
-
-setInterval(function(){
-
-    const selectedDate =
-        document.getElementById(
-            "resultDate"
-        ).value;
-
-    if(selectedDate){
-
-        loadResultsByDate();
-
-    }
-
-},30000);
-
-</script>
-
-</body>
-</html>
