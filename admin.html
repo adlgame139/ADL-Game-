@@ -68,7 +68,6 @@ h2{
 
 input{
     width:100%;
-
     padding:13px;
     margin:7px 0;
 
@@ -193,6 +192,26 @@ button:disabled{
     font-weight:bold;
 }
 
+.uid-box{
+    background:#f3f3f3;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    padding:10px;
+
+    margin-top:10px;
+
+    font-size:11px;
+
+    word-break:break-all;
+
+    color:#333;
+
+    text-align:center;
+}
+
 @media(max-width:600px){
 
     body{
@@ -266,7 +285,6 @@ button:disabled{
     class="hidden"
 >
 
-
     <div class="box">
 
         <h1>
@@ -278,8 +296,13 @@ button:disabled{
             class="user"
         ></div>
 
+        <div
+            id="loggedUid"
+            class="uid-box"
+        ></div>
+
         <div class="admin-note">
-            🔐 केवल Admin ही Results बदल सकता है
+            🔐 केवल authorized Admin ही Results बदल सकता है
         </div>
 
         <button
@@ -512,6 +535,25 @@ async function login(){
         }
 
 
+        /*
+         * IMPORTANT DEBUG
+         */
+
+        console.log(
+            "LOGIN UID:",
+            data.user?.id
+        );
+
+        console.log(
+            "ADMIN UID:",
+            ADMIN_UID
+        );
+
+
+        /*
+         * ADMIN UID CHECK
+         */
+
         if(
             !data.user ||
             data.user.id !== ADMIN_UID
@@ -527,6 +569,24 @@ async function login(){
 
             status.style.color =
                 "#a00000";
+
+
+            /*
+             * UID दिखाई देगा ताकि
+             * गलत UID तुरंत पता चले।
+             */
+
+            if(data.user){
+
+                status.innerHTML =
+                    "❌ यह account Admin नहीं है।<br><br>" +
+                    "Login UID:<br>" +
+                    "<b>" +
+                    data.user.id +
+                    "</b>";
+
+            }
+
 
             loginButton.disabled =
                 false;
@@ -588,6 +648,13 @@ function showAdmin(user){
         .textContent =
         "👤 Logged in: " +
         (user.email || "");
+
+
+    document
+        .getElementById("loggedUid")
+        .textContent =
+        "Admin UID: " +
+        user.id;
 
 
     document
