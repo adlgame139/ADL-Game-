@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,7 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -21,16 +19,7 @@ body{
     font-family:Arial,Helvetica,sans-serif;
     min-height:100vh;
     padding:20px;
-
-    background:
-    linear-gradient(
-        135deg,
-        #650000,
-        #b90000,
-        #006b2c,
-        #003d1c
-    );
-
+    background:linear-gradient(135deg,#650000,#b90000,#006b2c,#003d1c);
     color:#fff;
 }
 
@@ -43,15 +32,10 @@ body{
 .box{
     background:#fff;
     color:#222;
-
     padding:20px;
-
     border-radius:20px;
     border:3px solid #ffd700;
-
-    box-shadow:
-        0 8px 30px rgba(0,0,0,.4);
-
+    box-shadow:0 8px 30px rgba(0,0,0,.4);
     margin-bottom:18px;
 }
 
@@ -69,27 +53,20 @@ h2{
 input{
     width:100%;
     padding:13px;
-
     margin:7px 0;
-
     border:2px solid #ddd;
     border-radius:10px;
-
     font-size:16px;
 }
 
 button{
     width:100%;
     padding:13px;
-
     margin-top:8px;
-
     border:0;
     border-radius:10px;
-
     font-weight:bold;
     font-size:16px;
-
     cursor:pointer;
 }
 
@@ -115,38 +92,30 @@ button:disabled{
 
 .status{
     text-align:center;
-
     padding:10px;
     margin-top:10px;
-
     border-radius:10px;
-
     font-weight:bold;
 }
 
 .round{
     border:2px solid #ddd;
     border-radius:15px;
-
     padding:15px;
     margin-bottom:12px;
-
     background:#fffbea;
 }
 
 .round-title{
     font-weight:bold;
     color:#9b0000;
-
     font-size:18px;
-
     margin-bottom:8px;
 }
 
 .time{
     color:#444;
     font-weight:bold;
-
     margin-bottom:5px;
 }
 
@@ -157,30 +126,17 @@ button:disabled{
 .info{
     text-align:center;
     color:#555;
-
     margin-bottom:15px;
 }
 
 .user{
     text-align:center;
     color:#006b2c;
-
     font-weight:bold;
-
     margin-bottom:10px;
 }
 
-.result-status{
-    text-align:center;
-
-    margin-top:8px;
-
-    font-size:13px;
-    font-weight:bold;
-}
-
 @media(max-width:600px){
-
     body{
         padding:10px;
     }
@@ -188,28 +144,19 @@ button:disabled{
     .box{
         padding:15px;
     }
-
 }
-
 </style>
 </head>
 
-
 <body>
-
 
 <div class="container">
 
-
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- LOGIN -->
 
 <div id="loginBox" class="box">
 
-    <h1>
-        🔐 ADL ADMIN LOGIN
-    </h1>
+    <h1>🔐 ADL ADMIN LOGIN</h1>
 
     <input
         type="email"
@@ -240,24 +187,13 @@ button:disabled{
 </div>
 
 
+<!-- ADMIN PANEL -->
 
-<!-- =========================
-     ADMIN PANEL
-========================= -->
-
-<div
-    id="adminBox"
-    class="hidden"
->
-
-
-    <!-- ADMIN HEADER -->
+<div id="adminBox" class="hidden">
 
     <div class="box">
 
-        <h1>
-            ♛ ADL ADMIN PANEL ♛
-        </h1>
+        <h1>♛ ADL ADMIN PANEL ♛</h1>
 
         <div
             id="userEmail"
@@ -274,36 +210,25 @@ button:disabled{
     </div>
 
 
-
-    <!-- RESULTS -->
-
     <div class="box">
 
-        <h2>
-            📅 आज के Results
-        </h2>
+        <h2>📅 आज के Results</h2>
 
         <div class="info">
-
             Date:
             <b id="todayDate"></b>
-
         </div>
 
         <div id="rounds"></div>
 
     </div>
 
-
 </div>
 
-
 </div>
-
 
 
 <script>
-
 
 /* =====================================================
    SUPABASE
@@ -322,14 +247,12 @@ supabase.createClient(
 );
 
 
-
 /* =====================================================
    ADMIN UID
 ===================================================== */
 
 const ADMIN_UID =
-"90f67bba-f300-465f-9041-fb7addc9bf45";
-
+"26459e56-bacd-4f77-9cd9-68aacd5cf857";
 
 
 /* =====================================================
@@ -380,15 +303,13 @@ const roundTimes = [
 ];
 
 
-
 /* =====================================================
    GET TODAY
 ===================================================== */
 
 function getToday(){
 
-    const now =
-        new Date();
+    const now = new Date();
 
     const year =
         now.getFullYear();
@@ -413,7 +334,6 @@ function getToday(){
 }
 
 
-
 /* =====================================================
    DISPLAY DATE
 ===================================================== */
@@ -423,9 +343,7 @@ function displayDate(date){
     const parts =
         date.split("-");
 
-    if(
-        parts.length !== 3
-    ){
+    if(parts.length !== 3){
         return date;
     }
 
@@ -437,7 +355,6 @@ function displayDate(date){
         parts[0]
     );
 }
-
 
 
 /* =====================================================
@@ -492,7 +409,6 @@ function convertTimeToDB(time){
 }
 
 
-
 /* =====================================================
    LOGIN
 ===================================================== */
@@ -515,10 +431,7 @@ async function login(){
         .getElementById("loginStatus");
 
 
-    if(
-        !email ||
-        !password
-    ){
+    if(!email || !password){
 
         status.textContent =
             "⚠️ Email और Password डालें।";
@@ -547,11 +460,8 @@ async function login(){
         .auth
         .signInWithPassword({
 
-            email:
-                email,
-
-            password:
-                password
+            email:email,
+            password:password
 
         });
 
@@ -580,7 +490,6 @@ async function login(){
                 .auth
                 .signOut();
 
-
             status.textContent =
                 "❌ यह account admin नहीं है।";
 
@@ -591,12 +500,9 @@ async function login(){
         }
 
 
-        status.textContent =
-            "";
+        status.textContent = "";
 
-        showAdmin(
-            data.user
-        );
+        showAdmin(data.user);
 
 
     }catch(error){
@@ -610,9 +516,7 @@ async function login(){
         status.style.color =
             "#a00000";
     }
-
 }
-
 
 
 /* =====================================================
@@ -651,13 +555,11 @@ function showAdmin(user){
     createRounds();
 
     loadTodayResults();
-
 }
 
 
-
 /* =====================================================
-   CREATE 26 ROUNDS
+   CREATE ROUNDS
 ===================================================== */
 
 function createRounds(){
@@ -666,9 +568,7 @@ function createRounds(){
         document
         .getElementById("rounds");
 
-
-    container.innerHTML =
-        "";
+    container.innerHTML = "";
 
 
     for(
@@ -682,18 +582,12 @@ function createRounds(){
             <div class="round">
 
                 <div class="round-title">
-
                     🔴 Round ${i}
-
                 </div>
-
 
                 <div class="time">
-
                     🕐 ${roundTimes[i - 1]}
-
                 </div>
-
 
                 <input
                     type="text"
@@ -703,17 +597,13 @@ function createRounds(){
                     inputmode="numeric"
                 >
 
-
                 <button
                     id="save-${i}"
                     class="save-btn"
                     onclick="saveResult(${i})"
                 >
-
                     💾 Round ${i} Save
-
                 </button>
-
 
                 <div
                     id="status-${i}"
@@ -724,9 +614,7 @@ function createRounds(){
 
         `;
     }
-
 }
-
 
 
 /* =====================================================
@@ -778,38 +666,32 @@ async function loadTodayResults(){
         }
 
 
-        data.forEach(
-            row => {
+        data.forEach(row => {
 
-                const input =
-                    document
-                    .getElementById(
-                        "result-" +
-                        row.round_number
-                    );
+            const input =
+                document
+                .getElementById(
+                    "result-" +
+                    row.round_number
+                );
 
 
-                if(input){
+            if(input){
 
-                    input.value =
-                        row.result ?? "";
-
-                }
+                input.value =
+                    row.result ?? "";
 
             }
-        );
+
+        });
 
 
     }catch(error){
 
-        console.error(
-            error
-        );
+        console.error(error);
 
     }
-
 }
-
 
 
 /* =====================================================
@@ -868,13 +750,10 @@ async function saveResult(round){
 
     try{
 
-
-        /* =========================================
-           CHECK LOGIN
-        ========================================= */
+        /* CHECK ADMIN SESSION */
 
         const {
-            data: sessionData
+            data:sessionData
         } =
         await supabaseClient
         .auth
@@ -905,14 +784,13 @@ async function saveResult(round){
         }
 
 
-
-        /* =========================================
-           DATE + TIME
-        ========================================= */
+        /* DATE */
 
         const gameDate =
             getToday();
 
+
+        /* TIME */
 
         const gameTime =
             convertTimeToDB(
@@ -922,14 +800,11 @@ async function saveResult(round){
             );
 
 
-
-        /* =========================================
-           FIND EXISTING RESULT
-        ========================================= */
+        /* FIND EXISTING ROW */
 
         const {
-            data: existingRows,
-            error: findError
+            data:existingRows,
+            error:findError
         } =
         await supabaseClient
         .from("game_results")
@@ -943,7 +818,6 @@ async function saveResult(round){
             round
         )
         .limit(1);
-
 
 
         if(findError){
@@ -966,15 +840,11 @@ async function saveResult(round){
             saveButton.disabled =
                 false;
 
-
             return;
         }
 
 
-
-        /* =========================================
-           EXISTING ROW → UPDATE
-        ========================================= */
+        /* UPDATE EXISTING */
 
         if(
             existingRows &&
@@ -986,20 +856,15 @@ async function saveResult(round){
 
 
             const {
-                error: updateError
+                error:updateError
             } =
             await supabaseClient
             .from("game_results")
             .update({
 
-                game_time:
-                    gameTime,
-
-                result:
-                    result,
-
-                status:
-                    "published"
+                game_time:gameTime,
+                result:result,
+                status:"published"
 
             })
             .eq(
@@ -1028,7 +893,6 @@ async function saveResult(round){
                 saveButton.disabled =
                     false;
 
-
                 return;
             }
 
@@ -1036,48 +900,32 @@ async function saveResult(round){
             statusBox.textContent =
                 "✅ Result Updated & Published";
 
-
             statusBox.style.color =
                 "#008000";
 
-
             saveButton.disabled =
                 false;
-
 
             return;
         }
 
 
-
-        /* =========================================
-           NO ROW → INSERT
-        ========================================= */
+        /* INSERT NEW */
 
         const {
-            error: insertError
+            error:insertError
         } =
         await supabaseClient
         .from("game_results")
         .insert({
 
-            round_number:
-                round,
-
-            game_time:
-                gameTime,
-
-            result:
-                result,
-
-            game_date:
-                gameDate,
-
-            status:
-                "published"
+            round_number:round,
+            game_time:gameTime,
+            result:result,
+            game_date:gameDate,
+            status:"published"
 
         });
-
 
 
         if(insertError){
@@ -1100,7 +948,6 @@ async function saveResult(round){
             saveButton.disabled =
                 false;
 
-
             return;
         }
 
@@ -1108,10 +955,8 @@ async function saveResult(round){
         statusBox.textContent =
             "✅ Result Saved & Published";
 
-
         statusBox.style.color =
             "#008000";
-
 
         saveButton.disabled =
             false;
@@ -1136,11 +981,8 @@ async function saveResult(round){
 
         saveButton.disabled =
             false;
-
     }
-
 }
-
 
 
 /* =====================================================
@@ -1168,21 +1010,17 @@ async function logout(){
 
     document
         .getElementById("password")
-        .value =
-        "";
+        .value = "";
 
 
     document
         .getElementById("loginStatus")
-        .textContent =
-        "";
-
+        .textContent = "";
 }
 
 
-
 /* =====================================================
-   CHECK EXISTING SESSION
+   CHECK SESSION
 ===================================================== */
 
 async function checkSession(){
@@ -1207,36 +1045,30 @@ async function checkSession(){
         showAdmin(user);
 
     }
-
 }
 
 
-
 /* =====================================================
-   AUTH STATE CHANGE
+   AUTH STATE
 ===================================================== */
 
 supabaseClient
 .auth
 .onAuthStateChange(
-    (event, session) => {
+    (event,session) => {
 
         if(
             event === "SIGNED_OUT"
         ){
 
             document
-                .getElementById(
-                    "adminBox"
-                )
+                .getElementById("adminBox")
                 .classList
                 .add("hidden");
 
 
             document
-                .getElementById(
-                    "loginBox"
-                )
+                .getElementById("loginBox")
                 .classList
                 .remove("hidden");
 
@@ -1246,13 +1078,11 @@ supabaseClient
 );
 
 
-
 /* =====================================================
    START
 ===================================================== */
 
 checkSession();
-
 
 </script>
 
