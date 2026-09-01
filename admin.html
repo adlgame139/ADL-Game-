@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -19,8 +21,16 @@ body{
     font-family:Arial,Helvetica,sans-serif;
     min-height:100vh;
     padding:20px;
+
     background:
-    linear-gradient(135deg,#650000,#b90000,#006b2c,#003d1c);
+    linear-gradient(
+        135deg,
+        #650000,
+        #b90000,
+        #006b2c,
+        #003d1c
+    );
+
     color:#fff;
 }
 
@@ -33,10 +43,15 @@ body{
 .box{
     background:#fff;
     color:#222;
+
     padding:20px;
+
     border-radius:20px;
     border:3px solid #ffd700;
-    box-shadow:0 8px 30px rgba(0,0,0,.4);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.4);
+
     margin-bottom:18px;
 }
 
@@ -53,22 +68,34 @@ h2{
 
 input{
     width:100%;
+
     padding:13px;
     margin:7px 0;
+
     border:2px solid #ddd;
     border-radius:10px;
+
     font-size:16px;
 }
 
 button{
     width:100%;
+
     padding:13px;
     margin-top:8px;
+
     border:0;
     border-radius:10px;
+
     font-weight:bold;
     font-size:16px;
+
     cursor:pointer;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
 .login-btn{
@@ -88,30 +115,40 @@ button{
 
 .status{
     text-align:center;
+
     padding:10px;
     margin-top:10px;
+
     border-radius:10px;
+
     font-weight:bold;
+
+    min-height:20px;
 }
 
 .round{
     border:2px solid #ddd;
     border-radius:15px;
+
     padding:15px;
     margin-bottom:12px;
+
     background:#fffbea;
 }
 
 .round-title{
     font-weight:bold;
     color:#9b0000;
+
     font-size:18px;
+
     margin-bottom:8px;
 }
 
 .time{
     color:#444;
     font-weight:bold;
+
     margin-bottom:5px;
 }
 
@@ -122,17 +159,42 @@ button{
 .info{
     text-align:center;
     color:#555;
+
     margin-bottom:15px;
 }
 
 .user{
     text-align:center;
+
     color:#006b2c;
+
     font-weight:bold;
+
     margin-bottom:10px;
 }
 
+.admin-note{
+    background:#fff6cf;
+
+    border:1px solid #e0a700;
+
+    color:#6b0000;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    margin-bottom:15px;
+
+    font-size:13px;
+
+    font-weight:bold;
+}
+
 @media(max-width:600px){
+
     body{
         padding:10px;
     }
@@ -140,86 +202,121 @@ button{
     .box{
         padding:15px;
     }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-    <!-- LOGIN -->
-    <div id="loginBox" class="box">
 
-        <h1>🔐 ADL ADMIN LOGIN</h1>
+<!-- =========================
+     LOGIN
+========================= -->
 
-        <input
-            type="email"
-            id="email"
-            placeholder="Admin Email"
-            autocomplete="email"
-        >
+<div
+    id="loginBox"
+    class="box"
+>
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            autocomplete="current-password"
-        >
+    <h1>
+        🔐 ADL ADMIN LOGIN
+    </h1>
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Admin Email"
+        autocomplete="email"
+    >
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        autocomplete="current-password"
+    >
+
+    <button
+        id="loginButton"
+        class="login-btn"
+        onclick="login()"
+    >
+        🔐 Login
+    </button>
+
+    <div
+        id="loginStatus"
+        class="status"
+    ></div>
+
+</div>
+
+
+<!-- =========================
+     ADMIN PANEL
+========================= -->
+
+<div
+    id="adminBox"
+    class="hidden"
+>
+
+
+    <div class="box">
+
+        <h1>
+            ♛ ADL ADMIN PANEL ♛
+        </h1>
+
+        <div
+            id="userEmail"
+            class="user"
+        ></div>
+
+        <div class="admin-note">
+            🔐 केवल Admin ही Results बदल सकता है
+        </div>
 
         <button
-            class="login-btn"
-            onclick="login()"
+            class="logout-btn"
+            onclick="logout()"
         >
-            🔐 Login
+            🚪 Logout
         </button>
-
-        <div id="loginStatus" class="status"></div>
 
     </div>
 
 
-    <!-- ADMIN PANEL -->
-    <div id="adminBox" class="hidden">
+    <div class="box">
 
-        <div class="box">
+        <h2>
+            📅 आज के Results
+        </h2>
 
-            <h1>♛ ADL ADMIN PANEL ♛</h1>
+        <div class="info">
 
-            <div
-                id="userEmail"
-                class="user"
-            ></div>
-
-            <button
-                class="logout-btn"
-                onclick="logout()"
-            >
-                🚪 Logout
-            </button>
+            Date:
+            <b id="todayDate"></b>
 
         </div>
 
-
-        <div class="box">
-
-            <h2>📅 आज के Results</h2>
-
-            <div class="info">
-                Date:
-                <b id="todayDate"></b>
-            </div>
-
-            <div id="rounds"></div>
-
-        </div>
+        <div id="rounds"></div>
 
     </div>
 
 </div>
 
 
+</div>
+
+
 <script>
+
 
 /* =========================
    SUPABASE
@@ -230,6 +327,7 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
 "sb_publishable_9eYJV-pHlQLKZ9gu24s-fg_RnfviCUO";
+
 
 const supabaseClient =
 supabase.createClient(
@@ -243,42 +341,54 @@ supabase.createClient(
 ========================= */
 
 const ADMIN_UID =
-"90f67bba-f300-465f-9041-fb7addc9bf45";
+"26459e56-bacd-4f77-9cd9-68aacd5cf857";
 
 
 /* =========================
-   TIME LIST
-   12:00 PM TO 12:30 AM
-   26 ROUNDS
+   26 ROUND TIMES
 ========================= */
 
 const roundTimes = [
+
     "12:00 PM",
     "12:30 PM",
+
     "1:00 PM",
     "1:30 PM",
+
     "2:00 PM",
     "2:30 PM",
+
     "3:00 PM",
     "3:30 PM",
+
     "4:00 PM",
     "4:30 PM",
+
     "5:00 PM",
     "5:30 PM",
+
     "6:00 PM",
     "6:30 PM",
+
     "7:00 PM",
     "7:30 PM",
+
     "8:00 PM",
     "8:30 PM",
+
     "9:00 PM",
     "9:30 PM",
+
     "10:00 PM",
     "10:30 PM",
+
     "11:00 PM",
     "11:30 PM",
+
     "12:00 AM",
     "12:30 AM"
+
 ];
 
 
@@ -288,7 +398,8 @@ const roundTimes = [
 
 function getToday(){
 
-    const now = new Date();
+    const now =
+        new Date();
 
     const year =
         now.getFullYear();
@@ -303,7 +414,13 @@ function getToday(){
             now.getDate()
         ).padStart(2,"0");
 
-    return `${year}-${month}-${day}`;
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
 }
 
 
@@ -314,19 +431,24 @@ function getToday(){
 async function login(){
 
     const email =
-        document.getElementById(
-            "email"
-        ).value.trim();
+        document
+        .getElementById("email")
+        .value
+        .trim();
 
     const password =
-        document.getElementById(
-            "password"
-        ).value;
+        document
+        .getElementById("password")
+        .value;
 
     const status =
-        document.getElementById(
-            "loginStatus"
-        );
+        document
+        .getElementById("loginStatus");
+
+    const loginButton =
+        document
+        .getElementById("loginButton");
+
 
     if(!email || !password){
 
@@ -339,22 +461,42 @@ async function login(){
         return;
     }
 
+
     status.textContent =
         "⏳ Login हो रहा है...";
+
+    status.style.color =
+        "#555";
+
+    loginButton.disabled =
+        true;
+
 
     try{
 
         const {
             data,
             error
-        } = await supabaseClient.auth.signInWithPassword({
-            email: email,
-            password: password
+        } =
+        await supabaseClient
+        .auth
+        .signInWithPassword({
+
+            email:
+                email,
+
+            password:
+                password
+
         });
+
 
         if(error){
 
-            console.error(error);
+            console.error(
+                "Login Error:",
+                error
+            );
 
             status.textContent =
                 "❌ Login failed: " +
@@ -363,37 +505,63 @@ async function login(){
             status.style.color =
                 "#a00000";
 
+            loginButton.disabled =
+                false;
+
             return;
         }
+
 
         if(
             !data.user ||
             data.user.id !== ADMIN_UID
         ){
 
-            await supabaseClient.auth.signOut();
+            await supabaseClient
+                .auth
+                .signOut();
+
 
             status.textContent =
-                "❌ यह account admin नहीं है।";
+                "❌ यह account Admin नहीं है।";
 
             status.style.color =
                 "#a00000";
 
+            loginButton.disabled =
+                false;
+
             return;
         }
 
-        showAdmin(data.user);
+
+        showAdmin(
+            data.user
+        );
+
+
+        loginButton.disabled =
+            false;
+
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Login Error:",
+            error
+        );
 
         status.textContent =
             "❌ Login error.";
 
         status.style.color =
             "#a00000";
+
+        loginButton.disabled =
+            false;
+
     }
+
 }
 
 
@@ -403,28 +571,35 @@ async function login(){
 
 function showAdmin(user){
 
-    document.getElementById(
-        "loginBox"
-    ).classList.add("hidden");
+    document
+        .getElementById("loginBox")
+        .classList
+        .add("hidden");
 
-    document.getElementById(
-        "adminBox"
-    ).classList.remove("hidden");
 
-    document.getElementById(
-        "userEmail"
-    ).textContent =
+    document
+        .getElementById("adminBox")
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById("userEmail")
+        .textContent =
         "👤 Logged in: " +
-        user.email;
+        (user.email || "");
 
-    document.getElementById(
-        "todayDate"
-    ).textContent =
+
+    document
+        .getElementById("todayDate")
+        .textContent =
         getToday();
+
 
     createRounds();
 
     loadTodayResults();
+
 }
 
 
@@ -435,11 +610,13 @@ function showAdmin(user){
 function createRounds(){
 
     const container =
-        document.getElementById(
-            "rounds"
-        );
+        document
+        .getElementById("rounds");
 
-    container.innerHTML = "";
+
+    container.innerHTML =
+        "";
+
 
     for(
         let i = 1;
@@ -469,6 +646,7 @@ function createRounds(){
 
                 <button
                     class="save-btn"
+                    id="save-${i}"
                     onclick="saveResult(${i})"
                 >
                     💾 Round ${i} Save
@@ -480,29 +658,33 @@ function createRounds(){
                 ></div>
 
             </div>
+
         `;
+
     }
+
 }
 
 
 /* =========================
    CONVERT TIME
-   TO DATABASE TIME
 ========================= */
 
 function convertTimeToDB(time){
 
-    let parts =
+    const parts =
         time.split(" ");
 
-    let hm =
+    const hm =
         parts[0];
 
-    let ampm =
+    const ampm =
         parts[1];
 
-    let hmParts =
+
+    const hmParts =
         hm.split(":");
+
 
     let hour =
         parseInt(
@@ -510,27 +692,37 @@ function convertTimeToDB(time){
             10
         );
 
-    let minute =
+
+    const minute =
         hmParts[1];
+
 
     if(ampm === "AM"){
 
         if(hour === 12){
+
             hour = 0;
+
         }
 
     }else{
 
         if(hour !== 12){
+
             hour += 12;
+
         }
 
     }
 
-    return String(hour).padStart(2,"0")
-        + ":" +
+
+    return (
+        String(hour).padStart(2,"0") +
+        ":" +
         minute +
-        ":00";
+        ":00"
+    );
+
 }
 
 
@@ -543,45 +735,56 @@ async function loadTodayResults(){
     const today =
         getToday();
 
+
     try{
 
         const {
             data,
             error
-        } = await supabaseClient
-            .from("game_results")
-            .select(
-                "round_number,result"
-            )
-            .eq(
-                "game_date",
-                today
-            )
-            .order(
-                "round_number",
-                {
-                    ascending:true
-                }
-            );
+        } =
+        await supabaseClient
+        .from("game_results")
+        .select(
+            "round_number,result"
+        )
+        .eq(
+            "game_date",
+            today
+        )
+        .order(
+            "round_number",
+            {
+                ascending:true
+            }
+        );
+
 
         if(error){
 
-            console.error(error);
+            console.error(
+                "Load Results Error:",
+                error
+            );
 
             return;
         }
+
 
         if(!data){
+
             return;
         }
+
 
         data.forEach(row => {
 
             const input =
-                document.getElementById(
+                document
+                .getElementById(
                     "result-" +
                     row.round_number
                 );
+
 
             if(input){
 
@@ -592,10 +795,16 @@ async function loadTodayResults(){
 
         });
 
+
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Load Error:",
+            error
+        );
+
     }
+
 }
 
 
@@ -606,17 +815,32 @@ async function loadTodayResults(){
 async function saveResult(round){
 
     const input =
-        document.getElementById(
-            "result-" + round
+        document
+        .getElementById(
+            "result-" +
+            round
         );
 
+
     const statusBox =
-        document.getElementById(
-            "status-" + round
+        document
+        .getElementById(
+            "status-" +
+            round
         );
+
+
+    const saveButton =
+        document
+        .getElementById(
+            "save-" +
+            round
+        );
+
 
     const result =
         input.value.trim();
+
 
     if(!result){
 
@@ -637,15 +861,26 @@ async function saveResult(round){
         "#555";
 
 
+    saveButton.disabled =
+        true;
+
+
     try{
 
         const {
-            data: sessionData
+            data:
+                sessionData
         } =
-            await supabaseClient.auth.getSession();
+        await supabaseClient
+        .auth
+        .getSession();
+
 
         const user =
-            sessionData.session?.user;
+            sessionData
+            .session
+            ?.user;
+
 
         if(
             !user ||
@@ -658,6 +893,9 @@ async function saveResult(round){
             statusBox.style.color =
                 "#a00000";
 
+            saveButton.disabled =
+                false;
+
             return;
         }
 
@@ -665,34 +903,58 @@ async function saveResult(round){
         const gameDate =
             getToday();
 
+
         const gameTime =
             convertTimeToDB(
-                roundTimes[round - 1]
+                roundTimes[
+                    round - 1
+                ]
             );
 
 
         const {
             error
-        } = await supabaseClient
-            .from("game_results")
-            .upsert(
-                {
-                    round_number: round,
-                    game_time: gameTime,
-                    result: result,
-                    game_date: gameDate,
-                    status: "published"
-                },
-                {
-                    onConflict:
-                        "game_date,round_number"
-                }
-            );
+        } =
+        await supabaseClient
+        .from("game_results")
+        .upsert(
+
+            {
+
+                round_number:
+                    round,
+
+                game_time:
+                    gameTime,
+
+                result:
+                    result,
+
+                game_date:
+                    gameDate,
+
+                status:
+                    "published"
+
+            },
+
+            {
+
+                onConflict:
+                    "game_date,round_number"
+
+            }
+
+        );
 
 
         if(error){
 
-            console.error(error);
+            console.error(
+                "Save Error:",
+                error
+            );
+
 
             statusBox.textContent =
                 "❌ Save failed: " +
@@ -700,6 +962,9 @@ async function saveResult(round){
 
             statusBox.style.color =
                 "#a00000";
+
+            saveButton.disabled =
+                false;
 
             return;
         }
@@ -711,16 +976,31 @@ async function saveResult(round){
         statusBox.style.color =
             "#008000";
 
+
+        saveButton.disabled =
+            false;
+
+
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Save Error:",
+            error
+        );
+
 
         statusBox.textContent =
             "❌ Server error.";
 
         statusBox.style.color =
             "#a00000";
+
+
+        saveButton.disabled =
+            false;
+
     }
+
 }
 
 
@@ -730,23 +1010,34 @@ async function saveResult(round){
 
 async function logout(){
 
-    await supabaseClient.auth.signOut();
+    await supabaseClient
+        .auth
+        .signOut();
 
-    document.getElementById(
-        "adminBox"
-    ).classList.add("hidden");
 
-    document.getElementById(
-        "loginBox"
-    ).classList.remove("hidden");
+    document
+        .getElementById("adminBox")
+        .classList
+        .add("hidden");
 
-    document.getElementById(
-        "password"
-    ).value = "";
 
-    document.getElementById(
-        "loginStatus"
-    ).textContent = "";
+    document
+        .getElementById("loginBox")
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById("password")
+        .value =
+        "";
+
+
+    document
+        .getElementById("loginStatus")
+        .textContent =
+        "";
+
 }
 
 
@@ -756,20 +1047,35 @@ async function logout(){
 
 async function checkSession(){
 
-    const {
-        data
-    } =
-        await supabaseClient.auth.getSession();
+    try{
 
-    const user =
-        data.session?.user;
+        const {
+            data
+        } =
+        await supabaseClient
+        .auth
+        .getSession();
 
-    if(
-        user &&
-        user.id === ADMIN_UID
-    ){
 
-        showAdmin(user);
+        const user =
+            data.session?.user;
+
+
+        if(
+            user &&
+            user.id === ADMIN_UID
+        ){
+
+            showAdmin(user);
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "Session Error:",
+            error
+        );
 
     }
 
@@ -781,6 +1087,7 @@ async function checkSession(){
 ========================= */
 
 checkSession();
+
 
 </script>
 
