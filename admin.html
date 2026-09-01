@@ -1,1 +1,739 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
+<title>ADL Demo - Admin Panel</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    padding:12px;
+    color:#fff;
+    background:
+        radial-gradient(circle at 10% 5%,rgba(255,215,0,.25),transparent 25%),
+        linear-gradient(135deg,#650000,#b90000,#006b2c,#003d1c);
+}
+
+.container{
+    width:100%;
+    max-width:650px;
+    margin:auto;
+}
+
+.header{
+    text-align:center;
+    padding:20px 10px;
+    border:3px solid #ffd700;
+    border-radius:20px;
+    background:linear-gradient(135deg,#970000,#e12c00,#087735);
+    box-shadow:0 0 25px rgba(255,215,0,.35);
+}
+
+.logo{
+    color:#ffe66b;
+    font-size:27px;
+    font-weight:900;
+}
+
+.subtitle{
+    margin-top:6px;
+    font-size:13px;
+}
+
+.card{
+    margin-top:15px;
+    padding:18px;
+    border:3px solid #ffd700;
+    border-radius:20px;
+    background:linear-gradient(145deg,#420000,#100000);
+}
+
+label{
+    display:block;
+    margin-bottom:7px;
+    color:#ffd700;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    margin-bottom:12px;
+    border:2px solid #ffd700;
+    border-radius:10px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:13px;
+    margin-top:5px;
+    border:0;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.login-btn{
+    color:#650000;
+    background:linear-gradient(135deg,#ffd700,#ffad00);
+}
+
+.logout-btn{
+    margin-top:12px;
+    color:#fff;
+    background:linear-gradient(135deg,#a00000,#650000);
+}
+
+#adminPanel{
+    display:none;
+}
+
+.info{
+    padding:12px;
+    margin-bottom:15px;
+    text-align:center;
+    color:#222;
+    background:#fff1a8;
+    border:2px solid #ffd700;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.round-box{
+    margin-top:12px;
+    padding:14px;
+    background:#fff;
+    color:#111;
+    border:2px solid #ffd700;
+    border-radius:15px;
+}
+
+.round-title{
+    color:#8b0000;
+    font-size:18px;
+    font-weight:900;
+    margin-bottom:7px;
+}
+
+.round-time{
+    color:#555;
+    margin-bottom:10px;
+}
+
+.save-btn{
+    color:#fff;
+    background:linear-gradient(135deg,#00a947,#006e2c);
+    border:1px solid #61ff9c;
+}
+
+.message{
+    display:none;
+    margin-top:12px;
+    padding:11px;
+    text-align:center;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.success{
+    display:block;
+    background:#075d2b;
+    border:1px solid #5cff9b;
+}
+
+.error{
+    display:block;
+    background:#720000;
+    border:1px solid #ff8888;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+    <div class="logo">♛ A.D.L DEMO ADMIN ♛</div>
+    <div class="subtitle">Result Management — Testing</div>
+</div>
+
+
+<!-- LOGIN -->
+
+<div class="card" id="loginPanel">
+
+    <h2 style="text-align:center;color:#ffd700;margin-bottom:18px;">
+        🔐 Login
+    </h2>
+
+    <label>Email</label>
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Email"
+    >
+
+    <label>Password</label>
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Password"
+    >
+
+    <button
+        class="login-btn"
+        onclick="login()"
+    >
+        🔐 Login
+    </button>
+
+    <div id="loginMessage" class="message"></div>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<div class="card" id="adminPanel">
+
+    <div class="info">
+
+        📅 Date:
+        <span id="todayDate">--/--/----</span>
+
+        <br><br>
+
+        🔢 Demo Rounds: 26
+
+    </div>
+
+    <div id="roundsContainer"></div>
+
+    <button
+        class="logout-btn"
+        onclick="logout()"
+    >
+        🚪 Logout
+    </button>
+
+    <div id="saveMessage" class="message"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   SUPABASE
+========================================== */
+
+const SUPABASE_URL =
+"https://qgmfgycymbhsrkyjkhjy.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_9eYJV-pHlQLKZ9gu24s-fg_RnfviCUO";
+
+const supabaseClient =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* ==========================================
+   TODAY
+========================================== */
+
+function getToday(){
+
+    const now = new Date();
+
+    const year =
+        now.getFullYear();
+
+    const month =
+        String(
+            now.getMonth() + 1
+        ).padStart(2,"0");
+
+    const day =
+        String(
+            now.getDate()
+        ).padStart(2,"0");
+
+    return `${year}-${month}-${day}`;
+}
+
+
+/* ==========================================
+   26 DEMO ROUNDS
+========================================== */
+
+function createRounds(){
+
+    const rounds = [];
+
+    let totalMinutes = 12 * 60;
+
+    for(let i = 1; i <= 26; i++){
+
+        let minutes =
+            totalMinutes % (24 * 60);
+
+        let hour =
+            Math.floor(minutes / 60);
+
+        let minute =
+            minutes % 60;
+
+        rounds.push({
+            round:i,
+            time:
+                String(hour).padStart(2,"0")
+                + ":" +
+                String(minute).padStart(2,"0")
+                + ":00"
+        });
+
+        totalMinutes += 30;
+    }
+
+    return rounds;
+}
+
+
+/* ==========================================
+   DISPLAY TIME
+========================================== */
+
+function formatTime(time){
+
+    if(!time){
+        return "—";
+    }
+
+    const parts =
+        time.split(":");
+
+    let hour =
+        parseInt(parts[0],10);
+
+    const minute =
+        parts[1];
+
+    const ampm =
+        hour >= 12
+        ? "PM"
+        : "AM";
+
+    hour =
+        hour % 12 || 12;
+
+    return `${hour}:${minute} ${ampm}`;
+}
+
+
+/* ==========================================
+   LOGIN
+========================================== */
+
+async function login(){
+
+    const email =
+        document.getElementById("email")
+        .value.trim();
+
+    const password =
+        document.getElementById("password")
+        .value;
+
+    if(!email || !password){
+
+        showMessage(
+            "loginMessage",
+            "Email और password डालें।",
+            "error"
+        );
+
+        return;
+    }
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.auth
+        .signInWithPassword({
+            email,
+            password
+        });
+
+    if(error){
+
+        console.error(error);
+
+        showMessage(
+            "loginMessage",
+            "❌ Login failed.",
+            "error"
+        );
+
+        return;
+    }
+
+    document.getElementById(
+        "loginPanel"
+    ).style.display = "none";
+
+    document.getElementById(
+        "adminPanel"
+    ).style.display = "block";
+
+    loadPanel();
+}
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+async function logout(){
+
+    await supabaseClient.auth.signOut();
+
+    document.getElementById(
+        "adminPanel"
+    ).style.display = "none";
+
+    document.getElementById(
+        "loginPanel"
+    ).style.display = "block";
+}
+
+
+/* ==========================================
+   LOAD PANEL
+========================================== */
+
+async function loadPanel(){
+
+    const today =
+        getToday();
+
+    document.getElementById(
+        "todayDate"
+    ).textContent =
+        today.split("-").reverse().join("/");
+
+
+    const container =
+        document.getElementById(
+            "roundsContainer"
+        );
+
+    container.innerHTML =
+        "<div style='text-align:center;padding:15px'>Loading...</div>";
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .from("game_results")
+        .select(
+            "id,round_number,game_time,result,game_date,status"
+        )
+        .eq(
+            "game_date",
+            today
+        )
+        .order(
+            "round_number",
+            {
+                ascending:true
+            }
+        );
+
+
+    if(error){
+
+        console.error(error);
+
+        container.innerHTML =
+            "<div class='message error' style='display:block'>"
+            + "Database data load नहीं हुआ।"
+            + "</div>";
+
+        return;
+    }
+
+
+    const rounds =
+        createRounds();
+
+    container.innerHTML = "";
+
+
+    rounds.forEach(round => {
+
+        const existing =
+            data.find(
+                row =>
+                Number(row.round_number)
+                === round.round
+            );
+
+
+        const result =
+            existing &&
+            existing.result !== null
+            ? existing.result
+            : "";
+
+
+        const id =
+            existing
+            ? existing.id
+            : "";
+
+
+        const box =
+            document.createElement("div");
+
+        box.className =
+            "round-box";
+
+
+        box.innerHTML = `
+
+            <div class="round-title">
+                🔢 Round ${round.round}
+            </div>
+
+            <div class="round-time">
+                ⏰ ${formatTime(round.time)}
+            </div>
+
+            <input
+                type="text"
+                id="result_${round.round}"
+                value="${result}"
+                placeholder="Demo result"
+                inputmode="numeric"
+                maxlength="3"
+            >
+
+            <button
+                class="save-btn"
+                onclick="saveResult(
+                    ${round.round},
+                    '${round.time}',
+                    '${id}'
+                )"
+            >
+                💾 Save Round ${round.round}
+            </button>
+
+        `;
+
+        container.appendChild(box);
+
+    });
+
+}
+
+
+/* ==========================================
+   SAVE
+========================================== */
+
+async function saveResult(
+    roundNumber,
+    gameTime,
+    id
+){
+
+    const input =
+        document.getElementById(
+            `result_${roundNumber}`
+        );
+
+    const result =
+        input.value.trim();
+
+
+    if(!result){
+
+        showMessage(
+            "saveMessage",
+            `Round ${roundNumber} में result डालें।`,
+            "error"
+        );
+
+        return;
+    }
+
+
+    const today =
+        getToday();
+
+
+    let response;
+
+
+    if(id){
+
+        response =
+            await supabaseClient
+                .from("game_results")
+                .update({
+                    result:result,
+                    status:"published"
+                })
+                .eq(
+                    "id",
+                    id
+                );
+
+    }else{
+
+        response =
+            await supabaseClient
+                .from("game_results")
+                .insert({
+
+                    round_number:
+                        roundNumber,
+
+                    game_time:
+                        gameTime,
+
+                    result:
+                        result,
+
+                    game_date:
+                        today,
+
+                    status:
+                        "published"
+
+                });
+
+    }
+
+
+    if(response.error){
+
+        console.error(
+            response.error
+        );
+
+        showMessage(
+            "saveMessage",
+            "❌ Save failed: " +
+            response.error.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        "saveMessage",
+        `✅ Round ${roundNumber} saved.`,
+        "success"
+    );
+
+
+    loadPanel();
+
+}
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showMessage(
+    id,
+    text,
+    type
+){
+
+    const element =
+        document.getElementById(id);
+
+    element.textContent =
+        text;
+
+    element.className =
+        "message " + type;
+
+    setTimeout(() => {
+
+        element.className =
+            "message";
+
+    },5000);
+
+}
+
+
+/* ==========================================
+   EXISTING SESSION
+========================================== */
+
+async function checkSession(){
+
+    const {
+        data
+    } =
+    await supabaseClient.auth
+        .getSession();
+
+
+    if(
+        data &&
+        data.session
+    ){
+
+        document.getElementById(
+            "loginPanel"
+        ).style.display = "none";
+
+        document.getElementById(
+            "adminPanel"
+        ).style.display = "block";
+
+        loadPanel();
+    }
+
+}
+
+
+checkSession();
+
+</script>
+
+</body>
+      </html>
