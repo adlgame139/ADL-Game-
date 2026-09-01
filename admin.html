@@ -69,6 +69,7 @@ h2{
 input{
     width:100%;
     padding:13px;
+
     margin:7px 0;
 
     border:2px solid #ddd;
@@ -79,8 +80,8 @@ input{
 
 button{
     width:100%;
-
     padding:13px;
+
     margin-top:8px;
 
     border:0;
@@ -121,8 +122,6 @@ button:disabled{
     border-radius:10px;
 
     font-weight:bold;
-
-    min-height:20px;
 }
 
 .round{
@@ -164,7 +163,6 @@ button:disabled{
 
 .user{
     text-align:center;
-
     color:#006b2c;
 
     font-weight:bold;
@@ -172,44 +170,13 @@ button:disabled{
     margin-bottom:10px;
 }
 
-.admin-note{
-    background:#fff6cf;
-
-    border:1px solid #e0a700;
-
-    color:#6b0000;
-
-    padding:10px;
-
-    border-radius:10px;
-
+.result-status{
     text-align:center;
 
-    margin-bottom:15px;
+    margin-top:8px;
 
     font-size:13px;
-
     font-weight:bold;
-}
-
-.uid-box{
-    background:#f3f3f3;
-
-    border:1px solid #ccc;
-
-    border-radius:10px;
-
-    padding:10px;
-
-    margin-top:10px;
-
-    font-size:11px;
-
-    word-break:break-all;
-
-    color:#333;
-
-    text-align:center;
 }
 
 @media(max-width:600px){
@@ -225,10 +192,11 @@ button:disabled{
 }
 
 </style>
-
 </head>
 
+
 <body>
+
 
 <div class="container">
 
@@ -237,10 +205,7 @@ button:disabled{
      LOGIN
 ========================= -->
 
-<div
-    id="loginBox"
-    class="box"
->
+<div id="loginBox" class="box">
 
     <h1>
         🔐 ADL ADMIN LOGIN
@@ -261,7 +226,6 @@ button:disabled{
     >
 
     <button
-        id="loginButton"
         class="login-btn"
         onclick="login()"
     >
@@ -276,6 +240,7 @@ button:disabled{
 </div>
 
 
+
 <!-- =========================
      ADMIN PANEL
 ========================= -->
@@ -284,6 +249,9 @@ button:disabled{
     id="adminBox"
     class="hidden"
 >
+
+
+    <!-- ADMIN HEADER -->
 
     <div class="box">
 
@@ -296,15 +264,6 @@ button:disabled{
             class="user"
         ></div>
 
-        <div
-            id="loggedUid"
-            class="uid-box"
-        ></div>
-
-        <div class="admin-note">
-            🔐 केवल authorized Admin ही Results बदल सकता है
-        </div>
-
         <button
             class="logout-btn"
             onclick="logout()"
@@ -314,6 +273,9 @@ button:disabled{
 
     </div>
 
+
+
+    <!-- RESULTS -->
 
     <div class="box">
 
@@ -332,25 +294,26 @@ button:disabled{
 
     </div>
 
+
 </div>
 
 
 </div>
+
 
 
 <script>
 
 
-/* =========================
+/* =====================================================
    SUPABASE
-========================= */
+===================================================== */
 
 const SUPABASE_URL =
 "https://qgmfgycymbhsrkyjkhjy.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_9eYJV-pHlQLKZ9gu24s-fg_RnfviCUO";
-
 
 const supabaseClient =
 supabase.createClient(
@@ -359,17 +322,19 @@ supabase.createClient(
 );
 
 
-/* =========================
+
+/* =====================================================
    ADMIN UID
-========================= */
+===================================================== */
 
 const ADMIN_UID =
-"26459e56-bacd-4f77-9cd9-68aacd5cf857";
+"90f67bba-f300-465f-9041-fb7addc9bf45";
 
 
-/* =========================
+
+/* =====================================================
    26 ROUND TIMES
-========================= */
+===================================================== */
 
 const roundTimes = [
 
@@ -415,9 +380,10 @@ const roundTimes = [
 ];
 
 
-/* =========================
+
+/* =====================================================
    GET TODAY
-========================= */
+===================================================== */
 
 function getToday(){
 
@@ -447,9 +413,89 @@ function getToday(){
 }
 
 
-/* =========================
+
+/* =====================================================
+   DISPLAY DATE
+===================================================== */
+
+function displayDate(date){
+
+    const parts =
+        date.split("-");
+
+    if(
+        parts.length !== 3
+    ){
+        return date;
+    }
+
+    return (
+        parts[2] +
+        "/" +
+        parts[1] +
+        "/" +
+        parts[0]
+    );
+}
+
+
+
+/* =====================================================
+   CONVERT TIME
+===================================================== */
+
+function convertTimeToDB(time){
+
+    const parts =
+        time.split(" ");
+
+    const hm =
+        parts[0];
+
+    const ampm =
+        parts[1];
+
+    const hmParts =
+        hm.split(":");
+
+    let hour =
+        parseInt(
+            hmParts[0],
+            10
+        );
+
+    const minute =
+        hmParts[1];
+
+
+    if(ampm === "AM"){
+
+        if(hour === 12){
+            hour = 0;
+        }
+
+    }else{
+
+        if(hour !== 12){
+            hour += 12;
+        }
+
+    }
+
+
+    return (
+        String(hour).padStart(2,"0") +
+        ":" +
+        minute +
+        ":00"
+    );
+}
+
+
+
+/* =====================================================
    LOGIN
-========================= */
+===================================================== */
 
 async function login(){
 
@@ -468,12 +514,11 @@ async function login(){
         document
         .getElementById("loginStatus");
 
-    const loginButton =
-        document
-        .getElementById("loginButton");
 
-
-    if(!email || !password){
+    if(
+        !email ||
+        !password
+    ){
 
         status.textContent =
             "⚠️ Email और Password डालें।";
@@ -490,9 +535,6 @@ async function login(){
 
     status.style.color =
         "#555";
-
-    loginButton.disabled =
-        true;
 
 
     try{
@@ -516,10 +558,7 @@ async function login(){
 
         if(error){
 
-            console.error(
-                "Login Error:",
-                error
-            );
+            console.error(error);
 
             status.textContent =
                 "❌ Login failed: " +
@@ -528,31 +567,9 @@ async function login(){
             status.style.color =
                 "#a00000";
 
-            loginButton.disabled =
-                false;
-
             return;
         }
 
-
-        /*
-         * IMPORTANT DEBUG
-         */
-
-        console.log(
-            "LOGIN UID:",
-            data.user?.id
-        );
-
-        console.log(
-            "ADMIN UID:",
-            ADMIN_UID
-        );
-
-
-        /*
-         * ADMIN UID CHECK
-         */
 
         if(
             !data.user ||
@@ -565,69 +582,42 @@ async function login(){
 
 
             status.textContent =
-                "❌ यह account Admin नहीं है।";
+                "❌ यह account admin नहीं है।";
 
             status.style.color =
                 "#a00000";
 
-
-            /*
-             * UID दिखाई देगा ताकि
-             * गलत UID तुरंत पता चले।
-             */
-
-            if(data.user){
-
-                status.innerHTML =
-                    "❌ यह account Admin नहीं है।<br><br>" +
-                    "Login UID:<br>" +
-                    "<b>" +
-                    data.user.id +
-                    "</b>";
-
-            }
-
-
-            loginButton.disabled =
-                false;
-
             return;
         }
 
+
+        status.textContent =
+            "";
 
         showAdmin(
             data.user
         );
 
 
-        loginButton.disabled =
-            false;
-
-
     }catch(error){
 
-        console.error(
-            "Login Error:",
-            error
-        );
+        console.error(error);
 
         status.textContent =
-            "❌ Login error.";
+            "❌ Login error: " +
+            error.message;
 
         status.style.color =
             "#a00000";
-
-        loginButton.disabled =
-            false;
-
     }
 
 }
 
 
-/* =========================
+
+/* =====================================================
    SHOW ADMIN
-========================= */
+===================================================== */
 
 function showAdmin(user){
 
@@ -647,20 +637,15 @@ function showAdmin(user){
         .getElementById("userEmail")
         .textContent =
         "👤 Logged in: " +
-        (user.email || "");
-
-
-    document
-        .getElementById("loggedUid")
-        .textContent =
-        "Admin UID: " +
-        user.id;
+        user.email;
 
 
     document
         .getElementById("todayDate")
         .textContent =
-        getToday();
+        displayDate(
+            getToday()
+        );
 
 
     createRounds();
@@ -670,9 +655,10 @@ function showAdmin(user){
 }
 
 
-/* =========================
+
+/* =====================================================
    CREATE 26 ROUNDS
-========================= */
+===================================================== */
 
 function createRounds(){
 
@@ -696,12 +682,18 @@ function createRounds(){
             <div class="round">
 
                 <div class="round-title">
+
                     🔴 Round ${i}
+
                 </div>
 
+
                 <div class="time">
+
                     🕐 ${roundTimes[i - 1]}
+
                 </div>
+
 
                 <input
                     type="text"
@@ -711,13 +703,17 @@ function createRounds(){
                     inputmode="numeric"
                 >
 
+
                 <button
-                    class="save-btn"
                     id="save-${i}"
+                    class="save-btn"
                     onclick="saveResult(${i})"
                 >
+
                     💾 Round ${i} Save
+
                 </button>
+
 
                 <div
                     id="status-${i}"
@@ -727,75 +723,15 @@ function createRounds(){
             </div>
 
         `;
-
     }
 
 }
 
 
-/* =========================
-   CONVERT TIME
-========================= */
 
-function convertTimeToDB(time){
-
-    const parts =
-        time.split(" ");
-
-    const hm =
-        parts[0];
-
-    const ampm =
-        parts[1];
-
-
-    const hmParts =
-        hm.split(":");
-
-
-    let hour =
-        parseInt(
-            hmParts[0],
-            10
-        );
-
-
-    const minute =
-        hmParts[1];
-
-
-    if(ampm === "AM"){
-
-        if(hour === 12){
-
-            hour = 0;
-
-        }
-
-    }else{
-
-        if(hour !== 12){
-
-            hour += 12;
-
-        }
-
-    }
-
-
-    return (
-        String(hour).padStart(2,"0") +
-        ":" +
-        minute +
-        ":00"
-    );
-
-}
-
-
-/* =========================
+/* =====================================================
    LOAD TODAY RESULTS
-========================= */
+===================================================== */
 
 async function loadTodayResults(){
 
@@ -812,7 +748,7 @@ async function loadTodayResults(){
         await supabaseClient
         .from("game_results")
         .select(
-            "round_number,result"
+            "id,round_number,result,game_time,status"
         )
         .eq(
             "game_date",
@@ -829,7 +765,7 @@ async function loadTodayResults(){
         if(error){
 
             console.error(
-                "Load Results Error:",
+                "Load Error:",
                 error
             );
 
@@ -838,35 +774,35 @@ async function loadTodayResults(){
 
 
         if(!data){
-
             return;
         }
 
 
-        data.forEach(row => {
+        data.forEach(
+            row => {
 
-            const input =
-                document
-                .getElementById(
-                    "result-" +
-                    row.round_number
-                );
+                const input =
+                    document
+                    .getElementById(
+                        "result-" +
+                        row.round_number
+                    );
 
 
-            if(input){
+                if(input){
 
-                input.value =
-                    row.result ?? "";
+                    input.value =
+                        row.result ?? "";
+
+                }
 
             }
-
-        });
+        );
 
 
     }catch(error){
 
         console.error(
-            "Load Error:",
             error
         );
 
@@ -875,33 +811,31 @@ async function loadTodayResults(){
 }
 
 
-/* =========================
+
+/* =====================================================
    SAVE RESULT
-========================= */
+===================================================== */
 
 async function saveResult(round){
 
     const input =
         document
         .getElementById(
-            "result-" +
-            round
+            "result-" + round
         );
 
 
     const statusBox =
         document
         .getElementById(
-            "status-" +
-            round
+            "status-" + round
         );
 
 
     const saveButton =
         document
         .getElementById(
-            "save-" +
-            round
+            "save-" + round
         );
 
 
@@ -934,9 +868,13 @@ async function saveResult(round){
 
     try{
 
+
+        /* =========================================
+           CHECK LOGIN
+        ========================================= */
+
         const {
-            data:
-                sessionData
+            data: sessionData
         } =
         await supabaseClient
         .auth
@@ -967,6 +905,11 @@ async function saveResult(round){
         }
 
 
+
+        /* =========================================
+           DATE + TIME
+        ========================================= */
+
         const gameDate =
             getToday();
 
@@ -979,17 +922,75 @@ async function saveResult(round){
             );
 
 
+
+        /* =========================================
+           FIND EXISTING RESULT
+        ========================================= */
+
         const {
-            error
+            data: existingRows,
+            error: findError
         } =
         await supabaseClient
         .from("game_results")
-        .upsert(
+        .select("id")
+        .eq(
+            "game_date",
+            gameDate
+        )
+        .eq(
+            "round_number",
+            round
+        )
+        .limit(1);
 
-            {
 
-                round_number:
-                    round,
+
+        if(findError){
+
+            console.error(
+                "Find Error:",
+                findError
+            );
+
+
+            statusBox.textContent =
+                "❌ Find failed: " +
+                findError.message;
+
+
+            statusBox.style.color =
+                "#a00000";
+
+
+            saveButton.disabled =
+                false;
+
+
+            return;
+        }
+
+
+
+        /* =========================================
+           EXISTING ROW → UPDATE
+        ========================================= */
+
+        if(
+            existingRows &&
+            existingRows.length > 0
+        ){
+
+            const rowId =
+                existingRows[0].id;
+
+
+            const {
+                error: updateError
+            } =
+            await supabaseClient
+            .from("game_results")
+            .update({
 
                 game_time:
                     gameTime,
@@ -997,41 +998,108 @@ async function saveResult(round){
                 result:
                     result,
 
-                game_date:
-                    gameDate,
-
                 status:
                     "published"
 
-            },
+            })
+            .eq(
+                "id",
+                rowId
+            );
 
-            {
 
-                onConflict:
-                    "game_date,round_number"
+            if(updateError){
 
+                console.error(
+                    "Update Error:",
+                    updateError
+                );
+
+
+                statusBox.textContent =
+                    "❌ Update failed: " +
+                    updateError.message;
+
+
+                statusBox.style.color =
+                    "#a00000";
+
+
+                saveButton.disabled =
+                    false;
+
+
+                return;
             }
 
-        );
+
+            statusBox.textContent =
+                "✅ Result Updated & Published";
 
 
-        if(error){
+            statusBox.style.color =
+                "#008000";
+
+
+            saveButton.disabled =
+                false;
+
+
+            return;
+        }
+
+
+
+        /* =========================================
+           NO ROW → INSERT
+        ========================================= */
+
+        const {
+            error: insertError
+        } =
+        await supabaseClient
+        .from("game_results")
+        .insert({
+
+            round_number:
+                round,
+
+            game_time:
+                gameTime,
+
+            result:
+                result,
+
+            game_date:
+                gameDate,
+
+            status:
+                "published"
+
+        });
+
+
+
+        if(insertError){
 
             console.error(
-                "Save Error:",
-                error
+                "Insert Error:",
+                insertError
             );
 
 
             statusBox.textContent =
-                "❌ Save failed: " +
-                error.message;
+                "❌ Insert failed: " +
+                insertError.message;
+
 
             statusBox.style.color =
                 "#a00000";
 
+
             saveButton.disabled =
                 false;
+
 
             return;
         }
@@ -1039,6 +1107,7 @@ async function saveResult(round){
 
         statusBox.textContent =
             "✅ Result Saved & Published";
+
 
         statusBox.style.color =
             "#008000";
@@ -1057,7 +1126,9 @@ async function saveResult(round){
 
 
         statusBox.textContent =
-            "❌ Server error.";
+            "❌ Server error: " +
+            error.message;
+
 
         statusBox.style.color =
             "#a00000";
@@ -1071,9 +1142,10 @@ async function saveResult(round){
 }
 
 
-/* =========================
+
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
 async function logout(){
 
@@ -1108,50 +1180,76 @@ async function logout(){
 }
 
 
-/* =========================
+
+/* =====================================================
    CHECK EXISTING SESSION
-========================= */
+===================================================== */
 
 async function checkSession(){
 
-    try{
-
-        const {
-            data
-        } =
-        await supabaseClient
-        .auth
-        .getSession();
+    const {
+        data
+    } =
+    await supabaseClient
+    .auth
+    .getSession();
 
 
-        const user =
-            data.session?.user;
+    const user =
+        data.session?.user;
 
 
-        if(
-            user &&
-            user.id === ADMIN_UID
-        ){
+    if(
+        user &&
+        user.id === ADMIN_UID
+    ){
 
-            showAdmin(user);
-
-        }
-
-    }catch(error){
-
-        console.error(
-            "Session Error:",
-            error
-        );
+        showAdmin(user);
 
     }
 
 }
 
 
-/* =========================
+
+/* =====================================================
+   AUTH STATE CHANGE
+===================================================== */
+
+supabaseClient
+.auth
+.onAuthStateChange(
+    (event, session) => {
+
+        if(
+            event === "SIGNED_OUT"
+        ){
+
+            document
+                .getElementById(
+                    "adminBox"
+                )
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById(
+                    "loginBox"
+                )
+                .classList
+                .remove("hidden");
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
    START
-========================= */
+===================================================== */
 
 checkSession();
 
