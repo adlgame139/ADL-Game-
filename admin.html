@@ -1,1242 +1,1058 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>  <html lang="hi">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>ADL Admin Panel</title>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  <style>  
+*{  
+    box-sizing:border-box;  
+    margin:0;  
+    padding:0;  
+}  
+  
+body{  
+    font-family:Arial,Helvetica,sans-serif;  
+    min-height:100vh;  
+    padding:20px;  
+    background:linear-gradient(135deg,#650000,#b90000,#006b2c,#003d1c);  
+    color:#fff;  
+}  
+  
+.container{  
+    width:100%;  
+    max-width:700px;  
+    margin:auto;  
+}  
+  
+.box{  
+    background:#fff;  
+    color:#222;  
+    padding:20px;  
+    border-radius:20px;  
+    border:3px solid #ffd700;  
+    box-shadow:0 8px 30px rgba(0,0,0,.4);  
+    margin-bottom:18px;  
+}  
+  
+h1{  
+    text-align:center;  
+    color:#9b0000;  
+    margin-bottom:18px;  
+}  
+  
+h2{  
+    color:#9b0000;  
+    margin-bottom:15px;  
+}  
+  
+input{  
+    width:100%;  
+    padding:13px;  
+    margin:7px 0;  
+    border:2px solid #ddd;  
+    border-radius:10px;  
+    font-size:16px;  
+}  
+  
+button{  
+    width:100%;  
+    padding:13px;  
+    margin-top:8px;  
+    border:0;  
+    border-radius:10px;  
+    font-weight:bold;  
+    font-size:16px;  
+    cursor:pointer;  
+}  
+  
+button:disabled{  
+    opacity:.6;  
+    cursor:not-allowed;  
+}  
+  
+.login-btn{  
+    background:#008f3c;  
+    color:white;  
+}  
+  
+.logout-btn{  
+    background:#a00000;  
+    color:white;  
+}  
+  
+.save-btn{  
+    background:#008f3c;  
+    color:white;  
+}  
+  
+.status{  
+    text-align:center;  
+    padding:10px;  
+    margin-top:10px;  
+    border-radius:10px;  
+    font-weight:bold;  
+}  
+  
+.round{  
+    border:2px solid #ddd;  
+    border-radius:15px;  
+    padding:15px;  
+    margin-bottom:12px;  
+    background:#fffbea;  
+}  
+  
+.round-title{  
+    font-weight:bold;  
+    color:#9b0000;  
+    font-size:18px;  
+    margin-bottom:8px;  
+}  
+  
+.time{  
+    color:#444;  
+    font-weight:bold;  
+    margin-bottom:5px;  
+}  
+  
+.hidden{  
+    display:none;  
+}  
+  
+.info{  
+    text-align:center;  
+    color:#555;  
+    margin-bottom:15px;  
+}  
+  
+.user{  
+    text-align:center;  
+    color:#006b2c;  
+    font-weight:bold;  
+    margin-bottom:10px;  
+}  
+  
+@media(max-width:600px){  
+    body{  
+        padding:10px;  
+    }  
+  
+    .box{  
+        padding:15px;  
+    }  
+}  
+</style>  </head>  <body>  <div class="container">  <!-- LOGIN -->  <div id="loginBox" class="box">  <h1>🔐 ADL ADMIN LOGIN</h1>  
 
-<title>ADL Admin Panel</title>
+<input  
+    type="email"  
+    id="email"  
+    placeholder="Admin Email"  
+    autocomplete="email"  
+>  
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<input  
+    type="password"  
+    id="password"  
+    placeholder="Password"  
+    autocomplete="current-password"  
+>  
 
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+<button  
+    class="login-btn"  
+    onclick="login()"  
+>  
+    🔐 Login  
+</button>  
 
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    min-height:100vh;
-    padding:20px;
-    background:linear-gradient(135deg,#650000,#b90000,#006b2c,#003d1c);
-    color:#fff;
-}
+<div  
+    id="loginStatus"  
+    class="status"  
+></div>
 
-.container{
-    width:100%;
-    max-width:700px;
-    margin:auto;
-}
+</div>  <!-- ADMIN PANEL -->  <div id="adminBox" class="hidden">  <div class="box">  
 
-.box{
-    background:#fff;
-    color:#222;
-    padding:20px;
-    border-radius:20px;
-    border:3px solid #ffd700;
-    box-shadow:0 8px 30px rgba(0,0,0,.4);
-    margin-bottom:18px;
-}
+    <h1>♛ ADL ADMIN PANEL ♛</h1>  
 
-h1{
-    text-align:center;
-    color:#9b0000;
-    margin-bottom:18px;
-}
+    <div  
+        id="userEmail"  
+        class="user"  
+    ></div>  
 
-h2{
-    color:#9b0000;
-    margin-bottom:15px;
-}
+    <button  
+        class="logout-btn"  
+        onclick="logout()"  
+    >  
+        🚪 Logout  
+    </button>  
 
-input{
-    width:100%;
-    padding:13px;
-    margin:7px 0;
-    border:2px solid #ddd;
-    border-radius:10px;
-    font-size:16px;
-}
-
-button{
-    width:100%;
-    padding:13px;
-    margin-top:8px;
-    border:0;
-    border-radius:10px;
-    font-weight:bold;
-    font-size:16px;
-    cursor:pointer;
-}
-
-button:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-}
-
-.login-btn{
-    background:#008f3c;
-    color:white;
-}
-
-.logout-btn{
-    background:#a00000;
-    color:white;
-}
-
-.save-btn{
-    background:#008f3c;
-    color:white;
-}
-
-.remove-btn{
-    background:#d00000;
-    color:white;
-}
-
-.status{
-    text-align:center;
-    padding:10px;
-    margin-top:10px;
-    border-radius:10px;
-    font-weight:bold;
-}
-
-.round{
-    border:2px solid #ddd;
-    border-radius:15px;
-    padding:15px;
-    margin-bottom:12px;
-    background:#fffbea;
-}
-
-.round-title{
-    font-weight:bold;
-    color:#9b0000;
-    font-size:18px;
-    margin-bottom:8px;
-}
-
-.time{
-    color:#444;
-    font-weight:bold;
-    margin-bottom:5px;
-}
-
-.hidden{
-    display:none;
-}
-
-.info{
-    text-align:center;
-    color:#555;
-    margin-bottom:15px;
-}
-
-.user{
-    text-align:center;
-    color:#006b2c;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-@media(max-width:600px){
-    body{
-        padding:10px;
-    }
-
-    .box{
-        padding:15px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<!-- LOGIN -->
-
-<div id="loginBox" class="box">
-
-    <h1>🔐 ADL ADMIN LOGIN</h1>
-
-    <input
-        type="email"
-        id="email"
-        placeholder="Admin Email"
-        autocomplete="email"
-    >
-
-    <input
-        type="password"
-        id="password"
-        placeholder="Password"
-        autocomplete="current-password"
-    >
-
-    <button
-        class="login-btn"
-        onclick="login()"
-    >
-        🔐 Login
-    </button>
-
-    <div
-        id="loginStatus"
-        class="status"
-    ></div>
-
-</div>
+</div>  
 
 
-<!-- ADMIN PANEL -->
+<div class="box">  
 
-<div id="adminBox" class="hidden">
+    <h2>📅 आज के Results</h2>  
 
-    <div class="box">
+    <div class="info">  
+        Date:  
+        <b id="todayDate"></b>  
+    </div>  
 
-        <h1>♛ ADL ADMIN PANEL ♛</h1>
-
-        <div
-            id="userEmail"
-            class="user"
-        ></div>
-
-        <button
-            class="logout-btn"
-            onclick="logout()"
-        >
-            🚪 Logout
-        </button>
-
-    </div>
-
-
-    <div class="box">
-
-        <h2>📅 आज के Results</h2>
-
-        <div class="info">
-            Date:
-            <b id="todayDate"></b>
-        </div>
-
-        <div id="rounds"></div>
-
-    </div>
+    <div id="rounds"></div>  
 
 </div>
 
-</div>
-
-
-<script>
-
-/* =====================================================
-   SUPABASE
-===================================================== */
-
-const SUPABASE_URL =
-"https://qgmfgycymbhsrkyjkhjy.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_9eYJV-pHlQLKZ9gu24s-fg_RnfviCUO";
-
-const supabaseClient =
-supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-
-
-/* =====================================================
-   ADMIN UID
-===================================================== */
-
-const ADMIN_UID =
-"26459e56-bacd-4f77-9cd9-68aacd5cf857";
-
-
-/* =====================================================
-   26 ROUND TIMES
-===================================================== */
-
-const roundTimes = [
-
-    "12:00 PM",
-    "12:30 PM",
-
-    "1:00 PM",
-    "1:30 PM",
-
-    "2:00 PM",
-    "2:30 PM",
-
-    "3:00 PM",
-    "3:30 PM",
-
-    "4:00 PM",
-    "4:30 PM",
-
-    "5:00 PM",
-    "5:30 PM",
-
-    "6:00 PM",
-    "6:30 PM",
-
-    "7:00 PM",
-    "7:30 PM",
-
-    "8:00 PM",
-    "8:30 PM",
-
-    "9:00 PM",
-    "9:30 PM",
-
-    "10:00 PM",
-    "10:30 PM",
-
-    "11:00 PM",
-    "11:30 PM",
-
-    "12:00 AM",
-    "12:30 AM"
-
-];
-
-
-/* =====================================================
-   GET TODAY
-===================================================== */
-
-function getToday(){
-
-    const now = new Date();
-
-    const year =
-        now.getFullYear();
-
-    const month =
-        String(
-            now.getMonth() + 1
-        ).padStart(2,"0");
-
-    const day =
-        String(
-            now.getDate()
-        ).padStart(2,"0");
-
-    return (
-        year +
-        "-" +
-        month +
-        "-" +
-        day
-    );
-}
-
-
-/* =====================================================
-   DISPLAY DATE
-===================================================== */
-
-function displayDate(date){
-
-    const parts =
-        date.split("-");
-
-    if(parts.length !== 3){
-        return date;
-    }
-
-    return (
-        parts[2] +
-        "/" +
-        parts[1] +
-        "/" +
-        parts[0]
-    );
-}
-
-
-/* =====================================================
-   CONVERT TIME
-===================================================== */
-
-function convertTimeToDB(time){
-
-    const parts =
-        time.split(" ");
-
-    const hm =
-        parts[0];
-
-    const ampm =
-        parts[1];
-
-    const hmParts =
-        hm.split(":");
-
-    let hour =
-        parseInt(
-            hmParts[0],
-            10
-        );
-
-    const minute =
-        hmParts[1];
-
-
-    if(ampm === "AM"){
-
-        if(hour === 12){
-            hour = 0;
-        }
-
-    }else{
-
-        if(hour !== 12){
-            hour += 12;
-        }
-
-    }
-
-
-    return (
-        String(hour).padStart(2,"0") +
-        ":" +
-        minute +
-        ":00"
-    );
-}
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-async function login(){
-
-    const email =
-        document
-        .getElementById("email")
-        .value
-        .trim();
-
-    const password =
-        document
-        .getElementById("password")
-        .value;
-
-    const status =
-        document
-        .getElementById("loginStatus");
-
-
-    if(!email || !password){
-
-        status.textContent =
-            "⚠️ Email और Password डालें।";
-
-        status.style.color =
-            "#a00000";
-
-        return;
-    }
-
-
-    status.textContent =
-        "⏳ Login हो रहा है...";
-
-    status.style.color =
-        "#555";
-
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-        .auth
-        .signInWithPassword({
-
-            email:email,
-            password:password
-
-        });
-
-
-        if(error){
-
-            console.error(error);
-
-            status.textContent =
-                "❌ Login failed: " +
-                error.message;
-
-            status.style.color =
-                "#a00000";
-
-            return;
-        }
-
-
-        if(
-            !data.user ||
-            data.user.id !== ADMIN_UID
-        ){
-
-            await supabaseClient
-                .auth
-                .signOut();
-
-            status.textContent =
-                "❌ यह account admin नहीं है।";
-
-            status.style.color =
-                "#a00000";
-
-            return;
-        }
-
-
-        status.textContent = "";
-
-        showAdmin(data.user);
-
-
-    }catch(error){
-
-        console.error(error);
-
-        status.textContent =
-            "❌ Login error: " +
-            error.message;
-
-        status.style.color =
-            "#a00000";
-    }
-}
-
-
-/* =====================================================
-   SHOW ADMIN
-===================================================== */
-
-function showAdmin(user){
-
-    document
-        .getElementById("loginBox")
-        .classList
-        .add("hidden");
-
-
-    document
-        .getElementById("adminBox")
-        .classList
-        .remove("hidden");
-
-
-    document
-        .getElementById("userEmail")
-        .textContent =
-        "👤 Logged in: " +
-        user.email;
-
-
-    document
-        .getElementById("todayDate")
-        .textContent =
-        displayDate(
-            getToday()
-        );
-
-
-    createRounds();
-
-    loadTodayResults();
-}
-
-
-/* =====================================================
-   CREATE ROUNDS
-===================================================== */
-
-function createRounds(){
-
-    const container =
-        document
-        .getElementById("rounds");
-
-    container.innerHTML = "";
-
-
-    for(
-        let i = 1;
-        i <= 26;
-        i++
-    ){
-
-        container.innerHTML += `
-
-            <div class="round">
-
-                <div class="round-title">
-                    🔴 Round ${i}
-                </div>
-
-                <div class="time">
-                    🕐 ${roundTimes[i - 1]}
-                </div>
-
-                <input
-                    type="text"
-                    id="result-${i}"
-                    placeholder="Result डालें"
-                    maxlength="10"
-                    inputmode="numeric"
-                >
-
-                <button
-                    id="save-${i}"
-                    class="save-btn"
-                    onclick="saveResult(${i})"
-                >
-                    💾 Round ${i} Save
-                </button>
-
-                <button
-                    id="remove-${i}"
-                    class="remove-btn"
-                    onclick="removeResult(${i})"
-                >
-                    🗑️ Remove Result
-                </button>
-
-                <div
-                    id="status-${i}"
-                    class="status"
-                ></div>
-
-            </div>
-
-        `;
-    }
-}
-
-
-/* =====================================================
-   LOAD TODAY RESULTS
-===================================================== */
-
-async function loadTodayResults(){
-
-    const today =
-        getToday();
-
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-        .from("game_results")
-        .select(
-            "id,round_number,result,game_time,status"
-        )
-        .eq(
-            "game_date",
-            today
-        )
-        .order(
-            "round_number",
-            {
-                ascending:true
-            }
-        );
-
-
-        if(error){
-
-            console.error(
-                "Load Error:",
-                error
-            );
-
-            return;
-        }
-
-
-        if(!data){
-            return;
-        }
-
-
-        data.forEach(row => {
-
-            const input =
-                document
-                .getElementById(
-                    "result-" +
-                    row.round_number
-                );
-
-
-            if(input){
-
-                /*
-                   अगर result hidden है,
-                   तो input खाली रहेगा।
-                */
-
-                if(row.status === "hidden"){
-
-                    input.value = "";
-
-                }else{
-
-                    input.value =
-                        row.result ?? "";
-
-                }
-
-            }
-
-        });
-
-
-    }catch(error){
-
-        console.error(error);
-
-    }
-}
-
-
-/* =====================================================
-   SAVE RESULT
-===================================================== */
-
-async function saveResult(round){
-
-    const input =
-        document
-        .getElementById(
-            "result-" + round
-        );
-
-
-    const statusBox =
-        document
-        .getElementById(
-            "status-" + round
-        );
-
-
-    const saveButton =
-        document
-        .getElementById(
-            "save-" + round
-        );
-
-
-    const result =
-        input.value.trim();
-
-
-    if(!result){
-
-        statusBox.textContent =
-            "⚠️ Result डालें।";
-
-        statusBox.style.color =
-            "#a00000";
-
-        return;
-    }
-
-
-    statusBox.textContent =
-        "⏳ Saving...";
-
-    statusBox.style.color =
-        "#555";
-
-
-    saveButton.disabled =
-        true;
-
-
-    try{
-
-        /* CHECK ADMIN SESSION */
-
-        const {
-            data:sessionData
-        } =
-        await supabaseClient
-        .auth
-        .getSession();
-
-
-        const user =
-            sessionData
-            .session
-            ?.user;
-
-
-        if(
-            !user ||
-            user.id !== ADMIN_UID
-        ){
-
-            statusBox.textContent =
-                "❌ Admin login required.";
-
-            statusBox.style.color =
-                "#a00000";
-
-            saveButton.disabled =
-                false;
-
-            return;
-        }
-
-
-        /* DATE */
-
-        const gameDate =
-            getToday();
-
-
-        /* TIME */
-
-        const gameTime =
-            convertTimeToDB(
-                roundTimes[
-                    round - 1
-                ]
-            );
-
-
-        /* FIND EXISTING ROW */
-
-        const {
-            data:existingRows,
-            error:findError
-        } =
-        await supabaseClient
-        .from("game_results")
-        .select("id")
-        .eq(
-            "game_date",
-            gameDate
-        )
-        .eq(
-            "round_number",
-            round
-        )
-        .limit(1);
-
-
-        if(findError){
-
-            console.error(
-                "Find Error:",
-                findError
-            );
-
-
-            statusBox.textContent =
-                "❌ Find failed: " +
-                findError.message;
-
-
-            statusBox.style.color =
-                "#a00000";
-
-
-            saveButton.disabled =
-                false;
-
-            return;
-        }
-
-
-        /* UPDATE EXISTING */
-
-        if(
-            existingRows &&
-            existingRows.length > 0
-        ){
-
-            const rowId =
-                existingRows[0].id;
-
-
-            const {
-                error:updateError
-            } =
-            await supabaseClient
-            .from("game_results")
-            .update({
-
-                game_time:gameTime,
-                result:result,
-                status:"published"
-
-            })
-            .eq(
-                "id",
-                rowId
-            );
-
-
-            if(updateError){
-
-                console.error(
-                    "Update Error:",
-                    updateError
-                );
-
-
-                statusBox.textContent =
-                    "❌ Update failed: " +
-                    updateError.message;
-
-
-                statusBox.style.color =
-                    "#a00000";
-
-
-                saveButton.disabled =
-                    false;
-
-                return;
-            }
-
-
-            statusBox.textContent =
-                "✅ Result Updated & Published";
-
-            statusBox.style.color =
-                "#008000";
-
-            saveButton.disabled =
-                false;
-
-            return;
-        }
-
-
-        /* INSERT NEW */
-
-        const {
-            error:insertError
-        } =
-        await supabaseClient
-        .from("game_results")
-        .insert({
-
-            round_number:round,
-            game_time:gameTime,
-            result:result,
-            game_date:gameDate,
-            status:"published"
-
-        });
-
-
-        if(insertError){
-
-            console.error(
-                "Insert Error:",
-                insertError
-            );
-
-
-            statusBox.textContent =
-                "❌ Insert failed: " +
-                insertError.message;
-
-
-            statusBox.style.color =
-                "#a00000";
-
-
-            saveButton.disabled =
-                false;
-
-            return;
-        }
-
-
-        statusBox.textContent =
-            "✅ Result Saved & Published";
-
-        statusBox.style.color =
-            "#008000";
-
-        saveButton.disabled =
-            false;
-
-
-    }catch(error){
-
-        console.error(
-            "Save Error:",
-            error
-        );
-
-
-        statusBox.textContent =
-            "❌ Server error: " +
-            error.message;
-
-
-        statusBox.style.color =
-            "#a00000";
-
-
-        saveButton.disabled =
-            false;
-    }
-}
-
-
-/* =====================================================
-   REMOVE RESULT
-===================================================== */
-
-async function removeResult(round){
-
-    const statusBox =
-        document.getElementById(
-            "status-" + round
-        );
-
-
-    const removeButton =
-        document.getElementById(
-            "remove-" + round
-        );
-
-
-    const input =
-        document.getElementById(
-            "result-" + round
-        );
-
-
-    if(!confirm(
-        "क्या आप Round " +
-        round +
-        " का result Remove करना चाहते हैं?"
-    )){
-
-        return;
-    }
-
-
-    statusBox.textContent =
-        "⏳ Removing...";
-
-    statusBox.style.color =
-        "#555";
-
-    removeButton.disabled =
-        true;
-
-
-    try{
-
-        /* CHECK ADMIN SESSION */
-
-        const {
-            data:sessionData
-        } =
-        await supabaseClient
-        .auth
-        .getSession();
-
-
-        const user =
-            sessionData
-            .session
-            ?.user;
-
-
-        if(
-            !user ||
-            user.id !== ADMIN_UID
-        ){
-
-            statusBox.textContent =
-                "❌ Admin login required.";
-
-            statusBox.style.color =
-                "#a00000";
-
-            removeButton.disabled =
-                false;
-
-            return;
-        }
-
-
-        /* DATE */
-
-        const gameDate =
-            getToday();
-
-
-        /* FIND EXISTING ROW */
-
-        const {
-            data:existingRows,
-            error:findError
-        } =
-        await supabaseClient
-        .from("game_results")
-        .select("id")
-        .eq(
-            "game_date",
-            gameDate
-        )
-        .eq(
-            "round_number",
-            round
-        )
-        .limit(1);
-
-
-        if(findError){
-
-            console.error(
-                "Remove Find Error:",
-                findError
-            );
-
-            statusBox.textContent =
-                "❌ Find failed: " +
-                findError.message;
-
-            statusBox.style.color =
-                "#a00000";
-
-            removeButton.disabled =
-                false;
-
-            return;
-        }
-
-
-        if(
-            !existingRows ||
-            existingRows.length === 0
-        ){
-
-            input.value = "";
-
-            statusBox.textContent =
-                "⚠️ इस Round का result नहीं मिला।";
-
-            statusBox.style.color =
-                "#a00000";
-
-            removeButton.disabled =
-                false;
-
-            return;
-        }
-
-
-        const rowId =
-            existingRows[0].id;
-
-
-        /* HIDE RESULT */
-
-        const {
-            error:updateError
-        } =
-        await supabaseClient
-        .from("game_results")
-        .update({
-
-            result:null,
-            status:"hidden"
-
-        })
-        .eq(
-            "id",
-            rowId
-        );
-
-
-        if(updateError){
-
-            console.error(
-                "Remove Update Error:",
-                updateError
-            );
-
-            statusBox.textContent =
-                "❌ Remove failed: " +
-                updateError.message;
-
-            statusBox.style.color =
-                "#a00000";
-
-            removeButton.disabled =
-                false;
-
-            return;
-        }
-
-
-        /* CLEAR ADMIN INPUT */
-
-        input.value = "";
-
-
-        statusBox.textContent =
-            "✅ Result Removed";
-
-        statusBox.style.color =
-            "#008000";
-
-
-        removeButton.disabled =
-            false;
-
-
-    }catch(error){
-
-        console.error(
-            "Remove Error:",
-            error
-        );
-
-
-        statusBox.textContent =
-            "❌ Remove failed: " +
-            error.message;
-
-        statusBox.style.color =
-            "#a00000";
-
-
-        removeButton.disabled =
-            false;
-    }
-}
-
-    
+</div>  </div>  <script>  
+  
+/* =====================================================  
+   SUPABASE  
+===================================================== */  
+  
+const SUPABASE_URL =  
+"https://qgmfgycymbhsrkyjkhjy.supabase.co";  
+  
+const SUPABASE_KEY =  
+"sb_publishable_9eYJV-pHlQLKZ9gu24s-fg_RnfviCUO";  
+  
+const supabaseClient =  
+supabase.createClient(  
+    SUPABASE_URL,  
+    SUPABASE_KEY  
+);  
+  
+  
+/* =====================================================  
+   ADMIN UID  
+===================================================== */  
+  
+const ADMIN_UID =  
+"26459e56-bacd-4f77-9cd9-68aacd5cf857";  
+  
+  
+/* =====================================================  
+   26 ROUND TIMES  
+===================================================== */  
+  
+const roundTimes = [  
+  
+    "12:00 PM",  
+    "12:30 PM",  
+  
+    "1:00 PM",  
+    "1:30 PM",  
+  
+    "2:00 PM",  
+    "2:30 PM",  
+  
+    "3:00 PM",  
+    "3:30 PM",  
+  
+    "4:00 PM",  
+    "4:30 PM",  
+  
+    "5:00 PM",  
+    "5:30 PM",  
+  
+    "6:00 PM",  
+    "6:30 PM",  
+  
+    "7:00 PM",  
+    "7:30 PM",  
+  
+    "8:00 PM",  
+    "8:30 PM",  
+  
+    "9:00 PM",  
+    "9:30 PM",  
+  
+    "10:00 PM",  
+    "10:30 PM",  
+  
+    "11:00 PM",  
+    "11:30 PM",  
+  
+    "12:00 AM",  
+    "12:30 AM"  
+  
+];  
+  
+  
+/* =====================================================  
+   GET TODAY  
+===================================================== */  
+  
+function getToday(){  
+  
+    const now = new Date();  
+  
+    const year =  
+        now.getFullYear();  
+  
+    const month =  
+        String(  
+            now.getMonth() + 1  
+        ).padStart(2,"0");  
+  
+    const day =  
+        String(  
+            now.getDate()  
+        ).padStart(2,"0");  
+  
+    return (  
+        year +  
+        "-" +  
+        month +  
+        "-" +  
+        day  
+    );  
+}  
+  
+  
+/* =====================================================  
+   DISPLAY DATE  
+===================================================== */  
+  
+function displayDate(date){  
+  
+    const parts =  
+        date.split("-");  
+  
+    if(parts.length !== 3){  
+        return date;  
+    }  
+  
+    return (  
+        parts[2] +  
+        "/" +  
+        parts[1] +  
+        "/" +  
+        parts[0]  
+    );  
+}  
+  
+  
+/* =====================================================  
+   CONVERT TIME  
+===================================================== */  
+  
+function convertTimeToDB(time){  
+  
+    const parts =  
+        time.split(" ");  
+  
+    const hm =  
+        parts[0];  
+  
+    const ampm =  
+        parts[1];  
+  
+    const hmParts =  
+        hm.split(":");  
+  
+    let hour =  
+        parseInt(  
+            hmParts[0],  
+            10  
+        );  
+  
+    const minute =  
+        hmParts[1];  
+  
+  
+    if(ampm === "AM"){  
+  
+        if(hour === 12){  
+            hour = 0;  
+        }  
+  
+    }else{  
+  
+        if(hour !== 12){  
+            hour += 12;  
+        }  
+  
+    }  
+  
+  
+    return (  
+        String(hour).padStart(2,"0") +  
+        ":" +  
+        minute +  
+        ":00"  
+    );  
+}  
+  
+  
+/* =====================================================  
+   LOGIN  
+===================================================== */  
+  
+async function login(){  
+  
+    const email =  
+        document  
+        .getElementById("email")  
+        .value  
+        .trim();  
+  
+    const password =  
+        document  
+        .getElementById("password")  
+        .value;  
+  
+    const status =  
+        document  
+        .getElementById("loginStatus");  
+  
+  
+    if(!email || !password){  
+  
+        status.textContent =  
+            "⚠️ Email और Password डालें।";  
+  
+        status.style.color =  
+            "#a00000";  
+  
+        return;  
+    }  
+  
+  
+    status.textContent =  
+        "⏳ Login हो रहा है...";  
+  
+    status.style.color =  
+        "#555";  
+  
+  
+    try{  
+  
+        const {  
+            data,  
+            error  
+        } =  
+        await supabaseClient  
+        .auth  
+        .signInWithPassword({  
+  
+            email:email,  
+            password:password  
+  
+        });  
+  
+  
+        if(error){  
+  
+            console.error(error);  
+  
+            status.textContent =  
+                "❌ Login failed: " +  
+                error.message;  
+  
+            status.style.color =  
+                "#a00000";  
+  
+            return;  
+        }  
+  
+  
+        if(  
+            !data.user ||  
+            data.user.id !== ADMIN_UID  
+        ){  
+  
+            await supabaseClient  
+                .auth  
+                .signOut();  
+  
+            status.textContent =  
+                "❌ यह account admin नहीं है।";  
+  
+            status.style.color =  
+                "#a00000";  
+  
+            return;  
+        }  
+  
+  
+        status.textContent = "";  
+  
+        showAdmin(data.user);  
+  
+  
+    }catch(error){  
+  
+        console.error(error);  
+  
+        status.textContent =  
+            "❌ Login error: " +  
+            error.message;  
+  
+        status.style.color =  
+            "#a00000";  
+    }  
+}  
+  
+  
+/* =====================================================  
+   SHOW ADMIN  
+===================================================== */  
+  
+function showAdmin(user){  
+  
+    document  
+        .getElementById("loginBox")  
+        .classList  
+        .add("hidden");  
+  
+  
+    document  
+        .getElementById("adminBox")  
+        .classList  
+        .remove("hidden");  
+  
+  
+    document  
+        .getElementById("userEmail")  
+        .textContent =  
+        "👤 Logged in: " +  
+        user.email;  
+  
+  
+    document  
+        .getElementById("todayDate")  
+        .textContent =  
+        displayDate(  
+            getToday()  
+        );  
+  
+  
+    createRounds();  
+  
+    loadTodayResults();  
+}  
+  
+  
+/* =====================================================  
+   CREATE ROUNDS  
+===================================================== */  
+  
+function createRounds(){  
+  
+    const container =  
+        document  
+        .getElementById("rounds");  
+  
+    container.innerHTML = "";  
+  
+  
+    for(  
+        let i = 1;  
+        i <= 26;  
+        i++  
+    ){  
+  
+        container.innerHTML += `  
+  
+            <div class="round">  
+  
+                <div class="round-title">  
+                    🔴 Round ${i}  
+                </div>  
+  
+                <div class="time">  
+                    🕐 ${roundTimes[i - 1]}  
+                </div>  
+  
+                <input  
+                    type="text"  
+                    id="result-${i}"  
+                    placeholder="Result डालें"  
+                    maxlength="10"  
+                    inputmode="numeric"  
+                >  
+  
+                <button  
+                    id="save-${i}"  
+                    class="save-btn"  
+                    onclick="saveResult(${i})"  
+                >  
+                    💾 Round ${i} Save  
+                </button>  
+  
+                <div  
+                    id="status-${i}"  
+                    class="status"  
+                ></div>  
+  
+            </div>  
+  
+        `;  
+    }  
+}  
+  
+  
+/* =====================================================  
+   LOAD TODAY RESULTS  
+===================================================== */  
+  
+async function loadTodayResults(){  
+  
+    const today =  
+        getToday();  
+  
+  
+    try{  
+  
+        const {  
+            data,  
+            error  
+        } =  
+        await supabaseClient  
+        .from("game_results")  
+        .select(  
+            "id,round_number,result,game_time,status"  
+        )  
+        .eq(  
+            "game_date",  
+            today  
+        )  
+        .order(  
+            "round_number",  
+            {  
+                ascending:true  
+            }  
+        );  
+  
+  
+        if(error){  
+  
+            console.error(  
+                "Load Error:",  
+                error  
+            );  
+  
+            return;  
+        }  
+  
+  
+        if(!data){  
+            return;  
+        }  
+  
+  
+        data.forEach(row => {  
+  
+            const input =  
+                document  
+                .getElementById(  
+                    "result-" +  
+                    row.round_number  
+                );  
+  
+  
+            if(input){  
+  
+                input.value =  
+                    row.result ?? "";  
+  
+            }  
+  
+        });  
+  
+  
+    }catch(error){  
+  
+        console.error(error);  
+  
+    }  
+}  
+  
+  
+/* =====================================================  
+   SAVE RESULT  
+===================================================== */  
+  
+async function saveResult(round){  
+  
+    const input =  
+        document  
+        .getElementById(  
+            "result-" + round  
+        );  
+  
+  
+    const statusBox =  
+        document  
+        .getElementById(  
+            "status-" + round  
+        );  
+  
+  
+    const saveButton =  
+        document  
+        .getElementById(  
+            "save-" + round  
+        );  
+  
+  
+    const result =  
+        input.value.trim();  
+  
+  
+    if(!result){  
+  
+        statusBox.textContent =  
+            "⚠️ Result डालें।";  
+  
+        statusBox.style.color =  
+            "#a00000";  
+  
+        return;  
+    }  
+  
+  
+    statusBox.textContent =  
+        "⏳ Saving...";  
+  
+    statusBox.style.color =  
+        "#555";  
+  
+  
+    saveButton.disabled =  
+        true;  
+  
+  
+    try{  
+  
+        /* CHECK ADMIN SESSION */  
+  
+        const {  
+            data:sessionData  
+        } =  
+        await supabaseClient  
+        .auth  
+        .getSession();  
+  
+  
+        const user =  
+            sessionData  
+            .session  
+            ?.user;  
+  
+  
+        if(  
+            !user ||  
+            user.id !== ADMIN_UID  
+        ){  
+  
+            statusBox.textContent =  
+                "❌ Admin login required.";  
+  
+            statusBox.style.color =  
+                "#a00000";  
+  
+            saveButton.disabled =  
+                false;  
+  
+            return;  
+        }  
+  
+  
+        /* DATE */  
+  
+        const gameDate =  
+            getToday();  
+  
+  
+        /* TIME */  
+  
+        const gameTime =  
+            convertTimeToDB(  
+                roundTimes[  
+                    round - 1  
+                ]  
+            );  
+  
+  
+        /* FIND EXISTING ROW */  
+  
+        const {  
+            data:existingRows,  
+            error:findError  
+        } =  
+        await supabaseClient  
+        .from("game_results")  
+        .select("id")  
+        .eq(  
+            "game_date",  
+            gameDate  
+        )  
+        .eq(  
+            "round_number",  
+            round  
+        )  
+        .limit(1);  
+  
+  
+        if(findError){  
+  
+            console.error(  
+                "Find Error:",  
+                findError  
+            );  
+  
+  
+            statusBox.textContent =  
+                "❌ Find failed: " +  
+                findError.message;  
+  
+  
+            statusBox.style.color =  
+                "#a00000";  
+  
+  
+            saveButton.disabled =  
+                false;  
+  
+            return;  
+        }  
+  
+  
+        /* UPDATE EXISTING */  
+  
+        if(  
+            existingRows &&  
+            existingRows.length > 0  
+        ){  
+  
+            const rowId =  
+                existingRows[0].id;  
+  
+  
+            const {  
+                error:updateError  
+            } =  
+            await supabaseClient  
+            .from("game_results")  
+            .update({  
+  
+                game_time:gameTime,  
+                result:result,  
+                status:"published"  
+  
+            })  
+            .eq(  
+                "id",  
+                rowId  
+            );  
+  
+  
+            if(updateError){  
+  
+                console.error(  
+                    "Update Error:",  
+                    updateError  
+                );  
+  
+  
+                statusBox.textContent =  
+                    "❌ Update failed: " +  
+                    updateError.message;  
+  
+  
+                statusBox.style.color =  
+                    "#a00000";  
+  
+  
+                saveButton.disabled =  
+                    false;  
+  
+                return;  
+            }  
+  
+  
+            statusBox.textContent =  
+                "✅ Result Updated & Published";  
+  
+            statusBox.style.color =  
+                "#008000";  
+  
+            saveButton.disabled =  
+                false;  
+  
+            return;  
+        }  
+  
+  
+        /* INSERT NEW */  
+  
+        const {  
+            error:insertError  
+        } =  
+        await supabaseClient  
+        .from("game_results")  
+        .insert({  
+  
+            round_number:round,  
+            game_time:gameTime,  
+            result:result,  
+            game_date:gameDate,  
+            status:"published"  
+  
+        });  
+  
+  
+        if(insertError){  
+  
+            console.error(  
+                "Insert Error:",  
+                insertError  
+            );  
+  
+  
+            statusBox.textContent =  
+                "❌ Insert failed: " +  
+                insertError.message;  
+  
+  
+            statusBox.style.color =  
+                "#a00000";  
+  
+  
+            saveButton.disabled =  
+                false;  
+  
+            return;  
+        }  
+  
+  
+        statusBox.textContent =  
+            "✅ Result Saved & Published";  
+  
+        statusBox.style.color =  
+            "#008000";  
+  
+        saveButton.disabled =  
+            false;  
+  
+  
+    }catch(error){  
+  
+        console.error(  
+            "Save Error:",  
+            error  
+        );  
+  
+  
+        statusBox.textContent =  
+            "❌ Server error: " +  
+            error.message;  
+  
+  
+        statusBox.style.color =  
+            "#a00000";  
+  
+  
+        saveButton.disabled =  
+            false;  
+    }  
+}  
+  
+  
+/* =====================================================  
+   LOGOUT  
+===================================================== */  
+  
+async function logout(){  
+  
+    await supabaseClient  
+        .auth  
+        .signOut();  
+  
+  
+    document  
+        .getElementById("adminBox")  
+        .classList  
+        .add("hidden");  
+  
+  
+    document  
+        .getElementById("loginBox")  
+        .classList  
+        .remove("hidden");  
+  
+  
+    document  
+        .getElementById("password")  
+        .value = "";  
+  
+  
+    document  
+        .getElementById("loginStatus")  
+        .textContent = "";  
+}  
+  
+  
+/* =====================================================  
+   CHECK SESSION  
+===================================================== */  
+  
+async function checkSession(){  
+  
+    const {  
+        data  
+    } =  
+    await supabaseClient  
+    .auth  
+    .getSession();  
+  
+  
+    const user =  
+        data.session?.user;  
+  
+  
+    if(  
+        user &&  
+        user.id === ADMIN_UID  
+    ){  
+  
+        showAdmin(user);  
+  
+    }  
+}  
+  
+  
+/* =====================================================  
+   AUTH STATE  
+===================================================== */  
+  
+supabaseClient  
+.auth  
+.onAuthStateChange(  
+    (event,session) => {  
+  
+        if(  
+            event === "SIGNED_OUT"  
+        ){  
+  
+            document  
+                .getElementById("adminBox")  
+                .classList  
+                .add("hidden");  
+  
+  
+            document  
+                .getElementById("loginBox")  
+                .classList  
+                .remove("hidden");  
+  
+        }  
+  
+    }  
+);  
+  
+  
+/* =====================================================  
+   START  
+===================================================== */  
+  
+checkSession();  
+  
+</script>  </body>  
+    </html>
