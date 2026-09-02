@@ -90,6 +90,11 @@ button:disabled{
     color:white;
 }
 
+.remove-btn{
+    background:#d00000;
+    color:white;
+}
+
 .status{
     text-align:center;
     padding:10px;
@@ -605,6 +610,14 @@ function createRounds(){
                     💾 Round ${i} Save
                 </button>
 
+                <button
+                    id="remove-${i}"
+                    class="remove-btn"
+                    onclick="removeResult(${i})"
+                >
+                    🗑️ Remove Result
+                </button>
+
                 <div
                     id="status-${i}"
                     class="status"
@@ -678,8 +691,21 @@ async function loadTodayResults(){
 
             if(input){
 
-                input.value =
-                    row.result ?? "";
+                /*
+                   अगर result hidden है,
+                   तो input खाली रहेगा।
+                */
+
+                if(row.status === "hidden"){
+
+                    input.value = "";
+
+                }else{
+
+                    input.value =
+                        row.result ?? "";
+
+                }
 
             }
 
@@ -986,105 +1012,231 @@ async function saveResult(round){
 
 
 /* =====================================================
-   LOGOUT
+   REMOVE RESULT
 ===================================================== */
 
-async function logout(){
+async function removeResult(round){
 
-    await supabaseClient
-        .auth
-        .signOut();
-
-
-    document
-        .getElementById("adminBox")
-        .classList
-        .add("hidden");
+    const statusBox =
+        document.getElementById(
+            "status-" + round
+        );
 
 
-    document
-        .getElementById("loginBox")
-        .classList
-        .remove("hidden");
+    const removeButton =
+        document.getElementById(
+            "remove-" + round
+        );
 
 
-    document
-        .getElementById("password")
-        .value = "";
+    const input =
+        document.getElementById(
+            "result-" + round
+        );
 
 
-    document
-        .getElementById("loginStatus")
-        .textContent = "";
-}
+    if(!confirm(
+        "क्या आप Round " +
+        round +
+        " का result Remove करना चाहते हैं?"
+    )){
 
-
-/* =====================================================
-   CHECK SESSION
-===================================================== */
-
-async function checkSession(){
-
-    const {
-        data
-    } =
-    await supabaseClient
-    .auth
-    .getSession();
-
-
-    const user =
-        data.session?.user;
-
-
-    if(
-        user &&
-        user.id === ADMIN_UID
-    ){
-
-        showAdmin(user);
-
+        return;
     }
-}
 
 
-/* =====================================================
-   AUTH STATE
-===================================================== */
+    statusBox.textContent =
+        "⏳ Removing...";
 
-supabaseClient
-.auth
-.onAuthStateChange(
-    (event,session) => {
+    statusBox.style.color =
+        "#555";
+
+    removeButton.disabled =
+        true;
+
+
+    try{
+
+        /* CHECK ADMIN SESSION */
+
+        const {
+            data:sessionData
+        } =
+        await supabaseClient
+        .auth
+        .getSession();
+
+
+        const user =
+            sessionData
+            .session
+            ?.user;
+
 
         if(
-            event === "SIGNED_OUT"
+            !user ||
+            user.id !== ADMIN_UID
         ){
 
-            document
-                .getElementById("adminBox")
-                .classList
-                .add("hidden");
+            statusBox.textContent =
+                "❌ Admin login required.";
 
+            statusBox.style.color =
+                "#a00000";
 
-            document
-                .getElementById("loginBox")
-                .classList
-                .remove("hidden");
+            removeButton.disabled =
+                false;
 
+            return;
         }
 
+
+        /* DATE */
+
+        const gameDate =
+            getToday();
+
+
+        /* FIND EXISTING ROW */
+
+        const {
+            data:existingRows,
+            error:findError
+        } =
+        await supabaseClient
+        .from("game_results")
+        .select("id")
+        .eq(
+            "game_date",
+            gameDate
+        )
+        .eq(
+            "round_number",
+            round
+        )
+        .limit(1);
+
+
+        if(findError){
+
+            console.error(
+                "Remove Find Error:",
+                findError
+            );
+
+            statusBox.textContent =
+                "❌ Find failed: " +
+                findError.message;
+
+            statusBox.style.color =
+                "#a00000";
+
+            removeButton.disabled =
+                false;
+
+            return;
+        }
+
+
+        if(
+            !existingRows ||
+            existingRows.length === 0
+        ){
+
+            input.value = "";
+
+            statusBox.textContent =
+                "⚠️ इस Round का result नहीं मिला।";
+
+            statusBox.style.color =
+                "#a00000";
+
+            removeButton.disabled =
+                false;
+
+            return;
+        }
+
+
+        const rowId =
+            existingRows[0].id;
+
+
+        /* HIDE RESULT */
+
+        const {
+            error:updateError
+        } =
+        await supabaseClient
+        .from("game_results")
+        .update({
+
+            result:null,
+            status:"hidden"
+
+        })
+        .eq(
+            "id",
+            rowId
+        );
+
+
+        if(updateError){
+
+            console.error(
+                "Remove Update Error:",
+                updateError
+            );
+
+            statusBox.textContent =
+                "❌ Remove failed: " +
+                updateError.message;
+
+            statusBox.style.color =
+                "#a00000";
+
+            removeButton.disabled =
+                false;
+
+            return;
+        }
+
+
+        /* CLEAR ADMIN INPUT */
+
+        input.value = "";
+
+
+        statusBox.textContent =
+            "✅ Result Removed";
+
+        statusBox.style.color =
+            "#008000";
+
+
+        removeButton.disabled =
+            false;
+
+
+    }catch(error){
+
+        console.error(
+            "Remove Error:",
+            error
+        );
+
+
+        statusBox.textContent =
+            "❌ Remove failed: " +
+            error.message;
+
+        statusBox.style.color =
+            "#a00000";
+
+
+        removeButton.disabled =
+            false;
     }
-);
+}
 
-
-/* =====================================================
-   START
-===================================================== */
-
-checkSession();
-
-</script>
-
-</body>
-    </html>
+    
